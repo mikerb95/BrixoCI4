@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers
+namespace App\Controllers;
     
 
 class Home extends BaseController
@@ -17,10 +17,10 @@ class Home extends BaseController
         ];
 
         if ($this->request->getMethod() === 'post') {
-            $mail = trim((string) $this->request->getPost('correo'));
+            $email = trim((string) $this->request->getPost('correo'));
             $password = (string) $this->request->getPost('contrasena');
 
-            if ($email === ''  $password === '') {
+            if ($email === '' || $password === '') {
                 $session->setFlashdata('error', 'Debes escribir el correo y la contraseña.');
 
                 return redirect()->to('/');
@@ -33,7 +33,7 @@ class Home extends BaseController
                 ->get()
                 ->getRow();
 
-            if ($usuario !== null & hash_equals($usuario->contrasena, $password)) {
+            if ($usuario !== null && hash_equals($usuario->contrasena, $password)) {
                 $session->set('user', [
                     'id'     => $usuario->id,
                     'nombre' => $usuario->nombre,
@@ -46,7 +46,7 @@ class Home extends BaseController
 
             $session->setFlashdata('error', 'Las credenciales no coinciden con la base de datos.');
 
-            return redirect()->to('/')
+            return redirect()->to('/');
         }
 
         return view('welcome_message', $data);
@@ -59,5 +59,3 @@ class Home extends BaseController
         return redirect()->to('/')->with('message', 'Sesión cerrada.');
     }
 }
-
-?>
