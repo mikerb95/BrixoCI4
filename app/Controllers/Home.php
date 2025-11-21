@@ -49,7 +49,7 @@ class Home extends BaseController
             return redirect()->to('/');
         }
 
-        return view('welcome_message', $data);
+        return view('index', $data);
     }
 
     public function logout(): RedirectResponse
