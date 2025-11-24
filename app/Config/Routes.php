@@ -7,3 +7,6 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->match(['get', 'post'], '/', 'Home::index');
 $routes->get('/logout', 'Home::logout');
+
+
+$routes->match(['get', 'post'], '/register', 'Auth::register');
