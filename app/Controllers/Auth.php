@@ -1,4 +1,3 @@
-
 <?php // Archivo de controlador para autenticacion
 
 namespace App\Controllers; // Define el espacio de nombres de la app
