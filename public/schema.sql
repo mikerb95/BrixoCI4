@@ -30,6 +30,7 @@ CREATE TABLE CLIENTE (
   nombre VARCHAR(255) NOT NULL,
   correo VARCHAR(255) NOT NULL UNIQUE,
   telefono VARCHAR(50),
+  foto_perfil VARCHAR(255),
   fecha_de_registro DATE,
   contrasena VARCHAR(255) NOT NULL,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -41,6 +42,9 @@ CREATE TABLE CONTRATISTA (
   nombre VARCHAR(255) NOT NULL,
   experiencia VARCHAR(100),
   portafolio VARCHAR(255),
+  foto_perfil VARCHAR(255),
+  descripcion_perfil TEXT,
+  verificado BOOLEAN DEFAULT FALSE,
   telefono VARCHAR(50),
   correo VARCHAR(255) NOT NULL UNIQUE,
   contrasena VARCHAR(255) NOT NULL,
@@ -68,6 +72,7 @@ CREATE TABLE SERVICIO (
   id_servicio INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(255) NOT NULL,
   descripcion TEXT,
+  imagen_url VARCHAR(255),
   precio_estimado DECIMAL(12,2),
   id_categoria INT NULL,
   CONSTRAINT fk_servicio_categoria
@@ -80,7 +85,9 @@ CREATE TABLE UBICACION (
   id_ubicacion INT AUTO_INCREMENT PRIMARY KEY,
   ciudad VARCHAR(255),
   departamento VARCHAR(255),
-  direccion VARCHAR(255)
+  direccion VARCHAR(255),
+  latitud DECIMAL(10, 8),
+  longitud DECIMAL(11, 8)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE COTIZACION (
@@ -165,6 +172,8 @@ CREATE TABLE CONTRATISTA_UBICACION (
 CREATE TABLE CONTRATISTA_SERVICIO (
   id_contratista INT NOT NULL,
   id_servicio INT NOT NULL,
+  precio_personalizado DECIMAL(12,2),
+  descripcion_personalizada TEXT,
   PRIMARY KEY (id_contratista, id_servicio),
   CONSTRAINT fk_cts_contratista
     FOREIGN KEY (id_contratista) REFERENCES CONTRATISTA(id_contratista)

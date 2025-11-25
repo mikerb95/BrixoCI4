@@ -1,0 +1,13 @@
+.git
+.github
+.env
+tests
+builds
+writable/cache/*
+writable/logs/*
+writable/session/*
+writable/uploads/*
+node_modules
+vendor
+spark
+phpunit.xml.dist

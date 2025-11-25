@@ -1,0 +1,73 @@
+/* Global Styles */
+:root {
+    font-family: 'Haas Grot Text R Web', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --primary-color: #009fd9; /* Thumbtack-ish blue */
+    --secondary-color: #f2f2f2;
+    --text-color: #2f3033;
+    --border-color: #e2e2e2;
+}
+
+/* Custom Overrides for Bootstrap */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #007bb5;
+    border-color: #007bb5;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    transform: translateY(-2px);
+}
+
+.transition {
+    transition: all 0.2s ease-in-out;
+}
+
+.hover-underline:hover {
+    text-decoration: underline !important;
+}
+
+/* Service Nav Scrollbar Hiding */
+.service-nav::-webkit-scrollbar { 
+    display: none;  /* Chrome/Safari */
+}
+.service-nav {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+}
+
+/* Hero Text Shadow */
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Image Card Overlay Gradient */
+.bg-gradient-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+}
+
+.card-img-overlay-container {
+    height: 280px; /* Fixed height for consistency */
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.card-img-overlay-container:hover {
+    transform: scale(1.02);
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
