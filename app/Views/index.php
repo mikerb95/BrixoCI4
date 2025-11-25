@@ -23,7 +23,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <nav class="navbar-nav align-items-center gap-3 fw-semibold">
-                    <a href="#" class="nav-link text-dark">Explora</a>
+                    <a href="/mapa" class="nav-link text-dark">Mapa</a>
                     <a href="#" class="nav-link text-dark">Únete como profesional</a>
                     <?php if (! empty($user)): ?>
                         <span class="nav-item">Hola, <?= esc($user['nombre']) ?></span>
