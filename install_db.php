@@ -29,16 +29,17 @@ try {
     echo "Conexión exitosa.\n";
 
     // Función auxiliar para ejecutar archivos SQL
-    function runSqlFile($pdo, $filePath) {
+    function runSqlFile($pdo, $filePath)
+    {
         echo "Procesando " . basename($filePath) . "...\n";
-        
+
         if (!file_exists($filePath)) {
             echo "ERROR: El archivo $filePath no existe.\n";
             return;
         }
 
         $sql = file_get_contents($filePath);
-        
+
         try {
             $pdo->exec($sql);
             echo "EXITO: " . basename($filePath) . " importado correctamente.\n";
@@ -50,7 +51,6 @@ try {
     // Ejecutar schema y seed
     runSqlFile($pdo, __DIR__ . '/public/schema.sql');
     runSqlFile($pdo, __DIR__ . '/public/seed.sql');
-
 } catch (\PDOException $e) {
     echo "\nERROR CRÍTICO DE CONEXIÓN:\n";
     echo $e->getMessage() . "\n";
