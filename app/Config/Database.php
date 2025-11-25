@@ -201,11 +201,23 @@ class Database extends Config
         }
 
         // Mapeo de variables de entorno estándar (Render/Docker)
-        if ($host = getenv('DB_HOST')) { $this->default['hostname'] = $host; }
-        if ($user = getenv('DB_USER')) { $this->default['username'] = $user; }
-        if ($pass = getenv('DB_PASSWORD')) { $this->default['password'] = $pass; }
-        if ($name = getenv('DB_NAME')) { $this->default['database'] = $name; }
-        if ($port = getenv('DB_PORT')) { $this->default['port'] = (int)$port; }
-        if (getenv('DB_SSL') === 'true') { $this->default['encrypt'] = true; }
+        if ($host = getenv('DB_HOST')) {
+            $this->default['hostname'] = $host;
+        }
+        if ($user = getenv('DB_USER')) {
+            $this->default['username'] = $user;
+        }
+        if ($pass = getenv('DB_PASSWORD')) {
+            $this->default['password'] = $pass;
+        }
+        if ($name = getenv('DB_NAME')) {
+            $this->default['database'] = $name;
+        }
+        if ($port = getenv('DB_PORT')) {
+            $this->default['port'] = (int)$port;
+        }
+        if (getenv('DB_SSL') === 'true') {
+            $this->default['encrypt'] = true;
+        }
     }
 }
