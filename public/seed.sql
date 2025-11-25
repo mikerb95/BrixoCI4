@@ -215,7 +215,3 @@ INSERT INTO RESENA (comentario, fecha, calificacion, id_contrato, id_cliente) VA
 ('Las fotos quedaron hermosas, muy profesional.', '2023-11-17', 5, 10, 10);
 
 SET FOREIGN_KEY_CHECKS = 1;
-
-
-
-Get-Content .\public\seed.sql | & "C:\xampp\mysql\bin\mysql.exe" -h brixo-petfinder.k.aivencloud.com -P 20951 -u avnadmin -p --ssl-mode=REQUIRED defaultdb

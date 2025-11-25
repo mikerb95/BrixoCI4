@@ -33,7 +33,7 @@ class Home extends BaseController
                 ->get()
                 ->getRow();
 
-            if ($usuario !== null && hash_equals($usuario->contrasena, $password)) {
+            if ($usuario !== null && password_verify($password, $usuario->contrasena)) {
                 $session->set('user', [
                     'id'     => $usuario->id,
                     'nombre' => $usuario->nombre,

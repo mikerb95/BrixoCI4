@@ -8,5 +8,10 @@ use CodeIgniter\Router\RouteCollection;
 $routes->match(['get', 'post'], '/', 'Home::index');
 $routes->get('/logout', 'Home::logout');
 
+$routes->get('/mapa', 'Mapa::index');
+$routes->get('/servicios', 'Servicios::index');
+$routes->get('/productos', 'Productos::index');
+$routes->get('/profesional', 'Profesional::index');
+$routes->get('/perfil', 'Perfil::index');
 
 $routes->match(['get', 'post'], '/register', 'Auth::register');
