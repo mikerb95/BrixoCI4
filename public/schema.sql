@@ -1,6 +1,6 @@
 -- Create database (optional)
-CREATE DATABASE IF NOT EXISTS brixo CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE brixo;
+-- CREATE DATABASE IF NOT EXISTS brixo CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE brixo;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
