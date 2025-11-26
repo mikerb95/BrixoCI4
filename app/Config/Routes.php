@@ -15,3 +15,4 @@ $routes->get('/profesional', 'Profesional::index');
 $routes->get('/perfil', 'Perfil::index');
 
 $routes->match(['get', 'post'], '/register', 'Auth::register');
+$routes->get('/setup-db', 'Setup::index');
