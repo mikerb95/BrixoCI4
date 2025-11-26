@@ -52,4 +52,66 @@ class Auth extends BaseController // Controlador especializado en autenticacion
 
         return view('auth/register', $data); // Muestra el formulario de registro
     }
+
+    public function signup()
+    {
+        helper(['form']);
+        $session = session();
+
+        if ($this->request->getMethod() === 'post') {
+            $type = $this->request->getPost('tipo_usuario');
+            
+            // Reglas básicas
+            $rules = [
+                'nombre'               => 'required|min_length[3]',
+                'telefono'             => 'required|min_length[7]',
+                'contrasena'           => 'required|min_length[8]',
+                'confirmar_contrasena' => 'required|matches[contrasena]',
+            ];
+
+            // Reglas específicas por tabla
+            if ($type === 'contratista') {
+                $rules['correo'] = 'required|valid_email|is_unique[CONTRATISTA.correo]';
+                $rules['profesion'] = 'required|min_length[3]';
+                $table = 'CONTRATISTA';
+            } else {
+                $rules['correo'] = 'required|valid_email|is_unique[CLIENTE.correo]';
+                $table = 'CLIENTE';
+            }
+
+            if (! $this->validate($rules)) {
+                return view('auth/signup', [
+                    'validation' => $this->validator,
+                ]);
+            }
+
+            $data = [
+                'nombre'     => trim((string) $this->request->getPost('nombre')),
+                'correo'     => strtolower(trim((string) $this->request->getPost('correo'))),
+                'telefono'   => trim((string) $this->request->getPost('telefono')),
+                'contrasena' => password_hash((string) $this->request->getPost('contrasena'), PASSWORD_DEFAULT),
+            ];
+
+            if ($type === 'contratista') {
+                // Usamos el campo 'experiencia' para guardar la profesión/título inicial
+                $data['experiencia'] = trim((string) $this->request->getPost('profesion'));
+                $data['verificado'] = 0; // Por defecto no verificado
+            } else {
+                $data['fecha_de_registro'] = date('Y-m-d');
+            }
+
+            try {
+                db_connect()->table($table)->insert($data);
+                
+                $session->setFlashdata('message', 'Cuenta creada exitosamente. Por favor inicia sesión.');
+                return redirect()->to('/');
+
+            } catch (DatabaseException $e) {
+                $session->setFlashdata('error', 'Error al crear la cuenta: ' . $e->getMessage());
+                return redirect()->back()->withInput();
+            }
+        }
+
+        return view('auth/signup');
+    }
 }

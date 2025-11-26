@@ -24,7 +24,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <nav class="navbar-nav align-items-center gap-3 fw-semibold">
                     <a href="/mapa" class="nav-link text-dark">Mapa</a>
-                    <a href="#" class="nav-link text-dark">Únete como profesional</a>
+                    <a href="/signup?role=contratista" class="nav-link text-dark">Únete como profesional</a>
                     <?php if (! empty($user)): ?>
                         <span class="nav-item">Hola, <?= esc($user['nombre']) ?></span>
                         <a href="/logout" class="btn btn-outline-secondary rounded-pill px-3">Cerrar sesión</a>
@@ -282,6 +282,9 @@
                         </div>
                         <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Entrar</button>
                     </form>
+                    <div class="mt-3 text-center">
+                        <p class="text-secondary">¿No tienes cuenta? <a href="/signup" class="text-primary fw-bold text-decoration-none">Regístrate</a></p>
+                    </div>
                 </div>
             </div>
         </div>
