@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Regístrate en Brixo</title>
@@ -12,6 +13,7 @@
             margin-bottom: 2rem;
             justify-content: center;
         }
+
         .role-btn {
             padding: 1rem 2rem;
             border: 2px solid #ddd;
@@ -24,36 +26,49 @@
             max-width: 200px;
             text-align: center;
         }
+
         .role-btn.active {
             border-color: #007bff;
             background-color: #f0f7ff;
             color: #007bff;
         }
+
         .form-section {
             display: none;
         }
+
         .form-section.active {
             display: block;
             animation: fadeIn 0.5s;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .auth-container {
             max-width: 500px;
             margin: 2rem auto;
             padding: 2rem;
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body>
     <div class="auth-container">
         <h1 style="text-align: center; margin-bottom: 2rem;">Únete a Brixo</h1>
-        
+
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert error" style="margin-bottom: 1rem; padding: 1rem; background: #fee; color: #c00; border-radius: 4px;">
                 <?= session()->getFlashdata('error') ?>
@@ -133,7 +148,7 @@
             // Update UI classes
             const buttons = document.querySelectorAll('.role-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            
+
             if (role === 'cliente') {
                 buttons[0].classList.add('active');
                 document.getElementById('contratista-fields').style.display = 'none';
@@ -151,4 +166,5 @@
         }
     </script>
 </body>
+
 </html>

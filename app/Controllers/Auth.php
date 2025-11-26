@@ -60,7 +60,7 @@ class Auth extends BaseController // Controlador especializado en autenticacion
 
         if ($this->request->getMethod() === 'post') {
             $type = $this->request->getPost('tipo_usuario');
-            
+
             // Reglas básicas
             $rules = [
                 'nombre'               => 'required|min_length[3]',
@@ -102,10 +102,9 @@ class Auth extends BaseController // Controlador especializado en autenticacion
 
             try {
                 db_connect()->table($table)->insert($data);
-                
+
                 $session->setFlashdata('message', 'Cuenta creada exitosamente. Por favor inicia sesión.');
                 return redirect()->to('/');
-
             } catch (DatabaseException $e) {
                 $session->setFlashdata('error', 'Error al crear la cuenta: ' . $e->getMessage());
                 return redirect()->back()->withInput();
