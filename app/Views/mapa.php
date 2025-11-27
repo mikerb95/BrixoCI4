@@ -180,7 +180,8 @@
                                         </div>
                                         <div class="text-end">
                                             <div class="fw-bold">Desde $<?= number_format($pro['precio'], 0, ',', '.') ?></div>
-                                            <div class="small text-muted">por hora</div>
+                                            <div class="small text-muted mb-2">por hora</div>
+                                            <a href="/profesional/<?= $pro['id'] ?>" class="btn btn-outline-primary btn-sm rounded-pill">Ver Perfil</a>
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +242,8 @@
                 <div class="text-center">
                     <h6 class="fw-bold mb-1">${pro.nombre}</h6>
                     <p class="mb-1 small">${pro.profesion}</p>
-                    <p class="fw-bold mb-0">$${new Intl.NumberFormat('es-CO').format(pro.precio)}</p>
+                    <p class="fw-bold mb-2">$${new Intl.NumberFormat('es-CO').format(pro.precio)}</p>
+                    <a href="/profesional/${pro.id}" class="btn btn-primary btn-sm rounded-pill w-100">Ver Perfil</a>
                 </div>
             `;
 
