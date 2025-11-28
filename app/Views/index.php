@@ -22,83 +22,76 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <nav class="navbar-nav align-items-center gap-3 fw-semibold">
-                    <a href="/mapa" class="nav-link text-dark">Mapa</a>
-                    <a href="/signup?role=contratista" class="nav-link text-dark">Únete como profesional</a>
+                <nav class="navbar-nav align-items-center gap-4 fw-medium">
+                    <a href="/explorar" class="nav-link text-dark">Explorar</a>
+                    <a href="/mapa" class="btn btn-outline-primary rounded-pill px-3">Explorar mapa</a>
+                    <a href="/signup?role=contratista" class="nav-link text-dark">Ser Tasker</a>
                     <?php if (! empty($user)): ?>
                         <span class="nav-item">Hola, <?= esc($user['nombre']) ?></span>
                         <a href="/logout" class="btn btn-outline-secondary rounded-pill px-3">Cerrar sesión</a>
                     <?php else: ?>
-                        <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold" data-bs-toggle="modal" data-bs-target="#loginModal">Inicia sesión</button>
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</button>
                     <?php endif; ?>
+                    <a href="/publicar-tarea" class="btn btn-primary rounded-pill px-4 fw-bold text-white">Publicar tarea</a>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- Service Navigation Strip -->
-    <div class="service-nav-container border-bottom bg-white">
-        <div class="container">
-            <div class="service-nav-wrapper position-relative d-flex align-items-center">
-                <div class="service-nav d-flex gap-4 overflow-auto pt-3 flex-grow-1 align-items-end">
-                    <a href="#" class="service-nav-item active d-flex flex-column align-items-center gap-2 text-decoration-none pb-3 border-bottom border-3 border-primary text-dark fw-bold">
-                        <i class="fas fa-spray-can fs-4"></i>
-                        <span class="small">Limpieza</span>
-                    </a>
-                    <a href="#" class="service-nav-item d-flex flex-column align-items-center gap-2 text-decoration-none pb-3 border-bottom border-3 border-transparent text-secondary fw-medium">
-                        <i class="fas fa-wrench fs-4"></i>
-                        <span class="small">Reparaciones</span>
-                    </a>
-                    <a href="#" class="service-nav-item d-flex flex-column align-items-center gap-2 text-decoration-none pb-3 border-bottom border-3 border-transparent text-secondary fw-medium">
-                        <i class="fas fa-leaf fs-4"></i>
-                        <span class="small">Jardinería</span>
-                    </a>
-                    <a href="#" class="service-nav-item d-flex flex-column align-items-center gap-2 text-decoration-none pb-3 border-bottom border-3 border-transparent text-secondary fw-medium">
-                        <i class="fas fa-truck-loading fs-4"></i>
-                        <span class="small">Mudanzas</span>
-                    </a>
-                    <a href="#" class="service-nav-item d-flex flex-column align-items-center gap-2 text-decoration-none pb-3 border-bottom border-3 border-transparent text-secondary fw-medium">
-                        <i class="fas fa-tint fs-4"></i>
-                        <span class="small">Plomería</span>
-                    </a>
-                    <a href="#" class="service-nav-item d-flex flex-column align-items-center gap-2 text-decoration-none pb-3 border-bottom border-3 border-transparent text-secondary fw-medium">
-                        <i class="fas fa-plug fs-4"></i>
-                        <span class="small">Electricistas</span>
-                    </a>
-                    <a href="#" class="service-nav-item d-flex flex-column align-items-center gap-2 text-decoration-none pb-3 border-bottom border-3 border-transparent text-secondary fw-medium">
-                        <i class="fas fa-paint-roller fs-4"></i>
-                        <span class="small">Pintura</span>
-                    </a>
-                    <a href="#" class="service-nav-item d-flex flex-column align-items-center gap-2 text-decoration-none pb-3 border-bottom border-3 border-transparent text-secondary fw-medium">
-                        <i class="fas fa-snowflake fs-4"></i>
-                        <span class="small">Climatización</span>
-                    </a>
-                </div>
-                <button class="scroll-right-btn btn btn-white border rounded-circle shadow-sm position-absolute end-0 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; z-index: 10;">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Hero Section -->
     <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white" style="height: 500px; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
-        <div class="hero-content position-relative z-1 container" style="max-width: 800px;">
-            <h1 class="display-4 fw-bold mb-4 text-shadow">Encuentra profesionales locales para cualquier proyecto</h1>
-            <form action="/search" method="get" class="search-bar bg-white p-2 rounded-pill shadow d-flex align-items-center mx-auto" style="max-width: 700px;">
-                <div class="input-group border-end">
-                    <span class="input-group-text bg-transparent border-0 text-secondary"><i class="fas fa-search"></i></span>
-                    <input type="text" name="q" class="form-control border-0 shadow-none" placeholder="¿Qué necesitas hacer?">
+        <div class="container position-relative z-1">
+            <div class="row align-items-center">
+                <div class="col-lg-7 text-start mb-5 mb-lg-0">
+                    <h1 class="display-3 fw-bold mb-4 lh-sm">Profesionales<br>confiables, cuando<br>los necesitas</h1>
+                    <p class="fs-5 mb-4 fw-light" style="max-width: 600px;">Reserva por horas a expertos en obra, carpintería, plomería y más. Publica tu necesidad o reserva de inmediato.</p>
+                    <div class="d-flex flex-wrap gap-3 align-items-center">
+                        <a href="/explorar" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold">Explorar Taskers</a>
+                        <a href="/publicar-tarea" class="btn btn-outline-light btn-lg rounded-pill px-4">Publicar tarea</a>
+                        <a href="/signup?role=contratista" class="text-white text-decoration-none fw-medium ms-2">Ser Tasker</a>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-text bg-transparent border-0 text-secondary"><i class="fas fa-map-marker-alt"></i></span>
-                    <input type="text" name="zip" class="form-control border-0 shadow-none" placeholder="Código postal (Colombia)">
+                <div class="col-lg-5">
+                    <div class="card bg-dark bg-opacity-50 border-secondary border-opacity-50 text-white p-4 rounded-4 backdrop-blur">
+                        <h5 class="fw-bold mb-4">Categorías populares</h5>
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <a href="/categoria/obra" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                    <span>Obra</span>
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/categoria/carpinteria" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                    <span>Carpintería</span>
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/categoria/plomeria" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                    <span>Plomería</span>
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/categoria/electricidad" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                    <span>Electricidad</span>
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/categoria/pintura" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                    <span>Pintura</span>
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/categorias" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                    <span>Otros</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center p-0 ms-2" style="width: 48px; height: 48px;">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
+            </div>
+        </div>
+        </form>
         </div>
     </section>
 
@@ -221,86 +214,3 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-light py-5 border-top mt-auto">
-        <div class="container" style="max-width: 1200px;">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <h4 class="h5 fw-bold mb-3">Brixo</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Sobre nosotros</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Carreras</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Prensa</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4 class="h5 fw-bold mb-3">Clientes</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Cómo funciona</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Seguridad</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Ayuda</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4 class="h5 fw-bold mb-3">Profesionales</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Únete como pro</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Historias de éxito</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Recursos</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content p-4 rounded-4 shadow">
-                <div class="modal-header border-0 p-0 mb-4">
-                    <h2 class="modal-title fs-4 fw-bold" id="loginModalLabel">Iniciar sesión</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <?php if (! empty($message)): ?>
-                        <div class="alert alert-success"><?= esc($message) ?></div>
-                    <?php endif; ?>
-                    <?php if (! empty($error)): ?>
-                        <div class="alert alert-danger"><?= esc($error) ?></div>
-                    <?php endif; ?>
-
-                    <form method="post" action="/">
-                        <?= csrf_field() ?>
-                        <div class="mb-3">
-                            <label for="correo" class="form-label fw-semibold">Correo electrónico</label>
-                            <input id="correo" name="correo" type="email" class="form-control p-3 rounded-3" placeholder="nombre@ejemplo.com" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="contrasena" class="form-label fw-semibold">Contraseña</label>
-                            <input id="contrasena" name="contrasena" type="password" class="form-control p-3 rounded-3" placeholder="Tu contraseña" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Entrar</button>
-                    </form>
-                    <div class="mt-3 text-center">
-                        <p class="text-secondary">¿No tienes cuenta? <a href="/signup" class="text-primary fw-bold text-decoration-none">Regístrate</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        // Show modal if there are errors (so user sees the error message)
-        <?php if (! empty($error)): ?>
-            var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-            loginModal.show();
-        <?php endif; ?>
-    </script>
-
-</body>
-
-</html>
