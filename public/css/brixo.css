@@ -48,6 +48,23 @@
     -ms-overflow-style: none;  /* IE 10+ */
 }
 
+/* Glassmorphism / Backdrop Blur */
+.backdrop-blur {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Hero specific adjustments */
+.hero h1 {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero .btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: #fff;
+    border-color: #fff;
+}
+
 /* Hero Text Shadow */
 .text-shadow {
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
