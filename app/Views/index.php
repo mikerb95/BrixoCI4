@@ -215,3 +215,86 @@
             </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="bg-light py-5 border-top mt-auto">
+        <div class="container" style="max-width: 1200px;">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h4 class="h5 fw-bold mb-3">Brixo</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Sobre nosotros</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Carreras</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Prensa</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="h5 fw-bold mb-3">Clientes</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Cómo funciona</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Seguridad</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Ayuda</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="h5 fw-bold mb-3">Profesionales</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Únete como pro</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Historias de éxito</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Recursos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4 rounded-4 shadow">
+                <div class="modal-header border-0 p-0 mb-4">
+                    <h2 class="modal-title fs-4 fw-bold" id="loginModalLabel">Iniciar sesión</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <?php if (! empty($message)): ?>
+                        <div class="alert alert-success"><?= esc($message) ?></div>
+                    <?php endif; ?>
+                    <?php if (! empty($error)): ?>
+                        <div class="alert alert-danger"><?= esc($error) ?></div>
+                    <?php endif; ?>
+
+                    <form method="post" action="/">
+                        <?= csrf_field() ?>
+                        <div class="mb-3">
+                            <label for="correo" class="form-label fw-semibold">Correo electrónico</label>
+                            <input id="correo" name="correo" type="email" class="form-control p-3 rounded-3" placeholder="nombre@ejemplo.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="contrasena" class="form-label fw-semibold">Contraseña</label>
+                            <input id="contrasena" name="contrasena" type="password" class="form-control p-3 rounded-3" placeholder="Tu contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Entrar</button>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p class="text-secondary">¿No tienes cuenta? <a href="/signup" class="text-primary fw-bold text-decoration-none">Regístrate</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Show modal if there are errors (so user sees the error message)
+        <?php if (! empty($error)): ?>
+            var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            loginModal.show();
+        <?php endif; ?>
+    </script>
+
+</body>
+
+</html>
