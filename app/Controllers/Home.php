@@ -29,20 +29,45 @@ class Home extends BaseController
 
             $builder = db_connect()->table('ADMINISTRADOR');
             $usuario = $builder
-                ->select('id_administrador as id, nombre, correo, contrasena')
+                ->select('id_administrador as id, nombre, correo, contrasena, "admin" as role')
                 ->where('correo', $email)
                 ->get()
                 ->getRow();
+
+            if ($usuario === null) {
+                // Intentar como Contratista
+                $builder = db_connect()->table('CONTRATISTA');
+                $usuario = $builder
+                    ->select('id_contratista as id, nombre, correo, contrasena, "contratista" as role')
+                    ->where('correo', $email)
+                    ->get()
+                    ->getRow();
+            }
+
+            if ($usuario === null) {
+                // Intentar como Cliente
+                $builder = db_connect()->table('CLIENTE');
+                $usuario = $builder
+                    ->select('id_cliente as id, nombre, correo, contrasena, "cliente" as role')
+                    ->where('correo', $email)
+                    ->get()
+                    ->getRow();
+            }
 
             if ($usuario !== null && password_verify($password, $usuario->contrasena)) {
                 $session->set('user', [
                     'id'     => $usuario->id,
                     'nombre' => $usuario->nombre,
                     'correo' => $usuario->correo,
+                    'role'   => $usuario->role,
                 ]);
                 $session->setFlashdata('message', 'Inicio de sesión correcto.');
 
-                return redirect()->to('/');
+                if ($usuario->role === 'admin') {
+                    return redirect()->to('/admin/dashboard');
+                }
+                
+                return redirect()->to('/user/dashboard');
             }
 
             $session->setFlashdata('error', 'Las credenciales no coinciden con la base de datos.');
