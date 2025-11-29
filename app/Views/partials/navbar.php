@@ -20,9 +20,6 @@
                 <li class="nav-item">
                     <a class="nav-link text-uppercase fw-bold" href="/mapa">Mapa</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-bold" href="/productos">Productos</a>
-                </li>
             </ul>
 
             <!-- Search Bar (Styled Dark) -->

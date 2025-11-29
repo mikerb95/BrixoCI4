@@ -10,7 +10,6 @@ $routes->get('/logout', 'Home::logout');
 
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/servicios', 'Servicios::index');
-$routes->get('/productos', 'Productos::index');
 $routes->get('/profesional/(:num)', 'Profesional::ver/$1');
 $routes->get('/perfil', 'Perfil::index');
 
