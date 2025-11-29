@@ -117,28 +117,10 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold text-primary" href="/" style="font-size: 1.5rem; letter-spacing: -1px;">
-                brixo
-            </a>
-            <form class="d-flex mx-auto d-none d-md-flex" style="max-width: 400px; width: 100%;">
-                <div class="input-group rounded-pill border shadow-sm overflow-hidden">
-                    <input class="form-control border-0 shadow-none ps-4" type="search" placeholder="¿Qué servicio buscas?" aria-label="Search">
-                    <button class="btn btn-white border-0 pe-4 text-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </form>
-            <div class="d-flex align-items-center gap-3">
-                <a href="#" class="text-dark text-decoration-none fw-semibold d-none d-md-block">Regístrate como profesional</a>
-                <a href="#" class="btn btn-light rounded-pill border px-3">Iniciar sesión</a>
-            </div>
-        </div>
-    </nav>
+    <?= view('partials/navbar') ?>
 
     <!-- Spacer for fixed navbar -->
-    <div style="height: 70px;"></div>
+    <div style="height: 80px;"></div>
 
     <div class="main-container">
         <!-- List Column -->

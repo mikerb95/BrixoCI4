@@ -63,31 +63,11 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="/" style="font-size: 1.5rem; letter-spacing: -1px;">
-                brixo
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <form class="d-flex mx-auto" style="max-width: 500px; width: 100%;">
-                    <div class="input-group rounded-pill border shadow-sm overflow-hidden">
-                        <input class="form-control border-0 shadow-none ps-4" type="search" placeholder="Buscar servicios..." aria-label="Search">
-                        <button class="btn btn-white border-0 pe-4 text-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link fw-semibold" href="/servicios">Volver al listado</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?= view('partials/navbar') ?>
+
+    <!-- Spacer for fixed navbar -->
+    <div style="height: 80px;"></div>
+
 
     <div class="container py-4">
         <!-- Breadcrumb -->

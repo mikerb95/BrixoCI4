@@ -75,39 +75,11 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold text-primary" href="/" style="font-size: 1.5rem; letter-spacing: -1px;">
-                brixo
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <form class="d-flex mx-auto" style="max-width: 600px; width: 100%;">
-                    <div class="input-group rounded-pill border shadow-sm overflow-hidden">
-                        <button class="btn btn-light border-end dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Todos</button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Servicios</a></li>
-                            <li><a class="dropdown-item" href="#">Profesionales</a></li>
-                        </ul>
-                        <input class="form-control border-0 shadow-none ps-3" type="search" placeholder="Buscar servicios..." aria-label="Search">
-                        <button class="btn btn-warning border-0 px-4" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link fw-semibold" href="/mapa">Mapa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-light rounded-pill px-3 ms-2" href="#">Ingresar</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?= view('partials/navbar') ?>
+
+    <!-- Spacer for fixed navbar -->
+    <div style="height: 80px;"></div>
+
 
     <!-- Main Content -->
     <div class="container-fluid">
