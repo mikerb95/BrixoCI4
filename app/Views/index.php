@@ -14,12 +14,35 @@
 
 <body>
 
-    <!-- Navbar -->
-    <?= $this->include('partials/navbar') ?>
-
-    <!-- Hero Section -->
+    <!-- Hero Section with simple nav -->
     <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white" style="height: 100vh; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+        <!-- Simple hero nav -->
+        <nav id="hero-nav" class="hero-nav position-absolute top-0 start-0 w-100 d-flex justify-content-end gap-4 py-3 px-4">
+            <a href="/" class="hero-link">Inicio</a>
+            <a href="/mapa" class="hero-link">Mapa</a>
+            <?php if (! empty(session()->get('user'))): ?>
+                <a href="/logout" class="hero-link">Salir</a>
+            <?php else: ?>
+                <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
+            <?php endif; ?>
+        </nav>
+        <!-- Floating navbar (hidden initially) -->
+        <nav id="floating-nav" class="floating-navbar">
+            <div class="d-flex align-items-center w-100 justify-content-between">
+                <div class="d-flex align-items-center gap-4">
+                    <a href="/" class="brand fw-bold">BRIXO</a>
+                </div>
+                <ul class="d-flex list-unstyled mb-0 align-items-center gap-3">
+                    <li><a href="/mapa" class="float-link">Mapa</a></li>
+                    <?php if (! empty(session()->get('user'))): ?>
+                        <li><a href="/logout" class="float-link">Salir</a></li>
+                    <?php else: ?>
+                        <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </nav>
         <div class="container position-relative z-1">
             <div class="row align-items-center">
                 <div class="col-lg-7 text-start mb-5 mb-lg-0">
@@ -263,23 +286,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Show modal if there are errors (so user sees the error message)
+        // Show modal if there are errors
         <?php if (! empty($error)): ?>
             var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
             loginModal.show();
         <?php endif; ?>
 
-        // Navbar Scroll Effect
-        const navbar = document.querySelector('.brixo-navbar');
-        const heroSection = document.querySelector('.hero');
+        const hero = document.querySelector('.hero');
+        const floatingNav = document.getElementById('floating-nav');
+        const heroNav = document.getElementById('hero-nav');
+        const threshold = () => hero.offsetHeight * 0.6; // appear after 60% scroll of hero
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > heroSection.offsetHeight - 100) {
-                navbar.classList.add('scrolled');
+        function onScroll() {
+            if (window.scrollY > threshold()) {
+                floatingNav.classList.add('visible');
+                heroNav.classList.add('hidden');
             } else {
-                navbar.classList.remove('scrolled');
+                floatingNav.classList.remove('visible');
+                heroNav.classList.remove('hidden');
             }
-        });
+        }
+
+        window.addEventListener('scroll', onScroll);
+        window.addEventListener('resize', onScroll);
+        onScroll();
     </script>
 
 </body>
