@@ -7,36 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/brixo.css">
+    <link rel="stylesheet" href="/css/brixo.css">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top py-3 px-4">
-        <div class="container-fluid">
-            <a href="/" class="navbar-brand fw-bold fs-3 text-primary logo">Brixo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <nav class="navbar-nav align-items-center gap-4 fw-medium">
-                    <a href="/explorar" class="nav-link text-dark">Explorar</a>
-                    <a href="/mapa" class="btn btn-outline-primary rounded-pill px-3">Explorar mapa</a>
-                    <a href="/signup?role=contratista" class="nav-link text-dark">Ser Tasker</a>
-                    <?php if (! empty($user)): ?>
-                        <span class="nav-item">Hola, <?= esc($user['nombre']) ?></span>
-                        <a href="/logout" class="btn btn-outline-secondary rounded-pill px-3">Cerrar sesión</a>
-                    <?php else: ?>
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</button>
-                    <?php endif; ?>
-                    <a href="/publicar-tarea" class="btn btn-primary rounded-pill px-4 fw-bold text-white">Publicar tarea</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <!-- Navbar -->
+    <?= view('partials/navbar') ?>
+
+    <!-- Spacer for fixed navbar -->
+    <div style="height: 80px;"></div>
+
 
     <!-- Hero Section -->
     <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white" style="height: 500px; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
