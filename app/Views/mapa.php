@@ -23,7 +23,8 @@
         }
 
         .navbar {
-            height: auto; /* Adjusted for floating nav */
+            height: auto;
+            /* Adjusted for floating nav */
             z-index: 1030;
         }
 

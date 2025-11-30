@@ -12,7 +12,7 @@
         <!-- Collapse Content -->
         <div class="collapse navbar-collapse" id="ducatiNav">
             <div class="d-flex justify-content-between w-100 align-items-center">
-                
+
                 <!-- Left Links -->
                 <ul class="navbar-nav d-flex align-items-center gap-3">
                     <li class="nav-item"><a class="nav-link" href="/servicios">Servicios</a></li>
@@ -29,7 +29,7 @@
                 <ul class="navbar-nav d-flex align-items-center gap-3">
                     <li class="nav-item"><a class="nav-link" href="/publicar-tarea">Publicar Tarea</a></li>
                     <?php if (! empty(session()->get('user'))): ?>
-                         <li class="nav-item"><a class="nav-link" href="/logout">Salir</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">Salir</a></li>
                     <?php else: ?>
                         <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
                     <?php endif; ?>
@@ -39,4 +39,3 @@
         </div>
     </div>
 </nav>
-
