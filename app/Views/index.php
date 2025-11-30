@@ -19,15 +19,16 @@
         style="height: 100vh; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
         <!-- Simple hero nav -->
-        <nav id="hero-nav"
-            class="hero-nav position-absolute top-0 start-0 w-100 d-flex justify-content-end gap-4 py-3 px-4">
-            <a href="/" class="hero-link">Inicio</a>
-            <a href="/mapa" class="hero-link">Mapa</a>
-            <?php if (!empty(session()->get('user'))): ?>
-                <a href="/logout" class="hero-link">Salir</a>
-            <?php else: ?>
-                <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
-            <?php endif; ?>
+        <nav id="hero-nav" class="hero-nav position-absolute top-0 start-0 w-100">
+            <div class="hero-inner d-flex justify-content-start gap-4 py-3">
+                <a href="/" class="hero-link">Inicio</a>
+                <a href="/mapa" class="hero-link">Mapa</a>
+                <?php if (!empty(session()->get('user'))): ?>
+                    <a href="/logout" class="hero-link">Salir</a>
+                <?php else: ?>
+                    <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
+                <?php endif; ?>
+            </div>
         </nav>
         <!-- Floating navbar (hidden initially) -->
         <nav id="floating-nav" class="floating-navbar">
@@ -103,6 +104,25 @@
             </div>
         </div>
         </form>
+        </div>
+    </section>
+
+    <!-- Map + Professionals Section -->
+    <section class="map-section py-5">
+        <div class="container" style="max-width: 1200px;">
+            <h2 class="h3 fw-bold mb-4">Profesionales cerca de ti</h2>
+            <div class="map-layout d-flex gap-4">
+                <div id="leaflet-map" class="flex-grow-1 map-canvas"></div>
+                <aside class="map-sidebar">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="h6 fw-bold mb-0">Disponibles en esta zona</h3>
+                        <span class="text-secondary small" id="pro-count">0</span>
+                    </div>
+                    <div id="pro-list" class="list-group list-group-flush">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </aside>
+            </div>
         </div>
     </section>
 
@@ -316,6 +336,12 @@
         </div>
     </div>
 
+    <!-- Leaflet CSS/JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tDhH0PjQ8v+w4v0uGzLM=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -346,6 +372,44 @@
         window.addEventListener('scroll', onScroll);
         window.addEventListener('resize', onScroll);
         onScroll();
+
+        // --- Leaflet Map Setup ---
+        const map = L.map('leaflet-map', { zoomControl: true }).setView([4.711, -74.072], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Datos de ejemplo de profesionales (reemplazar con API en el futuro)
+        const professionals = [
+            { id: 31, nombre: 'Contratista 01', especialidad: 'Plomería', foto: 'https://randomuser.me/api/portraits/men/31.jpg', lat: 4.681, lng: -74.06 },
+            { id: 32, nombre: 'Contratista 02', especialidad: 'Electricidad', foto: 'https://randomuser.me/api/portraits/women/32.jpg', lat: 4.703, lng: -74.09 },
+            { id: 33, nombre: 'Contratista 03', especialidad: 'Limpieza', foto: 'https://randomuser.me/api/portraits/men/33.jpg', lat: 4.72, lng: -74.05 },
+            { id: 34, nombre: 'Contratista 04', especialidad: 'Carpintería', foto: 'https://randomuser.me/api/portraits/women/34.jpg', lat: 4.69, lng: -74.08 }
+        ];
+
+        const proList = document.getElementById('pro-list');
+        const proCount = document.getElementById('pro-count');
+        proCount.textContent = professionals.length + ' resultados';
+
+        professionals.forEach(p => {
+            // Marker
+            const marker = L.marker([p.lat, p.lng]).addTo(map);
+            marker.bindPopup(`<strong>${p.nombre}</strong><br/><small>${p.especialidad}</small>`);
+
+            // List item
+            const item = document.createElement('a');
+            item.href = '/mapa';
+            item.className = 'list-group-item list-group-item-action d-flex gap-3 align-items-center';
+            item.innerHTML = `
+                <img src="${p.foto}" alt="${p.nombre}" class="rounded-3" style="width:56px;height:56px;object-fit:cover;">
+                <div class="flex-grow-1">
+                    <div class="fw-semibold">${p.nombre}</div>
+                    <div class="text-secondary small">${p.especialidad}</div>
+                </div>`;
+            item.addEventListener('mouseenter', () => marker.openPopup());
+            item.addEventListener('click', (e) => { e.preventDefault(); map.setView([p.lat, p.lng], 14); marker.openPopup(); });
+            proList.appendChild(item);
+        });
     </script>
 
 </body>
