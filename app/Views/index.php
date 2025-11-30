@@ -14,8 +14,11 @@
 
 <body>
 
+    <!-- Navbar -->
+    <?= $this->include('partials/navbar') ?>
+
     <!-- Hero Section -->
-    <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white" style="height: 500px; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
+    <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white" style="height: 100vh; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
         <div class="container position-relative z-1">
             <div class="row align-items-center">
@@ -265,6 +268,18 @@
             var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
             loginModal.show();
         <?php endif; ?>
+
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.brixo-navbar');
+        const heroSection = document.querySelector('.hero');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > heroSection.offsetHeight - 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
     </script>
 
 </body>
