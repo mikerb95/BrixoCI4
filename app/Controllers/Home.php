@@ -12,9 +12,9 @@ class Home extends BaseController
 
         $session = session();
         $data = [
-            'user'    => $session->get('user'),
+            'user' => $session->get('user'),
             'message' => $session->getFlashdata('message'),
-            'error'   => $session->getFlashdata('error'),
+            'error' => $session->getFlashdata('error'),
         ];
 
         if ($this->request->getMethod() === 'post') {
@@ -56,10 +56,10 @@ class Home extends BaseController
 
             if ($usuario !== null && password_verify($password, $usuario->contrasena)) {
                 $session->set('user', [
-                    'id'     => $usuario->id,
+                    'id' => $usuario->id,
                     'nombre' => $usuario->nombre,
                     'correo' => $usuario->correo,
-                    'role'   => $usuario->role,
+                    'role' => $usuario->role,
                 ]);
                 $session->setFlashdata('message', 'Inicio de sesión correcto.');
 
