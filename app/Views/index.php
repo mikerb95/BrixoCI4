@@ -15,13 +15,15 @@
 <body>
 
     <!-- Hero Section with simple nav -->
-    <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white" style="height: 100vh; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
+    <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white"
+        style="height: 100vh; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
         <!-- Simple hero nav -->
-        <nav id="hero-nav" class="hero-nav position-absolute top-0 start-0 w-100 d-flex justify-content-end gap-4 py-3 px-4">
+        <nav id="hero-nav"
+            class="hero-nav position-absolute top-0 start-0 w-100 d-flex justify-content-end gap-4 py-3 px-4">
             <a href="/" class="hero-link">Inicio</a>
             <a href="/mapa" class="hero-link">Mapa</a>
-            <?php if (! empty(session()->get('user'))): ?>
+            <?php if (!empty(session()->get('user'))): ?>
                 <a href="/logout" class="hero-link">Salir</a>
             <?php else: ?>
                 <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
@@ -29,16 +31,17 @@
         </nav>
         <!-- Floating navbar (hidden initially) -->
         <nav id="floating-nav" class="floating-navbar">
-            <div class="d-flex align-items-center w-100 justify-content-between">
+            <div class="floating-inner">
                 <div class="d-flex align-items-center gap-4">
                     <a href="/" class="brand fw-bold">BRIXO</a>
                 </div>
                 <ul class="d-flex list-unstyled mb-0 align-items-center gap-3">
                     <li><a href="/mapa" class="float-link">Mapa</a></li>
-                    <?php if (! empty(session()->get('user'))): ?>
+                    <?php if (!empty(session()->get('user'))): ?>
                         <li><a href="/logout" class="float-link">Salir</a></li>
                     <?php else: ?>
-                        <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
+                        <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
+                        </li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -47,42 +50,50 @@
             <div class="row align-items-center">
                 <div class="col-lg-7 text-start mb-5 mb-lg-0">
                     <h1 class="display-3 fw-bold mb-4 lh-sm">Profesionales<br>confiables, cuando<br>los necesitas</h1>
-                    <p class="fs-5 mb-4 fw-light" style="max-width: 600px;">Reserva por horas a expertos en obra, carpintería, plomería y más. Publica tu necesidad o reserva de inmediato.</p>
+                    <p class="fs-5 mb-4 fw-light" style="max-width: 600px;">Reserva por horas a expertos en obra,
+                        carpintería, plomería y más. Publica tu necesidad o reserva de inmediato.</p>
                     <div class="d-flex flex-wrap gap-3 align-items-center">
                         <a href="/mapa" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold">Explorar Mapa</a>
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <div class="card bg-dark bg-opacity-50 border-secondary border-opacity-50 text-white p-4 rounded-4 backdrop-blur">
+                    <div
+                        class="card bg-dark bg-opacity-50 border-secondary border-opacity-50 text-white p-4 rounded-4 backdrop-blur">
                         <h5 class="fw-bold mb-4">Categorías populares</h5>
                         <div class="row g-3">
                             <div class="col-6">
-                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa"
+                                    class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Obra</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa"
+                                    class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Carpintería</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa"
+                                    class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Plomería</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa"
+                                    class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Electricidad</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa"
+                                    class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Pintura</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa"
+                                    class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Otros</span>
                                 </a>
                             </div>
@@ -147,8 +158,10 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <!-- Electricidad -->
                 <div class="col">
-                    <div class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img h-100 object-fit-cover" alt="Electricidad">
+                    <div
+                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
+                        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                            class="card-img h-100 object-fit-cover" alt="Electricidad">
                         <div class="card-img-overlay d-flex align-items-end p-0">
                             <div class="w-100 p-4 bg-gradient-overlay">
                                 <h5 class="card-title fw-bold mb-0">Electricidad</h5>
@@ -158,8 +171,10 @@
                 </div>
                 <!-- Obra -->
                 <div class="col">
-                    <div class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img h-100 object-fit-cover" alt="Obra y Construcción">
+                    <div
+                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                            class="card-img h-100 object-fit-cover" alt="Obra y Construcción">
                         <div class="card-img-overlay d-flex align-items-end p-0">
                             <div class="w-100 p-4 bg-gradient-overlay">
                                 <h5 class="card-title fw-bold mb-0">Obra y Construcción</h5>
@@ -169,8 +184,10 @@
                 </div>
                 <!-- Plomería -->
                 <div class="col">
-                    <div class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img h-100 object-fit-cover" alt="Plomería">
+                    <div
+                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
+                        <img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                            class="card-img h-100 object-fit-cover" alt="Plomería">
                         <div class="card-img-overlay d-flex align-items-end p-0">
                             <div class="w-100 p-4 bg-gradient-overlay">
                                 <h5 class="card-title fw-bold mb-0">Plomería</h5>
@@ -180,8 +197,10 @@
                 </div>
                 <!-- Domótica -->
                 <div class="col">
-                    <div class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1558002038-1091a166111c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img h-100 object-fit-cover" alt="Domótica">
+                    <div
+                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
+                        <img src="https://images.unsplash.com/photo-1558002038-1091a166111c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                            class="card-img h-100 object-fit-cover" alt="Domótica">
                         <div class="card-img-overlay d-flex align-items-end p-0">
                             <div class="w-100 p-4 bg-gradient-overlay">
                                 <h5 class="card-title fw-bold mb-0">Domótica</h5>
@@ -191,8 +210,10 @@
                 </div>
                 <!-- Mascotas -->
                 <div class="col">
-                    <div class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1517635676447-3a326f5ebc3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img h-100 object-fit-cover" alt="Mascotas">
+                    <div
+                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
+                        <img src="https://images.unsplash.com/photo-1517635676447-3a326f5ebc3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                            class="card-img h-100 object-fit-cover" alt="Mascotas">
                         <div class="card-img-overlay d-flex align-items-end p-0">
                             <div class="w-100 p-4 bg-gradient-overlay">
                                 <h5 class="card-title fw-bold mb-0">Cuidado de Mascotas</h5>
@@ -202,8 +223,10 @@
                 </div>
                 <!-- Control de Plagas -->
                 <div class="col">
-                    <div class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="card-img h-100 object-fit-cover" alt="Control de Plagas">
+                    <div
+                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
+                        <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                            class="card-img h-100 object-fit-cover" alt="Control de Plagas">
                         <div class="card-img-overlay d-flex align-items-end p-0">
                             <div class="w-100 p-4 bg-gradient-overlay">
                                 <h5 class="card-title fw-bold mb-0">Control de Plagas</h5>
@@ -223,25 +246,34 @@
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Brixo</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Sobre nosotros</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Carreras</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Prensa</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Sobre
+                                nosotros</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-decoration-none text-secondary hover-underline">Carreras</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-decoration-none text-secondary hover-underline">Prensa</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Clientes</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Cómo funciona</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Seguridad</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Ayuda</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Cómo
+                                funciona</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-decoration-none text-secondary hover-underline">Seguridad</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-decoration-none text-secondary hover-underline">Ayuda</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Profesionales</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Únete como pro</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Historias de éxito</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Recursos</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Únete
+                                como pro</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-decoration-none text-secondary hover-underline">Historias de éxito</a></li>
+                        <li class="mb-2"><a href="#"
+                                class="text-decoration-none text-secondary hover-underline">Recursos</a></li>
                     </ul>
                 </div>
             </div>
@@ -257,10 +289,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-0">
-                    <?php if (! empty($message)): ?>
+                    <?php if (!empty($message)): ?>
                         <div class="alert alert-success"><?= esc($message) ?></div>
                     <?php endif; ?>
-                    <?php if (! empty($error)): ?>
+                    <?php if (!empty($error)): ?>
                         <div class="alert alert-danger"><?= esc($error) ?></div>
                     <?php endif; ?>
 
@@ -268,11 +300,13 @@
                         <?= csrf_field() ?>
                         <div class="mb-3">
                             <label for="correo" class="form-label fw-semibold">Correo electrónico</label>
-                            <input id="correo" name="correo" type="email" class="form-control p-3 rounded-3" placeholder="nombre@ejemplo.com" required>
+                            <input id="correo" name="correo" type="email" class="form-control p-3 rounded-3"
+                                placeholder="nombre@ejemplo.com" required>
                         </div>
                         <div class="mb-4">
                             <label for="contrasena" class="form-label fw-semibold">Contraseña</label>
-                            <input id="contrasena" name="contrasena" type="password" class="form-control p-3 rounded-3" placeholder="Tu contraseña" required>
+                            <input id="contrasena" name="contrasena" type="password" class="form-control p-3 rounded-3"
+                                placeholder="Tu contraseña" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Entrar</button>
                     </form>
@@ -287,7 +321,7 @@
 
     <script>
         // Show modal if there are errors
-        <?php if (! empty($error)): ?>
+        <?php if (!empty($error)): ?>
             var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
             loginModal.show();
         <?php endif; ?>
@@ -301,9 +335,11 @@
             if (window.scrollY > threshold()) {
                 floatingNav.classList.add('visible');
                 heroNav.classList.add('hidden');
+                document.body.classList.add('floating-offset');
             } else {
                 floatingNav.classList.remove('visible');
                 heroNav.classList.remove('hidden');
+                document.body.classList.remove('floating-offset');
             }
         }
 
