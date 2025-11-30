@@ -1,45 +1,42 @@
-<nav class="navbar navbar-expand-lg fixed-top brixo-navbar">
-    <div class="container-fluid px-4">
-        <!-- Logo -->
-        <a class="navbar-brand fw-bold" href="/">
-            brixo
-        </a>
-
-        <!-- Toggler -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#brixoNavbar">
-            <span class="navbar-toggler-icon"></span>
+<!-- Main Navbar -->
+<nav class="navbar navbar-expand-lg ducati-navbar">
+    <div class="container-fluid">
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler ducati-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ducatiNav">
+            <span class="fas fa-bars"></span>
         </button>
 
+        <!-- Mobile Logo -->
+        <a class="navbar-brand d-lg-none mx-auto" href="/">BRIXO</a>
+
         <!-- Collapse Content -->
-        <div class="collapse navbar-collapse" id="brixoNavbar">
-            <!-- Main Navigation -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-3">
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-bold" href="/servicios">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-bold" href="/mapa">Mapa</a>
-                </li>
-            </ul>
+        <div class="collapse navbar-collapse" id="ducatiNav">
+            <div class="d-flex justify-content-between w-100 align-items-center">
+                
+                <!-- Left Links -->
+                <ul class="navbar-nav d-flex align-items-center gap-3">
+                    <li class="nav-item"><a class="nav-link" href="/servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mapa">Mapa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/explorar">Explorar</a></li>
+                </ul>
 
-            <!-- Search Bar (Styled Dark) -->
-            <form class="d-flex mx-auto search-form" role="search">
-                <div class="input-group rounded-pill overflow-hidden">
-                    <input class="form-control border-0 bg-transparent text-white shadow-none ps-3" type="search" placeholder="¿Qué buscas?" aria-label="Search">
-                    <button class="btn border-0 text-primary pe-3" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </form>
-
-            <!-- Right Side Actions -->
-            <div class="d-flex align-items-center gap-3 ms-auto">
-                <a href="#" class="nav-link text-white fw-bold d-none d-lg-block">Regístrate</a>
-                <a href="#" class="btn btn-primary rounded-pill px-4 fw-bold d-flex align-items-center gap-2">
-                    <i class="far fa-user"></i>
-                    <span>Iniciar sesión</span>
+                <!-- Center Logo (Desktop) -->
+                <a class="navbar-brand d-none d-lg-block" href="/">
+                    BRIXO
                 </a>
+
+                <!-- Right Links -->
+                <ul class="navbar-nav d-flex align-items-center gap-3">
+                    <li class="nav-item"><a class="nav-link" href="/publicar-tarea">Publicar Tarea</a></li>
+                    <?php if (! empty(session()->get('user'))): ?>
+                         <li class="nav-item"><a class="nav-link" href="/logout">Salir</a></li>
+                    <?php else: ?>
+                        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
+                    <?php endif; ?>
+                    <li class="nav-item"><a class="nav-link" href="/signup">Registro</a></li>
+                </ul>
             </div>
         </div>
     </div>
 </nav>
+

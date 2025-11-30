@@ -48,6 +48,100 @@
     -ms-overflow-style: none;  /* IE 10+ */
 }
 
+/* ---------------------------------------------------------
+   DUCATI STYLE NAVBAR
+   --------------------------------------------------------- */
+
+/* Top Black Bar */
+.ducati-top-bar {
+    background-color: #000;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+.ducati-top-bar a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+/* Floating Navbar */
+.ducati-navbar {
+    background-color: #f2f2f2; /* Light grey background like image */
+    border-radius: 4px;
+    padding: 10px 30px;
+    margin: 0 auto; 
+    width: 100%; 
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70px;
+}
+
+/* Desktop Floating Effect */
+@media (min-width: 992px) {
+    .ducati-navbar {
+        width: 96%;
+        margin-top: 0; /* Sits directly under top bar or with gap? User said "not fixed to top edge". */
+        /* Actually, if I put it absolute, it overlaps content. 
+           If I put it static, it pushes content down. 
+           The image shows it sitting on a black background. 
+           Let's make it static but with margins if we want "floating" look relative to container.
+           But usually "floating navbar" means it overlays the hero. 
+           Let's try absolute positioning for the true "floating" feel over the hero image. */
+        position: absolute; 
+        top: 50px; /* Below the top bar (approx height of top bar) */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Adjust top bar to be fixed or static? 
+       If navbar is absolute, top bar should probably be static. */
+}
+
+.ducati-navbar .navbar-brand {
+    color: var(--primary-color); /* Brixo Blue */
+    font-weight: 900;
+    font-size: 1.8rem;
+    font-style: italic;
+    text-transform: uppercase;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ducati-navbar .nav-link {
+    color: #000 !important;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 15px !important;
+}
+
+.ducati-navbar .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.ducati-toggler {
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    color: #000;
+}
+
+
 /* Glassmorphism / Backdrop Blur */
 .backdrop-blur {
     backdrop-filter: blur(10px);

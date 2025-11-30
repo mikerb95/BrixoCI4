@@ -30,7 +30,7 @@
     <?= view('partials/navbar') ?>
 
     <!-- Spacer for fixed navbar -->
-    <div style="height: 80px;"></div>
+    <div style="height: 90px;"></div>
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Portafolio de Servicios</h1>

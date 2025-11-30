@@ -70,7 +70,7 @@
     <?= view('partials/navbar') ?>
 
     <!-- Spacer for fixed navbar -->
-    <div style="height: 80px;"></div>
+    <div style="height: 90px;"></div>
 
 
     <div class="container py-4">

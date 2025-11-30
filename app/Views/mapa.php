@@ -23,12 +23,12 @@
         }
 
         .navbar {
-            height: 70px;
+            height: auto; /* Adjusted for floating nav */
             z-index: 1030;
         }
 
         .main-container {
-            height: calc(100vh - 70px);
+            height: calc(100vh - 90px);
             /* Subtract navbar height */
             display: flex;
         }
@@ -123,7 +123,7 @@
     <?= view('partials/navbar') ?>
 
     <!-- Spacer for fixed navbar -->
-    <div style="height: 80px;"></div>
+    <div style="height: 90px;"></div>
 
     <div class="main-container">
         <!-- List Column -->
