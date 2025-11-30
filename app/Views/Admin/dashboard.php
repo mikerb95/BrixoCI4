@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Panel de Administrador - Brixo</title>
@@ -8,29 +9,10 @@
     <link rel="stylesheet" href="/css/brixo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body class="bg-light">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold text-primary" href="/">Brixo Admin</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav align-items-center">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-shield me-2"></i><?= esc($user['nombre']) ?>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Navbar removed -->
 
     <div class="container-fluid">
         <div class="row">
@@ -175,10 +157,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Mi Panel - Brixo</title>
@@ -187,6 +171,7 @@
     <link rel="stylesheet" href="/css/brixo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body class="bg-light">
 
     <!-- Header -->
@@ -210,7 +195,9 @@
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
                             <li><a class="dropdown-item" href="/perfil">Mi Perfil</a></li>
                             <li><a class="dropdown-item" href="/ajustes">Ajustes</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item text-danger" href="/logout">Cerrar sesión</a></li>
                         </ul>
                     </div>
@@ -233,7 +220,7 @@
                         <a href="/perfil" class="btn btn-outline-primary btn-sm rounded-pill">Editar Perfil</a>
                     </div>
                 </div>
-                
+
                 <div class="list-group mt-4 shadow-sm rounded-3 border-0 overflow-hidden">
                     <a href="#" class="list-group-item list-group-item-action active border-0 py-3">
                         <i class="fas fa-columns me-2"></i> Resumen
@@ -345,4 +332,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -55,13 +55,6 @@
 
 <body>
 
-    <!-- Navbar -->
-    <?= view('partials/navbar') ?>
-
-    <!-- Spacer for fixed navbar -->
-    <div style="height: 90px;"></div>
-
-
     <!-- Profile Header -->
     <div class="profile-header-bg border-bottom">
         <div class="container">

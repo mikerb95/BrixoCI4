@@ -73,37 +73,36 @@
 }
 
 /* Floating Navbar */
-.ducati-navbar {
-    background-color: #fff; /* White background */
-    border-radius: 15px; /* More rounded */
-    padding: 10px 30px;
-    margin: 0 auto; 
-    width: 100%; 
+.brixo-navbar {
+    background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
+    border-radius: 12px;
+    padding: 12px 32px;
+    width: 100%;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 70px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Soft shadow */
+    min-height: 72px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 /* Desktop Floating Effect */
 @media (min-width: 992px) {
-    .ducati-navbar {
-        width: 90%; /* Reduced width to look floating */
-        max-width: 1400px; /* Limit max width */
-        position: absolute; 
-        top: 20px; /* Gap from top edge */
+    .brixo-navbar {
+        width: 88%;
+        max-width: 1440px;
+        position: absolute;
+        top: 24px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 1000;
     }
 }
 
-.ducati-navbar .navbar-brand {
+.brixo-navbar .navbar-brand {
     color: var(--primary-color); /* Brixo Blue */
     font-weight: 900;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-style: italic;
     text-transform: uppercase;
     margin: 0;
@@ -112,20 +111,20 @@
     transform: translateX(-50%);
 }
 
-.ducati-navbar .nav-link {
-    color: #000 !important;
+.brixo-navbar .nav-link {
+    color: #1a1a1a !important;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 0 15px !important;
+    letter-spacing: 0.06rem;
+    padding: 0 18px !important;
 }
 
-.ducati-navbar .nav-link:hover {
+.brixo-navbar .nav-link:hover {
     color: var(--primary-color) !important;
 }
 
-.ducati-toggler {
+.brixo-toggler {
     border: none;
     background: transparent;
     font-size: 1.2rem;

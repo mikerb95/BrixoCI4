@@ -66,13 +66,6 @@
 
 <body>
 
-    <!-- Navbar -->
-    <?= view('partials/navbar') ?>
-
-    <!-- Spacer for fixed navbar -->
-    <div style="height: 90px;"></div>
-
-
     <div class="container py-4">
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="mb-4">

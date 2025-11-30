@@ -120,12 +120,6 @@
 
 <body>
 
-    <!-- Navbar -->
-    <?= view('partials/navbar') ?>
-
-    <!-- Spacer for fixed navbar -->
-    <div style="height: 90px;"></div>
-
     <div class="main-container">
         <!-- List Column -->
         <div class="list-column">

@@ -26,12 +26,6 @@
 
 <body>
 
-    <!-- Navbar -->
-    <?= view('partials/navbar') ?>
-
-    <!-- Spacer for fixed navbar -->
-    <div style="height: 90px;"></div>
-
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Portafolio de Servicios</h1>
         <p class="lead">¿Necesitas profesionales fiables para obra, construcción, plomería, electricidad, domótica, carpintería y más? En Brixo conectamos tu proyecto con técnicos verificados, presupuestos claros y garantía de calidad. Publica tu trabajo y recibe ofertas competitivas en menos de 24 horas.</p>

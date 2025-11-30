@@ -63,11 +63,7 @@ class Home extends BaseController
                 ]);
                 $session->setFlashdata('message', 'Inicio de sesión correcto.');
 
-                if ($usuario->role === 'admin') {
-                    return redirect()->to('/admin/dashboard');
-                }
-                
-                return redirect()->to('/user/dashboard');
+                return redirect()->to('/');
             }
 
             $session->setFlashdata('error', 'Las credenciales no coinciden con la base de datos.');

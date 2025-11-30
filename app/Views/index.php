@@ -14,9 +14,6 @@
 
 <body>
 
-    <!-- Navbar -->
-    <?= view('partials/navbar') ?>
-
     <!-- Hero Section -->
     <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white" style="height: 500px; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
@@ -26,9 +23,7 @@
                     <h1 class="display-3 fw-bold mb-4 lh-sm">Profesionales<br>confiables, cuando<br>los necesitas</h1>
                     <p class="fs-5 mb-4 fw-light" style="max-width: 600px;">Reserva por horas a expertos en obra, carpintería, plomería y más. Publica tu necesidad o reserva de inmediato.</p>
                     <div class="d-flex flex-wrap gap-3 align-items-center">
-                        <a href="/explorar" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold">Explorar Taskers</a>
-                        <a href="/publicar-tarea" class="btn btn-outline-light btn-lg rounded-pill px-4">Publicar tarea</a>
-                        <a href="/signup?role=contratista" class="text-white text-decoration-none fw-medium ms-2">Ser Tasker</a>
+                        <a href="/mapa" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold">Explorar Mapa</a>
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -36,32 +31,32 @@
                         <h5 class="fw-bold mb-4">Categorías populares</h5>
                         <div class="row g-3">
                             <div class="col-6">
-                                <a href="/categoria/obra" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Obra</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/categoria/carpinteria" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Carpintería</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/categoria/plomeria" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Plomería</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/categoria/electricidad" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Electricidad</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/categoria/pintura" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Pintura</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/categorias" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
+                                <a href="/mapa" class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Otros</span>
                                 </a>
                             </div>
@@ -255,9 +250,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Entrar</button>
                     </form>
-                    <div class="mt-3 text-center">
-                        <p class="text-secondary">¿No tienes cuenta? <a href="/signup" class="text-primary fw-bold text-decoration-none">Regístrate</a></p>
-                    </div>
+                    <!-- Registration disabled -->
                 </div>
             </div>
         </div>
