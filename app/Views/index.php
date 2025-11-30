@@ -24,6 +24,12 @@
                 <a href="/" class="hero-link">Inicio</a>
                 <a href="/mapa" class="hero-link">Mapa</a>
                 <?php if (!empty(session()->get('user'))): ?>
+                    <?php $u = session()->get('user'); ?>
+                    <?php if (!empty($u['rol']) && $u['rol'] === 'contratista'): ?>
+                        <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#contractorPanel">Mi Panel</a>
+                    <?php else: ?>
+                        <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#userPanel">Mi Panel</a>
+                    <?php endif; ?>
                     <a href="/logout" class="hero-link">Salir</a>
                 <?php else: ?>
                     <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
@@ -251,6 +257,127 @@
                         <div class="card-img-overlay d-flex align-items-end p-0">
                             <div class="w-100 p-4 bg-gradient-overlay">
                                 <h5 class="card-title fw-bold mb-0">Control de Plagas</h5>
+                            </div>
+                        </div>
+
+                        <!-- User Panel Modal -->
+                        <div class="modal fade" id="userPanel" tabindex="-1" aria-labelledby="userPanelLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content p-4 rounded-4 shadow">
+                                    <div class="modal-header border-0 p-0 mb-3">
+                                        <h2 class="modal-title fs-4 fw-bold" id="userPanelLabel">Panel de Usuario</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-0">
+                                        <?php $u = session()->get('user'); ?>
+                                        <div class="d-flex gap-3 align-items-center mb-4">
+                                            <img src="<?= esc($u['foto_perfil'] ?? 'https://via.placeholder.com/80') ?>"
+                                                alt="Perfil" class="rounded-3"
+                                                style="width:80px;height:80px;object-fit:cover;">
+                                            <div>
+                                                <div class="fw-bold"><?= esc($u['nombre'] ?? 'Usuario') ?></div>
+                                                <div class="text-secondary small"><?= esc($u['correo'] ?? '') ?></div>
+                                                <span class="badge bg-primary">Cliente</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <h3 class="h6 fw-bold mb-3">Mis contratos recientes</h3>
+                                        <?php if (!empty($userContracts)): ?>
+                                            <ul class="list-group list-group-flush mb-3">
+                                                <?php foreach ($userContracts as $c): ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            <div class="fw-semibold"><?= esc($c['detalle'] ?? 'Servicio') ?>
+                                                            </div>
+                                                            <div class="small text-secondary">Contratista:
+                                                                <?= esc($c['contratista'] ?? '') ?></div>
+                                                            <div class="small text-secondary">Estado:
+                                                                <?= esc($c['estado'] ?? '') ?></div>
+                                                        </div>
+                                                        <div class="text-end small text-secondary">
+                                                            <div>Inicio: <?= esc($c['fecha_inicio'] ?? '') ?></div>
+                                                            <div>Fin: <?= esc($c['fecha_fin'] ?? '') ?></div>
+                                                            <div class="fw-semibold text-dark">
+                                                                $<?= esc(number_format((float) ($c['costo_total'] ?? 0), 0, ',', '.')) ?>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php else: ?>
+                                            <p class="text-secondary">Aún no tienes contratos. Explora el mapa y solicita
+                                                una cotización.</p>
+                                        <?php endif; ?>
+                                        <div class="d-flex justify-content-end">
+                                            <a href="/mapa" class="btn btn-sm btn-primary rounded-3">Explorar
+                                                profesionales</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contractor Panel Modal -->
+                        <div class="modal fade" id="contractorPanel" tabindex="-1"
+                            aria-labelledby="contractorPanelLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content p-4 rounded-4 shadow">
+                                    <div class="modal-header border-0 p-0 mb-3">
+                                        <h2 class="modal-title fs-4 fw-bold" id="contractorPanelLabel">Panel de
+                                            Contratista</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-0">
+                                        <?php $u = session()->get('user'); ?>
+                                        <div class="d-flex gap-3 align-items-center mb-4">
+                                            <img src="<?= esc($u['foto_perfil'] ?? 'https://via.placeholder.com/80') ?>"
+                                                alt="Perfil" class="rounded-3"
+                                                style="width:80px;height:80px;object-fit:cover;">
+                                            <div>
+                                                <div class="fw-bold"><?= esc($u['nombre'] ?? 'Contratista') ?></div>
+                                                <div class="text-secondary small"><?= esc($u['correo'] ?? '') ?></div>
+                                                <span class="badge bg-dark">Contratista</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <h3 class="h6 fw-bold mb-3">Mis contratos activos</h3>
+                                        <?php if (!empty($contractorContracts)): ?>
+                                            <ul class="list-group list-group-flush mb-3">
+                                                <?php foreach ($contractorContracts as $c): ?>
+                                                    <li
+                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            <div class="fw-semibold"><?= esc($c['detalle'] ?? 'Servicio') ?>
+                                                            </div>
+                                                            <div class="small text-secondary">Cliente:
+                                                                <?= esc($c['cliente'] ?? '') ?></div>
+                                                            <div class="small text-secondary">Estado:
+                                                                <?= esc($c['estado'] ?? '') ?></div>
+                                                        </div>
+                                                        <div class="text-end small text-secondary">
+                                                            <div>Inicio: <?= esc($c['fecha_inicio'] ?? '') ?></div>
+                                                            <div>Fin: <?= esc($c['fecha_fin'] ?? '') ?></div>
+                                                            <div class="fw-semibold text-dark">
+                                                                $<?= esc(number_format((float) ($c['costo_total'] ?? 0), 0, ',', '.')) ?>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php else: ?>
+                                            <p class="text-secondary">Aún no tienes contratos activos. Responde cotizaciones
+                                                aceptadas.</p>
+                                        <?php endif; ?>
+                                        <div class="d-flex justify-content-end">
+                                            <a href="/mapa" class="btn btn-sm btn-primary rounded-3">Ver solicitudes
+                                                cercanas</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
