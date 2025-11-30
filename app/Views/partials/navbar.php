@@ -1,8 +1,9 @@
-<!-- Floating Ducati-style Navbar (no external text) -->
+<!-- Floating Brixo-style Navbar (no external text) -->
 <nav class="navbar navbar-expand-lg brixo-navbar">
     <div class="container-fluid">
         <!-- Mobile Toggle -->
-        <button class="navbar-toggler brixo-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#brixoNav" aria-controls="brixoNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler brixo-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#brixoNav"
+            aria-controls="brixoNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="fas fa-bars"></span>
         </button>
 
@@ -22,10 +23,11 @@
 
                 <!-- Right Links -->
                 <ul class="navbar-nav align-items-center gap-3">
-                    <?php if (! empty(session()->get('user'))): ?>
+                    <?php if (!empty(session()->get('user'))): ?>
                         <li class="nav-item"><a class="nav-link" href="/logout">Salir</a></li>
                     <?php else: ?>
-                        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
+                                data-bs-target="#loginModal">Ingresar</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
