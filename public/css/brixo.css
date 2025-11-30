@@ -194,6 +194,8 @@
     .map-sidebar { width: 100%; }
     .map-canvas { height: 420px; }
 }
+/* Fondo diferenciado sección mapa */
+.map-section { background-color: #f5f1e9; }
 
 /* Brixo Navbar */
 .brixo-navbar {
