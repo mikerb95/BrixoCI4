@@ -49,11 +49,11 @@
 }
 
 /* ---------------------------------------------------------
-   DUCATI STYLE NAVBAR
-   --------------------------------------------------------- */
+    BRIXO STYLE NAVBAR
+    --------------------------------------------------------- */
 
 /* Top Black Bar */
-.ducati-top-bar {
+.brixo-top-bar {
     background-color: #000;
     color: #fff;
     font-size: 0.7rem;
@@ -66,7 +66,7 @@
     text-transform: uppercase;
 }
 
-.ducati-top-bar a {
+.brixo-top-bar a {
     color: #fff;
     text-decoration: none;
     margin-left: 20px;
@@ -195,7 +195,7 @@
     .map-canvas { height: 420px; }
 }
 
-/* Ducati-style Navbar */
+/* Brixo Navbar */
 .brixo-navbar {
     background-color: #111;
     padding-top: 0.8rem;
