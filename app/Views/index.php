@@ -192,7 +192,7 @@
                                 <h5 class="card-title fw-bold mb-0">Control de Plagas</h5>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
