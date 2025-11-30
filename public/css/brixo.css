@@ -83,17 +83,32 @@
 .hero-nav.hidden { opacity:0; pointer-events:none; }
 .hero-nav .hero-link:hover { text-decoration: underline; }
 
+/* Alinear hero nav con el contenido del sitio */
+.hero-nav .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px; /* mismo padding lateral que el contenido */
+}
+@media (max-width: 768px){
+    .hero-nav .hero-inner { padding: 0 20px; }
+}
+
 /* Floating navbar new */
 .floating-navbar {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    transform: translateY(-20px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    width: 90%;
+    max-width: 1400px;
     background: rgba(255,255,255,0.9);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
     opacity: 0;
     pointer-events: none;
     transition: opacity .35s ease, transform .35s ease;
@@ -102,44 +117,8 @@
 .floating-navbar.visible {
     opacity:1;
     pointer-events:auto;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
     box-shadow: 0 12px 32px -6px rgba(0,0,0,0.15);
-}
-.floating-navbar .floating-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 12px 40px; /* Left/right padding similar al contenido principal */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.floating-navbar .brand {
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    letter-spacing: .5px;
-    text-decoration:none;
-}
-.floating-navbar .float-link {
-    color: #2f3033;
-    text-decoration:none;
-    font-weight:600;
-    font-size:.9rem;
-    padding:6px 14px;
-    border-radius: 30px;
-    transition: background .2s, color .2s;
-}
-.floating-navbar .float-link:hover {
-    background: var(--secondary-color);
-    color: var(--primary-color);
-}
-@media (max-width: 768px){
-    .floating-navbar .floating-inner { padding: 10px 20px; }
-}
-
-/* Padding superior cuando navbar visible */
-body.floating-offset {
-    padding-top: 70px;
-    transition: padding-top .35s ease;
 }
 .floating-navbar .brand {
     color: var(--primary-color);
@@ -204,6 +183,16 @@ body.floating-offset {
 
 .object-fit-cover {
     object-fit: cover;
+}
+
+/* Map section layout */
+.map-layout { display: flex; }
+.map-canvas { height: 520px; border-radius: 16px; overflow: hidden; background: #eee; }
+.map-sidebar { width: 360px; min-width: 300px; max-width: 380px; border: 1px solid var(--border-color); border-radius: 16px; background: #fff; padding: 16px; }
+@media (max-width: 992px){
+    .map-layout { flex-direction: column; }
+    .map-sidebar { width: 100%; }
+    .map-canvas { height: 420px; }
 }
 
 /* Ducati-style Navbar */
