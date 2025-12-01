@@ -7,13 +7,14 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    libzip-dev \
     zip \
     unzip \
     libicu-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 2. Instalar extensiones de PHP requeridas por CodeIgniter 4
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl mysqli
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl mysqli zip
 
 # 3. Habilitar mod_rewrite de Apache (necesario para las rutas de CI4)
 RUN a2enmod rewrite
