@@ -27,6 +27,18 @@
                             class="text-decoration-none text-white-50 hover-text-white">Mi Panel</a></li>
                     <li class="mb-2"><a href="<?= base_url('sobre-nosotros') ?>"
                             class="text-decoration-none text-white-50 hover-text-white">Sobre Nosotros</a></li>
+                    <li class="mb-2"><a href="<?= base_url('como-funciona') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Cómo funciona</a></li>
+                    <li class="mb-2"><a href="<?= base_url('seguridad') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Seguridad</a></li>
+                    <li class="mb-2"><a href="<?= base_url('ayuda') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Ayuda</a></li>
+                    <li class="mb-2"><a href="<?= base_url('unete-pro') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Únete como pro</a></li>
+                    <li class="mb-2"><a href="<?= base_url('historias-exito') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Historias de éxito</a></li>
+                    <li class="mb-2"><a href="<?= base_url('recursos') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Recursos</a></li>
                 </ul>
             </div>
 
