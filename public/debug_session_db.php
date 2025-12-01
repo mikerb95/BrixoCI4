@@ -9,11 +9,23 @@ echo "<h1>Debug Session DB</h1>";
 
 // 1. Load CI4 Config
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
+
+// Load Composer Autoloader to allow classes to be found
+if (file_exists(FCPATH . '../vendor/autoload.php')) {
+    require FCPATH . '../vendor/autoload.php';
+} else {
+    die("Vendor autoload not found. Run composer install.");
+}
+
 $pathsPath = FCPATH . '../app/Config/Paths.php';
 require $pathsPath;
 $paths = new Config\Paths();
 $appConfigPath = $paths->appDirectory . '/Config/App.php';
 $dbConfigPath = $paths->appDirectory . '/Config/Database.php';
+
+// Load Services to ensure environment variables are loaded if needed (dotenv)
+// But for now, let's just rely on the classes.
+// Note: BaseConfig is in system/Config/BaseConfig.php, which autoloader should find.
 
 require $appConfigPath;
 require $dbConfigPath;
