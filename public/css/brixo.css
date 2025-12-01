@@ -9,12 +9,14 @@
     --secondary-color: #f2f2f2;
     --text-color: #2f3033;
     --border-color: #e2e2e2;
+    /* Espacio interno que debe quedar bajo la navbar fija antes del contenido */
+    --navbar-offset: 84px;
 }
 
 body {
     background-color: #f5f5f5;
-    /* Aumentado 20% para compensar la navbar más alta */
-    padding-top: 77px;
+    /* Padding-top eliminado para que el contenido comience inmediatamente bajo la navbar fija */
+    padding-top: 0;
 }
 
 /* Altura consistente para el mapa del home, independiente de la cantidad de puntos */
@@ -48,6 +50,21 @@ body.home-page {
     padding-top: 0.76rem;
     padding-bottom: 0.76rem;
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.22);
+}
+
+/* Usar padding interno del primer bloque en lugar de margen externo gris */
+.brixo-navbar + main > :first-child,
+.brixo-navbar + .container > :first-child,
+.brixo-navbar + .container-fluid > :first-child,
+.brixo-navbar + .container-xl > :first-child,
+.brixo-navbar + section > :first-child,
+.brixo-navbar + header > :first-child {
+    padding-top: var(--navbar-offset);
+}
+
+/* Si el primer bloque es un hero, sumamos su propio padding adicional */
+.brixo-navbar + main > .hero:first-child {
+    padding-top: calc(var(--navbar-offset) + 50px);
 }
 
 .brixo-navbar .navbar-brand {
@@ -240,6 +257,11 @@ body.home-page {
     border-color: #fff;
 }
 
+/* Aplicar padding interno superior al contenido del hero en todas las páginas */
+.hero {
+    padding-top: 50px;
+}
+
 /* Hero Text Shadow */
 .text-shadow {
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
@@ -296,7 +318,7 @@ body.home-page {
 
 /* -------- Footer -------- */
 .site-footer {
-    background-color: #353C46;
+    background-color: #485166;
     color: #f1f5f9; /* texto claro */
 }
 .site-footer h4, .site-footer .h5 { color: #ffffff; }

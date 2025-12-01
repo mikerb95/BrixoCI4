@@ -34,6 +34,7 @@ class AuthTest extends CIUnitTestCase
             'correo' => $email,
             'telefono' => '1234567890',
             'contrasena' => 'password123',
+            'contrasena_confirm' => 'password123',
             'rol' => 'cliente'
         ]);
 
@@ -56,7 +57,10 @@ class AuthTest extends CIUnitTestCase
             'correo' => $email,
             'telefono' => '0987654321',
             'contrasena' => 'password123',
-            'rol' => 'contratista'
+            'contrasena_confirm' => 'password123',
+            'rol' => 'contratista',
+            'ciudad' => 'Bogotá',
+            'ubicacion_mapa' => '4.710989,-74.072090',
         ]);
 
         $result->assertRedirectTo('/');
@@ -79,17 +83,19 @@ class AuthTest extends CIUnitTestCase
             'correo' => $email,
             'telefono' => '111222333',
             'contrasena' => 'password123',
+            'contrasena_confirm' => 'password123',
             'rol' => 'cliente'
         ]);
 
         // Then login
         $result = $this->call('post', '/', [
+            'action' => 'login',
             'correo' => $email,
             'contrasena' => 'password123'
         ]);
 
-        $result->assertRedirectTo('/panel');
-        $result->assertSessionHas('message', 'Inicio de sesión correcto.');
+        $result->assertRedirectTo('/');
+        $result->assertSessionHas('message', 'Inicio de sesión correcto. ¡Bienvenido!');
         
         $user = session('user');
         $this->assertEquals('cliente', $user['rol']);
@@ -107,17 +113,21 @@ class AuthTest extends CIUnitTestCase
             'correo' => $email,
             'telefono' => '444555666',
             'contrasena' => 'password123',
-            'rol' => 'contratista'
+            'contrasena_confirm' => 'password123',
+            'rol' => 'contratista',
+            'ciudad' => 'Bogotá',
+            'ubicacion_mapa' => '4.710989,-74.072090',
         ]);
 
         // Then login
         $result = $this->call('post', '/', [
+            'action' => 'login',
             'correo' => $email,
             'contrasena' => 'password123'
         ]);
 
-        $result->assertRedirectTo('/panel');
-        $result->assertSessionHas('message', 'Inicio de sesión correcto.');
+        $result->assertRedirectTo('/');
+        $result->assertSessionHas('message', 'Inicio de sesión correcto. ¡Bienvenido!');
         
         $user = session('user');
         $this->assertEquals('contratista', $user['rol']);
@@ -126,11 +136,12 @@ class AuthTest extends CIUnitTestCase
     public function testLoginInvalid()
     {
         $result = $this->call('post', '/', [
+            'action' => 'login',
             'correo' => 'nonexistent@test.com',
             'contrasena' => 'wrongpassword'
         ]);
 
         $result->assertRedirectTo('/');
-        $result->assertSessionHas('error', 'Las credenciales no coinciden con la base de datos.');
+        $result->assertSessionHas('login_error', 'No encontramos una cuenta asociada a ese correo.');
     }
 }

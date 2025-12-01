@@ -23,6 +23,19 @@
             <div class="hero-inner d-flex justify-content-start gap-4 py-3">
                 <a href="/" class="hero-link">Inicio</a>
                 <a href="/mapa" class="hero-link">Mapa</a>
+                <?php $heroUser = session()->get('user'); ?>
+                <?php if (!empty($heroUser)): ?>
+                    <span class="hero-link text-white">Hola, <?= esc($heroUser['nombre'] ?? 'Usuario') ?></span>
+                    <?php if (($heroUser['rol'] ?? '') === 'contratista'): ?>
+                        <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#contractorPanel">Mi Panel</a>
+                    <?php else: ?>
+                        <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#userPanel">Mi Panel</a>
+                    <?php endif; ?>
+                    <a href="/logout" class="hero-link">Salir</a>
+                <?php else: ?>
+                    <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
+                    <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+                <?php endif; ?>
             </div>
         </nav>
         <!-- Floating navbar (hidden initially) -->
@@ -118,8 +131,7 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="border rounded-4 overflow-hidden shadow-sm">
-                        <img src="/images/map-ico"
-                            alt="Mapa de profesionales cercanos" class="w-100"
+                        <img src="/images/map-ico.png" alt="Mapa de profesionales cercanos" class="w-100"
                             style="object-fit: cover; max-height: 260px;">
                     </div>
                 </div>
@@ -443,9 +455,146 @@
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4 rounded-4 shadow">
+                <div class="modal-header border-0 p-0 mb-4">
+                    <h2 class="modal-title fs-4 fw-bold" id="loginModalLabel">Iniciar sesión</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <?php if (!empty($login_error)): ?>
+                        <div class="alert alert-danger mb-4"><?= esc($login_error) ?></div>
+                    <?php endif; ?>
+                    <form method="post" action="/">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="action" value="login">
+                        <div class="mb-3">
+                            <label for="login_correo" class="form-label fw-semibold">Correo electrónico</label>
+                            <input id="login_correo" name="correo" type="email" class="form-control p-3 rounded-3"
+                                placeholder="nombre@ejemplo.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="login_contrasena" class="form-label fw-semibold">Contraseña</label>
+                            <input id="login_contrasena" name="contrasena" type="password"
+                                class="form-control p-3 rounded-3" placeholder="Tu contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4 rounded-4 shadow">
+                <div class="modal-header border-0 p-0 mb-4">
+                    <h2 class="modal-title fs-4 fw-bold" id="registerModalLabel">Crear cuenta</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <?php $registerOld = $register_old ?? []; ?>
+                    <?php if (!empty($register_error)): ?>
+                        <div class="alert alert-danger mb-4"><?= esc($register_error) ?></div>
+                    <?php endif; ?>
+                    <form method="post" action="/" id="registerForm">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="action" value="register">
+                        <div class="mb-3">
+                            <label for="registro_nombre" class="form-label fw-semibold">Nombre</label>
+                            <input id="registro_nombre" name="nombre" type="text" class="form-control p-3 rounded-3"
+                                placeholder="Tu nombre" value="<?= esc($registerOld['nombre'] ?? '') ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registro_correo" class="form-label fw-semibold">Correo electrónico</label>
+                            <input id="registro_correo" name="correo" type="email" class="form-control p-3 rounded-3"
+                                placeholder="nombre@ejemplo.com" value="<?= esc($registerOld['correo'] ?? '') ?>"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registro_telefono" class="form-label fw-semibold">Teléfono</label>
+                            <input id="registro_telefono" name="telefono" type="tel" class="form-control p-3 rounded-3"
+                                placeholder="3101234567" value="<?= esc($registerOld['telefono'] ?? '') ?>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registro_contrasena" class="form-label fw-semibold">Contraseña</label>
+                            <input id="registro_contrasena" name="contrasena" type="password"
+                                class="form-control p-3 rounded-3" placeholder="Crea una contraseña" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registro_contrasena_confirm" class="form-label fw-semibold">Confirmar
+                                contraseña</label>
+                            <input id="registro_contrasena_confirm" name="contrasena_confirm" type="password"
+                                class="form-control p-3 rounded-3" placeholder="Repite la contraseña" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registro_rol" class="form-label fw-semibold">Tipo de cuenta</label>
+                            <select id="registro_rol" name="rol" class="form-select p-3 rounded-3" required>
+                                <option value="cliente" <?= (isset($registerOld['rol']) && $registerOld['rol'] === 'cliente') ? 'selected' : '' ?>>Cliente</option>
+                                <option value="contratista" <?= (isset($registerOld['rol']) && $registerOld['rol'] === 'contratista') ? 'selected' : '' ?>>Contratista</option>
+                            </select>
+                        </div>
+                        <div id="contractorFields"
+                            class="mb-3 <?= (isset($registerOld['rol']) && $registerOld['rol'] === 'contratista') ? '' : 'd-none' ?>">
+                            <div class="mb-3">
+                                <label for="registro_ciudad" class="form-label fw-semibold">Ciudad</label>
+                                <input id="registro_ciudad" name="ciudad" type="text" class="form-control p-3 rounded-3"
+                                    placeholder="Bogotá" value="<?= esc($registerOld['ciudad'] ?? '') ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="registro_ubicacion" class="form-label fw-semibold">Ubicación exacta
+                                    (latitud,longitud)</label>
+                                <input id="registro_ubicacion" name="ubicacion_mapa" type="text"
+                                    class="form-control p-3 rounded-3" placeholder="4.710989,-74.072090"
+                                    value="<?= esc($registerOld['ubicacion_mapa'] ?? '') ?>">
+                                <small class="text-muted">Puedes copiar las coordenadas del mapa para una precisión
+                                    mayor.</small>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Registrarme</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/nav-floating.js"></script>
+
+    <script>
+        (function () {
+            const roleSelect = document.getElementById('registro_rol');
+            const contractorFields = document.getElementById('contractorFields');
+            const cityInput = document.getElementById('registro_ciudad');
+            const mapInput = document.getElementById('registro_ubicacion');
+
+            const toggleContractorFields = () => {
+                const isContractor = roleSelect.value === 'contratista';
+                contractorFields.classList.toggle('d-none', !isContractor);
+                cityInput.required = isContractor;
+                mapInput.required = isContractor;
+            };
+
+            if (roleSelect && contractorFields && cityInput && mapInput) {
+                roleSelect.addEventListener('change', toggleContractorFields);
+                toggleContractorFields();
+            }
+
+            <?php if (!empty($login_error)): ?>
+                const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
+            <?php endif; ?>
+
+            <?php if (!empty($register_error)): ?>
+                const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+                registerModal.show();
+            <?php endif; ?>
+        })();
+    </script>
 
 </body>
 

@@ -16,6 +16,21 @@
         <div class="collapse navbar-collapse justify-content-end" id="brixoNav">
             <ul class="navbar-nav align-items-center gap-3 ms-3">
                 <li class="nav-item"><a class="nav-link" href="/mapa">Mapa</a></li>
+                <?php $navUser = session()->get('user'); ?>
+                <?php if (!empty($navUser)): ?>
+                    <li class="nav-item d-none d-lg-flex align-items-center">
+                        <span class="nav-link disabled text-muted px-0">Hola, <?= esc($navUser['nombre'] ?? 'Usuario') ?></span>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#"
+                            data-bs-toggle="modal"
+                            data-bs-target="<?= ($navUser['rol'] ?? '') === 'contratista' ? '#contractorPanel' : '#userPanel' ?>">Mi Panel</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Salir</a></li>
+                <?php else: ?>
+                    <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">Ingresar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
+                            data-bs-target="#registerModal">Registrarse</a></li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

@@ -5,7 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->match(['get', 'post'], '/', 'Home::index');
+$routes->get('/logout', 'Home::logout');
 
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');

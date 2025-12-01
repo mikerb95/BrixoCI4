@@ -8,7 +8,7 @@ class ContratistaModel extends Model
 {
     protected $table            = 'CONTRATISTA';
     protected $primaryKey       = 'id_contratista';
-    protected $allowedFields    = ['nombre', 'experiencia', 'portafolio', 'foto_perfil', 'descripcion_perfil', 'verificado', 'telefono', 'correo', 'contrasena'];
+    protected $allowedFields    = ['nombre', 'experiencia', 'portafolio', 'foto_perfil', 'descripcion_perfil', 'verificado', 'telefono', 'correo', 'contrasena', 'ciudad', 'ubicacion_mapa'];
     protected $returnType       = 'array';
 
     public function getWithLocation()

@@ -35,6 +35,8 @@ CREATE TABLE CONTRATISTA (
   correo VARCHAR(255) NOT NULL UNIQUE,
   contrasena VARCHAR(255) NOT NULL,
   telefono VARCHAR(50),
+  ciudad VARCHAR(100),
+  ubicacion_mapa VARCHAR(255),
   foto_perfil VARCHAR(255),
   experiencia TEXT,
   portafolio TEXT,
