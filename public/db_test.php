@@ -9,7 +9,7 @@ $user = getenv('DB_USER');
 $pass = getenv('DB_PASSWORD');
 $name = getenv('DB_NAME');
 $port = getenv('DB_PORT') ?: 3306;
-$ssl  = getenv('DB_SSL') === 'true';
+$ssl = getenv('DB_SSL') === 'true';
 
 echo "<h1>Database Connection Test</h1>";
 echo "Host: $host<br>";
@@ -33,7 +33,7 @@ if ($ssl) {
 }
 
 // Try to connect
-if (!$mysqli->real_connect($host, $user, $pass, $name, (int)$port, NULL, $ssl ? MYSQLI_CLIENT_SSL : 0)) {
+if (!$mysqli->real_connect($host, $user, $pass, $name, (int) $port, NULL, $ssl ? MYSQLI_CLIENT_SSL : 0)) {
     die('Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
 }
 
