@@ -13,7 +13,8 @@
 
 body {
     background-color: #f5f5f5;
-    padding-top: 64px;
+    /* Aumentado 20% para compensar la navbar más alta */
+    padding-top: 77px;
 }
 
 /* Altura consistente para el mapa del home, independiente de la cantidad de puntos */
@@ -43,8 +44,9 @@ body.home-page {
     background-color: rgba(255, 255, 255, 0.90);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    padding-top: 0.63rem;
-    padding-bottom: 0.63rem;
+    /* Padding aumentado ~20% para incrementar la altura total */
+    padding-top: 0.76rem;
+    padding-bottom: 0.76rem;
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.22);
 }
 
@@ -54,7 +56,8 @@ body.home-page {
 }
 
 .brixo-navbar .brixo-logo {
-    height: 28px;
+    /* Logo escalado ~20% para mantener proporción con la navbar */
+    height: 34px;
     width: auto;
     display: block;
 }
@@ -193,7 +196,8 @@ body.home-page {
 }
 .floating-navbar .brand img {
     display: inline-block;
-    height: 28px; /* controla altura del logo dentro de la navbar */
+    /* mantener consistencia con la navbar principal (aumento ~20%) */
+    height: 34px; /* controla altura del logo dentro de la navbar */
     width: auto;  /* mantiene proporción */
     vertical-align: middle;
     margin-right: 8px;

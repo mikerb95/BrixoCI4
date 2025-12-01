@@ -19,7 +19,8 @@
                 <?php $navUser = session()->get('user'); ?>
                 <?php if (!empty($navUser)): ?>
                     <li class="nav-item d-flex align-items-center">
-                        <span class="nav-link disabled text-muted px-0">Hola, <?= esc($navUser['nombre'] ?? 'Usuario') ?></span>
+                        <span class="nav-link disabled text-muted px-0">Hola,
+                            <?= esc($navUser['nombre'] ?? 'Usuario') ?></span>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="/logout">Salir</a></li>
                 <?php else: ?>

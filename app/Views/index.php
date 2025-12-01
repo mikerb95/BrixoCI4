@@ -46,6 +46,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <?= esc($error) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
             <div class="row align-items-center">
                 <!-- Logo justo encima del bloque de texto principal -->
                 <div class="col-lg-7 text-start mb-3">
@@ -124,8 +130,9 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="border rounded-4 overflow-hidden shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?auto=format&fit=crop&w=900&q=80"
-                             alt="Vista de mapa urbano" class="w-100" style="object-fit: cover; max-height: 260px;">
+                        <img src="/images/map-preview.png"
+                            alt="Mapa de profesionales cercanos" class="w-100"
+                            style="object-fit: cover; max-height: 260px;">
                     </div>
                 </div>
             </div>
@@ -493,6 +500,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-0">
+                    <?php if (!empty($error)): ?>
+                        <div class="alert alert-danger"><?= esc($error) ?></div>
+                    <?php endif; ?>
                     <form method="post" action="/">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="register">
