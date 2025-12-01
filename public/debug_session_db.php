@@ -20,6 +20,18 @@ if (file_exists(FCPATH . '../vendor/autoload.php')) {
 $pathsPath = FCPATH . '../app/Config/Paths.php';
 require $pathsPath;
 $paths = new Config\Paths();
+
+// Define constants required by Config files
+if (! defined('APPPATH')) {
+    define('APPPATH', realpath(rtrim($paths->appDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
+}
+if (! defined('WRITEPATH')) {
+    define('WRITEPATH', realpath(rtrim($paths->writableDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
+}
+if (! defined('SYSTEMPATH')) {
+    define('SYSTEMPATH', realpath(rtrim($paths->systemDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
+}
+
 $appConfigPath = $paths->appDirectory . '/Config/App.php';
 $dbConfigPath = $paths->appDirectory . '/Config/Database.php';
 
