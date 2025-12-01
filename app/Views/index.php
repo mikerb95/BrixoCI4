@@ -39,11 +39,11 @@
         </nav>
         <!-- Floating navbar (hidden initially) -->
         <nav id="floating-nav" class="floating-navbar">
-            <div class="floating-inner">
-                <div class="d-flex align-items-center gap-4">
-                    <a href="/" class="brand fw-bold">BRIXO</a>
-                </div>
-                <ul class="d-flex list-unstyled mb-0 align-items-center gap-3">
+            <div class="floating-inner d-flex justify-content-between align-items-center w-100">
+                <a href="/" class="brand fw-bold d-flex align-items-center">
+                    <img src="/images/brixo-logo.png" alt="Brixo" onerror="this.style.display='none'">
+                </a>
+                <ul class="d-flex list-unstyled mb-0 align-items-center gap-3 ms-3">
                     <li><a href="/mapa" class="float-link">Mapa</a></li>
                     <?php if (!empty(session()->get('user'))): ?>
                         <li><a href="/logout" class="float-link">Salir</a></li>
@@ -56,6 +56,10 @@
         </nav>
         <div class="container position-relative z-1">
             <div class="row align-items-center">
+                <!-- Logo justo encima del bloque de texto principal -->
+                <div class="col-lg-7 text-start mb-3">
+                    <img src="/images/brixo-logo.png" alt="Brixo" style="height:128px;width:auto;" onerror="this.style.display='none'">
+                </div>
                 <div class="col-lg-7 text-start mb-5 mb-lg-0">
                     <h1 class="display-3 fw-bold mb-4 lh-sm">Profesionales<br>confiables, cuando<br>los necesitas</h1>
                     <p class="fs-5 mb-4 fw-light" style="max-width: 600px;">Reserva por horas a expertos en obra,
@@ -392,40 +396,34 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-light py-5 border-top mt-auto">
+    <footer class="site-footer py-5 border-top mt-auto">
         <div class="container" style="max-width: 1200px;">
             <div class="row g-4">
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Brixo</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Sobre
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Sobre
                                 nosotros</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Carreras</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Prensa</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Carreras</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Prensa</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Clientes</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Cómo
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Cómo
                                 funciona</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Seguridad</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Ayuda</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Seguridad</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Ayuda</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Profesionales</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Únete
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Únete
                                 como pro</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Historias de éxito</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Recursos</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Historias de éxito</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Recursos</a></li>
                     </ul>
                 </div>
             </div>
@@ -533,23 +531,41 @@
         const hero = document.querySelector('.hero');
         const floatingNav = document.getElementById('floating-nav');
         const heroNav = document.getElementById('hero-nav');
-        const threshold = () => hero.offsetHeight * 0.6; // appear after 60% scroll of hero
 
-        function onScroll() {
-            if (window.scrollY > threshold()) {
-                floatingNav.classList.add('visible');
-                heroNav.classList.add('hidden');
-                document.body.classList.add('floating-offset');
-            } else {
-                floatingNav.classList.remove('visible');
-                heroNav.classList.remove('hidden');
-                document.body.classList.remove('floating-offset');
-            }
+        // Toggle helpers
+        function showFloatingNav(show) {
+            if (!floatingNav) return;
+            floatingNav.classList.toggle('visible', !!show);
+            if (heroNav) heroNav.classList.toggle('hidden', !!show);
+            document.body.classList.toggle('floating-offset', !!show);
         }
 
-        window.addEventListener('scroll', onScroll);
-        window.addEventListener('resize', onScroll);
-        onScroll();
+        // Prefer IntersectionObserver to trigger exactly when hero sale del viewport
+        if (hero && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    const entry = entries[0];
+                    // When hero is NOT intersecting (ya pasó el fold), mostramos navbar flotante
+                    showFloatingNav(!entry.isIntersecting);
+                },
+                {
+                    root: null,
+                    // Consideramos "fuera" cuando el borde inferior del hero cruza la parte superior del viewport
+                    rootMargin: '0px 0px 0px 0px',
+                    threshold: 0
+                }
+            );
+            observer.observe(hero);
+        } else {
+            // Fallback basado en scroll si no hay IO o no hay hero
+            const foldThreshold = () => (hero ? hero.offsetHeight : 120);
+            function onScroll() {
+                showFloatingNav(window.scrollY > foldThreshold());
+            }
+            window.addEventListener('scroll', onScroll);
+            window.addEventListener('resize', onScroll);
+            onScroll();
+        }
 
         // --- Leaflet Map Setup ---
         const map = L.map('leaflet-map', { zoomControl: true }).setView([4.711, -74.072], 12);

@@ -14,8 +14,22 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar Partial -->
-    <?= view('partials/navbar') ?>
+    <!-- Floating navbar (igual a la que aparece en index tras el fold) -->
+    <nav id="floating-nav" class="floating-navbar visible">
+        <div class="floating-inner d-flex justify-content-between align-items-center w-100">
+            <a href="/" class="brand fw-bold d-flex align-items-center">
+                <img src="/images/brixo-logo.png" alt="Brixo" onerror="this.style.display='none'">
+            </a>
+            <ul class="d-flex list-unstyled mb-0 align-items-center gap-3 ms-3">
+                <li><a href="/mapa" class="float-link">Mapa</a></li>
+                <?php if (!empty(session()->get('user'))): ?>
+                    <li><a href="/logout" class="float-link">Salir</a></li>
+                <?php else: ?>
+                    <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </nav>
 
     <!-- 404 Content -->
     <section class="d-flex align-items-center justify-content-center flex-grow-1 py-5 text-center">
@@ -46,6 +60,16 @@
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Asegurar que la navbar flotante esté visible en 404 y no interfiera con layout
+        (function(){
+            const nav = document.getElementById('floating-nav');
+            if (nav) {
+                nav.classList.add('visible');
+                document.body.classList.add('floating-offset');
+            }
+        })();
+    </script>
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
