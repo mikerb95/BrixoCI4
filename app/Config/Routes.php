@@ -13,3 +13,12 @@ $routes->get('/panel', 'Panel::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
 
+// Páginas estáticas del footer
+$routes->get('sobre-nosotros', 'Info::sobreNosotros');
+$routes->get('como-funciona', 'Info::comoFunciona');
+$routes->get('seguridad', 'Info::seguridad');
+$routes->get('ayuda', 'Info::ayuda');
+$routes->get('unete-pro', 'Info::unetePro');
+$routes->get('historias-exito', 'Info::historiasExito');
+$routes->get('recursos', 'Info::recursos');
+

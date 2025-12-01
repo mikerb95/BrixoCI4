@@ -38,27 +38,12 @@
             </div>
         </nav>
         <!-- Floating navbar (hidden initially) -->
-        <nav id="floating-nav" class="floating-navbar">
-            <div class="floating-inner d-flex justify-content-between align-items-center w-100">
-                <a href="/" class="brand fw-bold d-flex align-items-center">
-                    <img src="/images/brixo-logo.png" alt="Brixo" onerror="this.style.display='none'">
-                </a>
-                <ul class="d-flex list-unstyled mb-0 align-items-center gap-3 ms-3">
-                    <li><a href="/mapa" class="float-link">Mapa</a></li>
-                    <?php if (!empty(session()->get('user'))): ?>
-                        <li><a href="/logout" class="float-link">Salir</a></li>
-                    <?php else: ?>
-                        <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </nav>
+        <?= view('partials/floating_nav') ?>
         <div class="container position-relative z-1">
             <div class="row align-items-center">
                 <!-- Logo justo encima del bloque de texto principal -->
                 <div class="col-lg-7 text-start mb-3">
-                    <img src="/images/brixo-logo.png" alt="Brixo" style="height:128px;width:auto;" onerror="this.style.display='none'">
+                    <img src="/images/brixo-logo-wh.png" alt="Brixo" style="height:128px;width:auto;" onerror="this.style.display='none'">
                 </div>
                 <div class="col-lg-7 text-start mb-5 mb-lg-0">
                     <h1 class="display-3 fw-bold mb-4 lh-sm">Profesionales<br>confiables, cuando<br>los necesitas</h1>
@@ -402,28 +387,26 @@
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Brixo</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Sobre
+                        <li class="mb-2"><a href="/sobre-nosotros" class="text-decoration-none hover-underline">Sobre
                                 nosotros</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Carreras</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Prensa</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Clientes</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Cómo
+                        <li class="mb-2"><a href="/como-funciona" class="text-decoration-none hover-underline">Cómo
                                 funciona</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Seguridad</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Ayuda</a></li>
+                        <li class="mb-2"><a href="/seguridad" class="text-decoration-none hover-underline">Seguridad</a></li>
+                        <li class="mb-2"><a href="/ayuda" class="text-decoration-none hover-underline">Ayuda</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h4 class="h5 fw-bold mb-3">Profesionales</h4>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Únete
+                        <li class="mb-2"><a href="/unete-pro" class="text-decoration-none hover-underline">Únete
                                 como pro</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Historias de éxito</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none hover-underline">Recursos</a></li>
+                        <li class="mb-2"><a href="/historias-exito" class="text-decoration-none hover-underline">Historias de éxito</a></li>
+                        <li class="mb-2"><a href="/recursos" class="text-decoration-none hover-underline">Recursos</a></li>
                     </ul>
                 </div>
             </div>
