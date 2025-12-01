@@ -13,6 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
 
     <?= view('partials/navbar') ?>
+    <?= view('partials/floating_nav') ?>
 
     <main class="flex-grow-1">
         <section class="py-5">
@@ -24,6 +25,9 @@
     </main>
 
     <?= view('info/partials/footer_static') ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/nav-floating.js"></script>
 
 </body>
 

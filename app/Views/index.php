@@ -503,6 +503,7 @@
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/nav-floating.js"></script>
 
     <script>
         // Show modal if there are errors
@@ -510,45 +511,6 @@
             var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
             loginModal.show();
         <?php endif; ?>
-
-        const hero = document.querySelector('.hero');
-        const floatingNav = document.getElementById('floating-nav');
-        const heroNav = document.getElementById('hero-nav');
-
-        // Toggle helpers
-        function showFloatingNav(show) {
-            if (!floatingNav) return;
-            floatingNav.classList.toggle('visible', !!show);
-            if (heroNav) heroNav.classList.toggle('hidden', !!show);
-            document.body.classList.toggle('floating-offset', !!show);
-        }
-
-        // Prefer IntersectionObserver to trigger exactly when hero sale del viewport
-        if (hero && 'IntersectionObserver' in window) {
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    const entry = entries[0];
-                    // When hero is NOT intersecting (ya pasó el fold), mostramos navbar flotante
-                    showFloatingNav(!entry.isIntersecting);
-                },
-                {
-                    root: null,
-                    // Consideramos "fuera" cuando el borde inferior del hero cruza la parte superior del viewport
-                    rootMargin: '0px 0px 0px 0px',
-                    threshold: 0
-                }
-            );
-            observer.observe(hero);
-        } else {
-            // Fallback basado en scroll si no hay IO o no hay hero
-            const foldThreshold = () => (hero ? hero.offsetHeight : 120);
-            function onScroll() {
-                showFloatingNav(window.scrollY > foldThreshold());
-            }
-            window.addEventListener('scroll', onScroll);
-            window.addEventListener('resize', onScroll);
-            onScroll();
-        }
 
         // --- Leaflet Map Setup ---
         const map = L.map('leaflet-map', { zoomControl: true }).setView([4.711, -74.072], 12);

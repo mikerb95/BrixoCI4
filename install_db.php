@@ -21,6 +21,13 @@ $h = fopen('php://stdin', 'r');
 $pass = trim(fgets($h));
 fclose($h);
 
+// Preguntar por SSL (necesario para Aiven y otras nubes)
+$ssl = prompt('¿Usar SSL (Requerido para Aiven)? (s/n)', 'n');
+$sslCa = '';
+if (strtolower($ssl) === 's') {
+    $sslCa = prompt('Ruta al certificado CA (ca.pem) [Dejar vacío si no tienes uno]', '');
+}
+
 $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -28,6 +35,15 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES => false,
     PDO::MYSQL_ATTR_MULTI_STATEMENTS => true,
 ];
+
+if (strtolower($ssl) === 's') {
+    if (!empty($sslCa)) {
+        $options[PDO::MYSQL_ATTR_SSL_CA] = $sslCa;
+    }
+    // Desactivar verificación estricta del certificado del servidor
+    // Esto ayuda si el certificado es autofirmado o el hostname no coincide exactamente
+    $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+}
 
 try {
     echo "\nConectando a la base de datos...\n";

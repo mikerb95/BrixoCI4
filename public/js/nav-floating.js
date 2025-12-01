@@ -20,12 +20,18 @@
         );
         observer.observe(hero);
     } else {
-        const foldThreshold = () => (hero ? hero.offsetHeight : 120);
-        function onScroll() {
-            showFloatingNav(window.scrollY > foldThreshold());
+        // Si no hay hero (páginas informativas, 404, etc.),
+        // mantenemos siempre visible la navbar flotante.
+        if (!hero) {
+            showFloatingNav(true);
+        } else {
+            const foldThreshold = () => hero.offsetHeight;
+            function onScroll() {
+                showFloatingNav(window.scrollY > foldThreshold());
+            }
+            window.addEventListener('scroll', onScroll);
+            window.addEventListener('resize', onScroll);
+            onScroll();
         }
-        window.addEventListener('scroll', onScroll);
-        window.addEventListener('resize', onScroll);
-        onScroll();
     }
 })();
