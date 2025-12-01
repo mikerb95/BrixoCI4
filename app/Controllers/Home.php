@@ -176,7 +176,7 @@ class Home extends BaseController
             $session->regenerate();
             $session->setFlashdata('message', 'Inicio de sesión correcto. ¡Bienvenido!');
 
-            return redirect()->to('/');
+            return redirect()->to('/panel');
         }
 
         $user = $session->get('user');

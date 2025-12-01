@@ -258,46 +258,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-5 mt-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <h5 class="fw-bold mb-3">brixo</h5>
-                    <p class="text-white-50">Conectando a los mejores profesionales con clientes que necesitan
-                        soluciones de calidad.</p>
-                </div>
-                <div class="col-md-2">
-                    <h6 class="fw-bold mb-3">Descubrir</h6>
-                    <ul class="list-unstyled text-white-50">
-                        <li><a href="#" class="text-reset text-decoration-none">Servicios</a></li>
-                        <li><a href="#" class="text-reset text-decoration-none">Profesionales</a></li>
-                        <li><a href="#" class="text-reset text-decoration-none">Cómo funciona</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2">
-                    <h6 class="fw-bold mb-3">Para Profesionales</h6>
-                    <ul class="list-unstyled text-white-50">
-                        <li><a href="#" class="text-reset text-decoration-none">Regístrate</a></li>
-                        <li><a href="#" class="text-reset text-decoration-none">Éxito en Brixo</a></li>
-                        <li><a href="#" class="text-reset text-decoration-none">Recursos</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="fw-bold mb-3">Síguenos</h6>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-white fs-5"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-white fs-5"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white fs-5"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white fs-5"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="border-secondary my-4">
-            <div class="text-center text-white-50 small">
-                &copy; 2025 Brixo. Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
+    <?= view('partials/footer') ?>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

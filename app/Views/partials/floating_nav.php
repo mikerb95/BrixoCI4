@@ -12,11 +12,8 @@
                 <?php $role = $floatUser['rol'] ?? ''; ?>
                 <?php if ($role === 'admin'): ?>
                     <li><a href="/admin" class="float-link">Mi Panel</a></li>
-                <?php elseif ($role === 'contratista'): ?>
-                    <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#contractorPanel">Mi Panel</a>
-                    </li>
                 <?php else: ?>
-                    <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#userPanel">Mi Panel</a></li>
+                    <li><a href="/panel" class="float-link">Mi Panel</a></li>
                 <?php endif; ?>
                 <li><a href="/logout" class="float-link">Salir</a></li>
             <?php else: ?>

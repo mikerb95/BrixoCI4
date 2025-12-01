@@ -25,12 +25,8 @@
                     <?php $role = $navUser['rol'] ?? ''; ?>
                     <?php if ($role === 'admin'): ?>
                         <li class="nav-item"><a class="nav-link" href="/admin">Mi Panel</a></li>
-                    <?php elseif ($role === 'contratista'): ?>
-                        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
-                                data-bs-target="#contractorPanel">Mi Panel</a></li>
                     <?php else: ?>
-                        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#userPanel">Mi
-                                Panel</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/panel">Mi Panel</a></li>
                     <?php endif; ?>
                     <li class="nav-item"><a class="nav-link" href="/logout">Salir</a></li>
                 <?php else: ?>
