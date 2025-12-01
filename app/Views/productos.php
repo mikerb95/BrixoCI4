@@ -30,7 +30,9 @@
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Portafolio de Servicios</h1>
-        <p class="lead">¿Necesitas profesionales fiables para obra, construcción, plomería, electricidad, domótica, carpintería y más? En Brixo conectamos tu proyecto con técnicos verificados, presupuestos claros y garantía de calidad. Publica tu trabajo y recibe ofertas competitivas en menos de 24 horas.</p>
+        <p class="lead">¿Necesitas profesionales fiables para obra, construcción, plomería, electricidad, domótica,
+            carpintería y más? En Brixo conectamos tu proyecto con técnicos verificados, presupuestos claros y garantía
+            de calidad. Publica tu trabajo y recibe ofertas competitivas en menos de 24 horas.</p>
         <p>
             <a class="btn btn-lg btn-primary" href="/crear-proyecto" role="button">Publica tu proyecto gratis</a>
             <a class="btn btn-lg btn-outline-primary" href="/como-funciona" role="button">Cómo funciona</a>
@@ -40,11 +42,16 @@
     <div class="px-4 pt-5 my-5 text-center border-bottom">
         <h1 class="display-4 fw-bold text-body-emphasis">Centered screenshot</h1>
         <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5"> <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Ver contratos</button> <button type="button" class="btn btn-outline-secondary btn-lg px-4">Ver profesionales</button> </div>
+            <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s
+                most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system,
+                extensive prebuilt components, and powerful JavaScript plugins.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5"> <button type="button"
+                    class="btn btn-primary btn-lg px-4 me-sm-3">Ver contratos</button> <button type="button"
+                    class="btn btn-outline-secondary btn-lg px-4">Ver profesionales</button> </div>
         </div>
         <div class="overflow-hidden" style="max-height: 30vh;">
-            <div class="container px-5"> <img src="bootstrap-docs.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy"> </div>
+            <div class="container px-5"> <img src="bootstrap-docs.png" class="img-fluid border rounded-3 shadow-lg mb-4"
+                    alt="Example image" width="700" height="500" loading="lazy"> </div>
         </div>
     </div>
 
@@ -56,7 +63,8 @@
                         <h4 class="my-0 fw-normal">Free</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$0 <small class="text-muted fw-light">/ mo</small></h1>
+                        <h1 class="card-title pricing-card-title">$0 <small class="text-muted fw-light">/ mo</small>
+                        </h1>
                         <ul class="list-unstyled mt-3 mb-4">
                             <li>10 users included</li>
                             <li>2 GB of storage</li>
@@ -73,7 +81,8 @@
                         <h4 class="my-0 fw-normal">Pro</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$15 <small class="text-muted fw-light">/ mo</small></h1>
+                        <h1 class="card-title pricing-card-title">$15 <small class="text-muted fw-light">/ mo</small>
+                        </h1>
                         <ul class="list-unstyled mt-3 mb-4">
                             <li>20 users included</li>
                             <li>10 GB of storage</li>
@@ -90,7 +99,8 @@
                         <h4 class="my-0 fw-normal">Enterprise</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$29 <small class="text-muted fw-light">/ mo</small></h1>
+                        <h1 class="card-title pricing-card-title">$29 <small class="text-muted fw-light">/ mo</small>
+                        </h1>
                         <ul class="list-unstyled mt-3 mb-4">
                             <li>30 users included</li>
                             <li>15 GB of storage</li>

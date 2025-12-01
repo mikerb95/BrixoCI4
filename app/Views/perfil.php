@@ -62,7 +62,8 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-auto text-center text-md-start">
-                    <img src="<?= $pro['imagen'] ?>" alt="<?= $pro['nombre'] ?>" class="rounded-circle profile-img-large">
+                    <img src="<?= $pro['imagen'] ?>" alt="<?= $pro['nombre'] ?>"
+                        class="rounded-circle profile-img-large">
                 </div>
                 <div class="col-md text-center text-md-start mt-3 mt-md-0">
                     <h1 class="fw-bold mb-1">
@@ -86,15 +87,18 @@
                                     <?php endif; ?>
                                 <?php endfor; ?>
                             </div>
-                            <span class="text-muted text-decoration-underline">(<?= $pro['reviews_count'] ?> reseñas)</span>
+                            <span class="text-muted text-decoration-underline">(<?= $pro['reviews_count'] ?>
+                                reseñas)</span>
                         </div>
                         <div class="text-muted">
                             <i class="fas fa-map-marker-alt me-1"></i> <?= $pro['ubicacion'] ?>
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2">
-                        <span class="badge bg-light text-dark border"><i class="fas fa-trophy text-warning me-1"></i> Súper Pro</span>
-                        <span class="badge bg-light text-dark border"><i class="fas fa-clock me-1"></i> 10 trabajos este mes</span>
+                        <span class="badge bg-light text-dark border"><i class="fas fa-trophy text-warning me-1"></i>
+                            Súper Pro</span>
+                        <span class="badge bg-light text-dark border"><i class="fas fa-clock me-1"></i> 10 trabajos este
+                            mes</span>
                     </div>
                 </div>
             </div>
@@ -148,10 +152,12 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-start mb-2">
                                             <h5 class="card-title fw-bold mb-0"><?= $servicio['nombre'] ?></h5>
-                                            <span class="badge bg-primary bg-opacity-10 text-primary">Desde $<?= number_format($servicio['precio'], 0, ',', '.') ?></span>
+                                            <span class="badge bg-primary bg-opacity-10 text-primary">Desde
+                                                $<?= number_format($servicio['precio'], 0, ',', '.') ?></span>
                                         </div>
                                         <p class="card-text text-muted small"><?= $servicio['descripcion'] ?></p>
-                                        <button class="btn btn-outline-primary btn-sm w-100 mt-2">Cotizar este servicio</button>
+                                        <button class="btn btn-outline-primary btn-sm w-100 mt-2">Cotizar este
+                                            servicio</button>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +175,8 @@
                         <div class="card border-0 mb-4">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
-                                    <div class="bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center fw-bold text-secondary" style="width: 50px; height: 50px;">
+                                    <div class="bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center fw-bold text-secondary"
+                                        style="width: 50px; height: 50px;">
                                         <?= substr($resena['autor'], 0, 1) ?>
                                     </div>
                                 </div>
@@ -205,7 +212,8 @@
                                 <button class="btn btn-outline-dark btn-lg fw-bold">Enviar Mensaje</button>
                             </div>
                             <div class="text-center mt-3">
-                                <small class="text-muted"><i class="fas fa-bolt text-warning"></i> Responde en menos de 1 hora</small>
+                                <small class="text-muted"><i class="fas fa-bolt text-warning"></i> Responde en menos de
+                                    1 hora</small>
                             </div>
                         </div>
                         <div class="card-footer bg-light p-3 text-center border-top-0 rounded-bottom-4">

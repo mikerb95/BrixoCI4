@@ -3,7 +3,8 @@
         <div class="row g-4">
             <div class="col-md-4">
                 <h4 class="h5 fw-bold mb-3">Brixo</h4>
-                <p class="small opacity-75">Conectamos a clientes con profesionales confiables para proyectos de obra, reparación y más.</p>
+                <p class="small opacity-75">Conectamos a clientes con profesionales confiables para proyectos de obra,
+                    reparación y más.</p>
             </div>
             <div class="col-md-4">
                 <h4 class="h5 fw-bold mb-3">Clientes</h4>

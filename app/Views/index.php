@@ -262,9 +262,11 @@
                                                             <div class="fw-semibold"><?= esc($c['detalle'] ?? 'Servicio') ?>
                                                             </div>
                                                             <div class="small text-secondary">Contratista:
-                                                                <?= esc($c['contratista'] ?? '') ?></div>
+                                                                <?= esc($c['contratista'] ?? '') ?>
+                                                            </div>
                                                             <div class="small text-secondary">Estado:
-                                                                <?= esc($c['estado'] ?? '') ?></div>
+                                                                <?= esc($c['estado'] ?? '') ?>
+                                                            </div>
                                                         </div>
                                                         <div class="text-end small text-secondary">
                                                             <div>Inicio: <?= esc($c['fecha_inicio'] ?? '') ?></div>
@@ -323,9 +325,11 @@
                                                             <div class="fw-semibold"><?= esc($c['detalle'] ?? 'Servicio') ?>
                                                             </div>
                                                             <div class="small text-secondary">Cliente:
-                                                                <?= esc($c['cliente'] ?? '') ?></div>
+                                                                <?= esc($c['cliente'] ?? '') ?>
+                                                            </div>
                                                             <div class="small text-secondary">Estado:
-                                                                <?= esc($c['estado'] ?? '') ?></div>
+                                                                <?= esc($c['estado'] ?? '') ?>
+                                                            </div>
                                                         </div>
                                                         <div class="text-end small text-secondary">
                                                             <div>Inicio: <?= esc($c['fecha_inicio'] ?? '') ?></div>
