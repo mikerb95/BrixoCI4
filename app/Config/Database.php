@@ -164,16 +164,16 @@ class Database extends Config
      */
     public array $tests = [
         'DSN'         => '',
-        'hostname'    => '127.0.0.1',
-        'username'    => '',
+        'hostname'    => 'localhost',
+        'username'    => 'root',
         'password'    => '',
-        'database'    => ':memory:',
-        'DBDriver'    => 'SQLite3',
-        'DBPrefix'    => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
+        'database'    => 'brixo',
+        'DBDriver'    => 'MySQLi',
+        'DBPrefix'    => '',
         'pConnect'    => false,
         'DBDebug'     => true,
-        'charset'     => 'utf8',
-        'DBCollat'    => '',
+        'charset'     => 'utf8mb4',
+        'DBCollat'    => 'utf8mb4_general_ci',
         'swapPre'     => '',
         'encrypt'     => false,
         'compress'    => false,
@@ -219,5 +219,11 @@ class Database extends Config
         if (getenv('DB_SSL') === 'true') {
             $this->default['encrypt'] = true;
         }
+
+        // COPIAR CONFIGURACIÓN DE DEFAULT A TESTS
+        // Esto asegura que los tests usen la base de datos remota configurada en .env
+        $this->tests = $this->default;
+        // Forzamos el grupo de pruebas para evitar prefijos extraños si no se desean
+        $this->tests['DBPrefix'] = ''; 
     }
 }

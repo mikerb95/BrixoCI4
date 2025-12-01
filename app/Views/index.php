@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body>
+<body class="home-page">
 
     <!-- Hero Section with simple nav -->
     <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white"

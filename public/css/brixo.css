@@ -9,36 +9,63 @@
 
 body {
     background-color: #f5f5f5;
+    padding-top: 64px;
+}
+
+/* En la home no aplicamos padding-top global, el hero ya ocupa todo el alto */
+body.home-page {
+    padding-top: 0;
 }
 
 /* Custom Overrides for Bootstrap */
-.text-primary {
-    color: var(--primary-color) !important;
+.brixo-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    background-color: rgba(255, 255, 255, 0.90);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding-top: 0.63rem;
+    padding-bottom: 0.63rem;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.22);
 }
 
-.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+.brixo-navbar .navbar-brand {
+    padding: 0;
+    margin-right: 1.25rem;
 }
 
-.btn-primary:hover {
-    background-color: #007bb5;
-    border-color: #007bb5;
+.brixo-navbar .brixo-logo {
+    height: 28px;
+    width: auto;
+    display: block;
 }
 
-.border-primary {
-    border-color: var(--primary-color) !important;
+.brixo-navbar .nav-link {
+    color: #111827;
+    font-size: 0.98rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 0.35rem 0.6rem;
+    border-radius: 30px;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
-.hover-shadow:hover {
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-    transform: translateY(-2px);
+.brixo-navbar .nav-link:hover,
+.brixo-navbar .nav-link:focus {
+    background: var(--secondary-color);
+    color: var(--primary-color);
 }
 
-.transition {
-    transition: all 0.2s ease-in-out;
+.brixo-toggler {
+    border: none;
 }
 
+.brixo-toggler:focus {
+    box-shadow: none;
+}
 .hover-underline:hover {
     text-decoration: underline !important;
 }
@@ -176,12 +203,6 @@ body {
     .floating-navbar { width: 96%; padding: 10px 20px; }
 }
 
-/* When floating navbar is visible, push page content further down */
-body.floating-offset {
-    padding-top: 120px;
-}
-
-
 /* Glassmorphism / Backdrop Blur */
 .backdrop-blur {
     backdrop-filter: blur(10px);
@@ -235,68 +256,7 @@ body.floating-offset {
 /* Fondo diferenciado sección mapa */
 .map-section { background-color: #f5f1e9; }
 
-/* Brixo Navbar */
-.brixo-navbar {
-    background-color: #111;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-.brixo-navbar .navbar-brand {
-    color: #fff;
-    font-size: 1.8rem;
-    letter-spacing: -1px;
-}
-
-.brixo-navbar .navbar-brand:hover {
-    color: var(--primary-color);
-}
-
-.brixo-navbar .nav-link {
-    color: #fff;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    transition: color 0.2s ease;
-}
-
-.brixo-navbar .nav-link:hover,
-.brixo-navbar .nav-link:focus {
-    color: var(--primary-color);
-}
-
-.brixo-navbar .navbar-toggler {
-    border-color: rgba(255,255,255,0.1);
-}
-
-.brixo-navbar .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-.brixo-navbar .search-form {
-    width: 100%;
-    max-width: 400px;
-}
-
-.brixo-navbar .search-form .input-group {
-    background-color: #2a2a2a;
-    border: 1px solid #333;
-}
-
-.brixo-navbar .search-form input::placeholder {
-    color: #888;
-}
-
-.brixo-navbar .search-form input {
-    color: #fff;
-}
-
-.brixo-navbar .search-form input:focus {
-    background-color: #2a2a2a;
-    color: #fff;
-    box-shadow: none;
-    border-color: var(--primary-color);
-}
+/* Brixo Navbar (legacy styles removed; see top of file for current light style) */
 
 /* ---------------------------------------------------------
    Leaflet compatibility fix against Bootstrap img rules

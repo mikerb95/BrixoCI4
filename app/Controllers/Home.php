@@ -35,25 +35,33 @@ class Home extends BaseController
                     return redirect()->to('/');
                 }
 
-                // Verificar correo único
-                $exists = $db->table('USUARIO')->where('correo', $correo)->countAllResults();
-                if ($exists > 0) {
+                // Verificar correo único en ambas tablas
+                $existsCliente = $db->table('CLIENTE')->where('correo', $correo)->countAllResults();
+                $existsContratista = $db->table('CONTRATISTA')->where('correo', $correo)->countAllResults();
+
+                if ($existsCliente > 0 || $existsContratista > 0) {
                     $session->setFlashdata('error', 'Ese correo ya está registrado.');
                     return redirect()->to('/');
                 }
 
-                $db->table('USUARIO')->insert([
+                $data = [
                     'nombre' => $nombre,
                     'correo' => $correo,
                     'telefono' => $telefono,
                     'contrasena' => password_hash($contrasena, PASSWORD_DEFAULT),
-                    'rol' => $rol,
-                ]);
+                    'fecha_registro' => date('Y-m-d H:i:s'),
+                ];
+
+                if ($rol === 'cliente') {
+                    $db->table('CLIENTE')->insert($data);
+                } else {
+                    $db->table('CONTRATISTA')->insert($data);
+                }
 
                 $session->setFlashdata('message', 'Cuenta creada correctamente. Ya puedes iniciar sesión.');
                 return redirect()->to('/');
             } else {
-                // Login contra USUARIO
+                // Login: Buscar en CLIENTE o CONTRATISTA
                 $email = trim((string) $this->request->getPost('correo'));
                 $password = (string) $this->request->getPost('contrasena');
 
@@ -62,14 +70,32 @@ class Home extends BaseController
                     return redirect()->to('/');
                 }
 
-                $usuario = $db->table('USUARIO')->where('correo', $email)->get()->getRow();
+                $usuario = null;
+                $rol = '';
+                $id = '';
+
+                // Intentar como Cliente
+                $cliente = $db->table('CLIENTE')->where('correo', $email)->get()->getRow();
+                if ($cliente) {
+                    $usuario = $cliente;
+                    $rol = 'cliente';
+                    $id = $cliente->id_cliente;
+                } else {
+                    // Intentar como Contratista
+                    $contratista = $db->table('CONTRATISTA')->where('correo', $email)->get()->getRow();
+                    if ($contratista) {
+                        $usuario = $contratista;
+                        $rol = 'contratista';
+                        $id = $contratista->id_contratista;
+                    }
+                }
 
                 if ($usuario !== null && password_verify($password, $usuario->contrasena)) {
                     $session->set('user', [
-                        'id' => $usuario->id_usuario,
+                        'id' => $id,
                         'nombre' => $usuario->nombre,
                         'correo' => $usuario->correo,
-                        'rol' => $usuario->rol,
+                        'rol' => $rol,
                         'foto_perfil' => $usuario->foto_perfil ?? null,
                         'telefono' => $usuario->telefono ?? null,
                     ]);
@@ -87,28 +113,26 @@ class Home extends BaseController
         if (!empty($user)) {
             $db = db_connect();
             if ($user['rol'] === 'cliente') {
-                // Contratos del cliente (join a cotización)
+                // Contratos del cliente
                 $data['userContracts'] = $db->query(
                     'SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
-                            c.descripcion as detalle,
-                            u.nombre as contratista
+                            "Servicio contratado" as detalle,
+                            con.nombre as contratista
                      FROM CONTRATO ct
-                     JOIN COTIZACION c ON c.id_cotizacion = ct.id_cotizacion
-                     JOIN USUARIO u ON u.id_usuario = ct.id_contratista
-                     WHERE c.id_cliente = ?
+                     JOIN CONTRATISTA con ON con.id_contratista = ct.id_contratista
+                     WHERE ct.id_cliente = ?
                      ORDER BY ct.fecha_inicio DESC
                      LIMIT 5',
                     [$user['id']]
                 )->getResultArray();
             } elseif ($user['rol'] === 'contratista') {
-                // Contratos del contratista (join a cotización y cliente)
+                // Contratos del contratista
                 $data['contractorContracts'] = $db->query(
                     'SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
-                            c.descripcion as detalle,
-                            u.nombre as cliente
+                            "Servicio contratado" as detalle,
+                            cli.nombre as cliente
                      FROM CONTRATO ct
-                     JOIN COTIZACION c ON c.id_cotizacion = ct.id_cotizacion
-                     JOIN USUARIO u ON u.id_usuario = c.id_cliente
+                     JOIN CLIENTE cli ON cli.id_cliente = ct.id_cliente
                      WHERE ct.id_contratista = ?
                      ORDER BY ct.fecha_inicio DESC
                      LIMIT 5',

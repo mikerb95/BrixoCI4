@@ -12,6 +12,7 @@
 
 <body class="d-flex flex-column min-vh-100">
 
+    <?= view('partials/navbar') ?>
     <?= view('partials/floating_nav') ?>
 
     <main class="flex-grow-1">

@@ -2,12 +2,15 @@
     const hero = document.querySelector('.hero');
     const floatingNav = document.getElementById('floating-nav');
     const heroNav = document.getElementById('hero-nav');
+    const topNav = document.querySelector('.brixo-navbar');
+    const isHome = !!hero; // usamos presencia de .hero para detectar index
 
     function showFloatingNav(show) {
         if (!floatingNav) return;
         floatingNav.classList.toggle('visible', !!show);
-        if (heroNav) heroNav.classList.toggle('hidden', !!show);
-        document.body.classList.toggle('floating-offset', !!show);
+        // Ocultamos la barra fija (y hero-nav en home) cuando aparece la flotante
+        if (topNav) topNav.classList.toggle('d-none', !!show);
+        if (isHome && heroNav) heroNav.classList.toggle('hidden', !!show);
     }
 
     if (hero && 'IntersectionObserver' in window) {
@@ -20,18 +23,15 @@
         );
         observer.observe(hero);
     } else {
-        // Si no hay hero (páginas informativas, 404, etc.),
-        // mantenemos siempre visible la navbar flotante.
-        if (!hero) {
-            showFloatingNav(true);
-        } else {
-            const foldThreshold = () => hero.offsetHeight;
-            function onScroll() {
-                showFloatingNav(window.scrollY > foldThreshold());
-            }
-            window.addEventListener('scroll', onScroll);
-            window.addEventListener('resize', onScroll);
-            onScroll();
+        // Páginas sin hero (info, 404, etc.):
+        // mantenemos la navbar flotante oculta al inicio
+        // y sólo la mostramos tras cierto scroll.
+        const threshold = 120;
+        function onScroll() {
+            showFloatingNav(window.scrollY > threshold);
         }
+        window.addEventListener('scroll', onScroll);
+        window.addEventListener('resize', onScroll);
+        onScroll();
     }
 })();

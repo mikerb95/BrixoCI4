@@ -119,6 +119,7 @@
 </head>
 
 <body>
+    <?= view('partials/navbar') ?>
 
     <div class="main-container">
         <!-- List Column -->

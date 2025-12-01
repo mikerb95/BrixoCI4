@@ -17,24 +17,23 @@ class Panel extends BaseController
         if ($user['rol'] === 'cliente') {
             $contracts = $db->query(
                 'SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
-                        c.descripcion as detalle,
-                        u.nombre as contratista
+                        "Servicio contratado" as detalle,
+                        con.nombre as contratista
                  FROM CONTRATO ct
-                 JOIN COTIZACION c ON c.id_cotizacion = ct.id_cotizacion
-                 JOIN USUARIO u ON u.id_usuario = ct.id_contratista
-                 WHERE c.id_cliente = ?
+                 JOIN CONTRATISTA con ON con.id_contratista = ct.id_contratista
+                 WHERE ct.id_cliente = ?
                  ORDER BY ct.fecha_inicio DESC',
                 [$user['id']]
             )->getResultArray();
 
             $reviews = $db->query(
-                'SELECT r.calificacion, r.comentario, r.fecha_resena,
-                        u.nombre as contratista
+                'SELECT r.calificacion, r.comentario, r.fecha as fecha_resena,
+                        con.nombre as contratista
                  FROM RESENA r
                  JOIN CONTRATO ct ON ct.id_contrato = r.id_contrato
-                 JOIN USUARIO u ON u.id_usuario = ct.id_contratista
+                 JOIN CONTRATISTA con ON con.id_contratista = ct.id_contratista
                  WHERE r.id_cliente = ?
-                 ORDER BY r.fecha_resena DESC',
+                 ORDER BY r.fecha DESC',
                 [$user['id']]
             )->getResultArray();
 
@@ -48,24 +47,23 @@ class Panel extends BaseController
         // Contratista
         $contracts = $db->query(
             'SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
-                    c.descripcion as detalle,
-                    u.nombre as cliente
+                    "Servicio contratado" as detalle,
+                    cli.nombre as cliente
              FROM CONTRATO ct
-             JOIN COTIZACION c ON c.id_cotizacion = ct.id_cotizacion
-             JOIN USUARIO u ON u.id_usuario = c.id_cliente
+             JOIN CLIENTE cli ON cli.id_cliente = ct.id_cliente
              WHERE ct.id_contratista = ?
              ORDER BY ct.fecha_inicio DESC',
             [$user['id']]
         )->getResultArray();
 
         $reviews = $db->query(
-            'SELECT r.calificacion, r.comentario, r.fecha_resena,
-                    u.nombre as cliente
+            'SELECT r.calificacion, r.comentario, r.fecha as fecha_resena,
+                    cli.nombre as cliente
              FROM RESENA r
              JOIN CONTRATO ct ON ct.id_contrato = r.id_contrato
-             JOIN USUARIO u ON u.id_usuario = ct.id_cliente
-             WHERE r.id_contratista = ?
-             ORDER BY r.fecha_resena DESC',
+             JOIN CLIENTE cli ON cli.id_cliente = r.id_cliente
+             WHERE ct.id_contratista = ?
+             ORDER BY r.fecha DESC',
             [$user['id']]
         )->getResultArray();
 
