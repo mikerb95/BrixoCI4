@@ -14,7 +14,7 @@ if (!$files) {
 }
 
 // Sort by modification time, newest first
-usort($files, function($a, $b) {
+usort($files, function ($a, $b) {
     return filemtime($b) - filemtime($a);
 });
 
