@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->match(['get', 'post'], '/', 'Home::index');
+$routes->match(['get', 'post', 'head'], '/', 'Home::index');
 $routes->get('/logout', 'Home::logout');
 
 $routes->get('/mapa', 'Mapa::index');
@@ -13,6 +13,7 @@ $routes->get('/panel', 'Panel::index');
 $routes->get('/perfil', 'Panel::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
+$routes->get('/debug-auth', 'DebugAuth::index');
 
 // Páginas estáticas del footer
 $routes->get('sobre-nosotros', 'Info::sobreNosotros');
