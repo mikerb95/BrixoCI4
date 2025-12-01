@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\ContratistaModel;
-use App\Models\ResenaModel;
 use CodeIgniter\HTTP\RedirectResponse;
 
 class Home extends BaseController
@@ -20,7 +18,6 @@ class Home extends BaseController
             'login_error' => $session->getFlashdata('login_error'),
             'userContracts' => [],
             'contractorContracts' => [],
-            'homeProfessionals' => [],
         ];
 
         if ($this->request->getMethod() === 'post') {
@@ -48,7 +45,7 @@ class Home extends BaseController
                     return redirect()->to('/');
                 }
 
-                $data = [
+                $nuevo = [
                     'nombre' => $nombre,
                     'correo' => $correo,
                     'telefono' => $telefono,
@@ -57,9 +54,9 @@ class Home extends BaseController
                 ];
 
                 if ($rol === 'cliente') {
-                    $db->table('CLIENTE')->insert($data);
+                    $db->table('CLIENTE')->insert($nuevo);
                 } else {
-                    $db->table('CONTRATISTA')->insert($data);
+                    $db->table('CONTRATISTA')->insert($nuevo);
                 }
 
                 $session->setFlashdata('message', 'Cuenta creada correctamente. Ya puedes iniciar sesión.');
@@ -70,8 +67,7 @@ class Home extends BaseController
                 $password = (string) $this->request->getPost('contrasena');
 
                 if ($email === '' || $password === '') {
-                    $session->setFlashdata('login_error', true);
-                    $session->setFlashdata('error', 'Debes ingresar correo y contraseña.');
+                    $session->setFlashdata('error', 'Debes escribir el correo y la contraseña.');
                     return redirect()->to('/');
                 }
 
@@ -108,8 +104,7 @@ class Home extends BaseController
                     return redirect()->to('/panel');
                 }
 
-                $session->setFlashdata('login_error', true);
-                $session->setFlashdata('error', 'Usuario inválido o contraseña incorrecta.');
+                $session->setFlashdata('error', 'Las credenciales no coinciden con la base de datos.');
                 return redirect()->to('/');
             }
         }
@@ -145,59 +140,6 @@ class Home extends BaseController
                     [$user['id']]
                 )->getResultArray();
             }
-        }
-
-        // Profesionales para el mapa del home (muestra un subconjunto destacado)
-        try {
-            $contratistaModel = new ContratistaModel();
-            $resenaModel = new ResenaModel();
-
-            $rawProfessionals = $contratistaModel->getWithLocation();
-
-            $homeProfessionals = [];
-            $baseLat = 4.6097;
-            $baseLng = -74.0817;
-
-            foreach ($rawProfessionals as $pro) {
-                $reviews = $resenaModel->getByContratista($pro['id_contratista']);
-                $ratingSum = 0;
-                foreach ($reviews as $r) {
-                    $ratingSum += $r['calificacion'];
-                }
-                $avgRating = count($reviews) > 0 ? $ratingSum / count($reviews) : 0;
-
-                if (!empty($pro['latitud']) && !empty($pro['longitud'])) {
-                    $lat = $pro['latitud'];
-                    $lng = $pro['longitud'];
-                } else {
-                    $id = (int) $pro['id_contratista'];
-                    $latOffset = sin($id) * 0.05;
-                    $lngOffset = cos($id) * 0.05;
-                    $lat = $baseLat + $latOffset;
-                    $lng = $baseLng + $lngOffset;
-                }
-
-                $homeProfessionals[] = [
-                    'id' => $pro['id_contratista'],
-                    'nombre' => $pro['nombre'],
-                    'profesion' => $pro['experiencia'] ?: 'Profesional',
-                    'rating' => number_format($avgRating, 1),
-                    'reviews' => count($reviews),
-                    'precio' => 50000,
-                    'lat' => $lat,
-                    'lng' => $lng,
-                    'imagen' => !empty($pro['foto_perfil'])
-                        ? $pro['foto_perfil']
-                        : 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random',
-                    'ubicacion' => $pro['ciudad'] ?? 'Bogotá',
-                ];
-            }
-
-            // Limitar a algunos destacados para el home
-            $data['homeProfessionals'] = array_slice($homeProfessionals, 0, 12);
-        } catch (\Throwable $e) {
-            // En home fallar silencioso para no romper la portada
-            $data['homeProfessionals'] = [];
         }
 
         return view('index', $data);

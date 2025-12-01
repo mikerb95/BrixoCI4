@@ -110,64 +110,22 @@
         </div>
     </section>
 
-    <!-- Mapa estilo Airbnb con Leaflet y contratistas reales -->
-    <section class="map-section py-5">
+    <!-- Sección de llamada a la acción hacia el mapa -->
+    <section class="py-5 bg-light">
         <div class="container" style="max-width: 1200px;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h2 class="h3 fw-bold mb-1">Explora profesionales en tu zona</h2>
-                    <p class="text-secondary mb-0">Mira opciones disponibles directamente sobre el mapa.</p>
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <h2 class="h3 fw-bold mb-3">Encuentra profesionales cerca de ti</h2>
+                    <p class="text-secondary mb-4">
+                        Explora el mapa interactivo para ver contratistas verificados, reseñas y precios
+                        estimados en tu zona.
+                    </p>
+                    <a href="/mapa" class="btn btn-primary btn-lg rounded-pill px-4">Ver mapa interactivo</a>
                 </div>
-                <a href="/mapa" class="btn btn-outline-primary rounded-pill">Abrir mapa detallado</a>
-            </div>
-
-            <div class="position-relative" style="border-radius: 24px; overflow: hidden;">
-                <!-- Mapa Leaflet de fondo -->
-                <div id="leaflet-map"></div>
-
-                <!-- Panel flotante de resultados, similar a Airbnb -->
-                <div class="position-absolute top-0 end-0 h-100 d-flex align-items-stretch">
-                    <div class="bg-white shadow-lg" style="width: 380px; max-width: 100%; padding: 18px; overflow-y: auto;">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="small text-secondary">
-                                <?php if (!empty($homeProfessionals)): ?>
-                                    <?= count($homeProfessionals) ?> profesionales destacados en tu zona
-                                <?php else: ?>
-                                    Sin profesionales cargados aún
-                                <?php endif; ?>
-                            </span>
-                            <span class="badge rounded-pill text-bg-light">Vista rápida</span>
-                        </div>
-
-                        <div class="d-flex flex-column gap-3" id="home-pro-list">
-                            <?php foreach ($homeProfessionals as $pro): ?>
-                                <div class="border rounded-3 p-3 hover-shadow transition bg-white home-pro-card"
-                                     data-id="<?= esc($pro['id']) ?>"
-                                     data-lat="<?= esc($pro['lat']) ?>"
-                                     data-lng="<?= esc($pro['lng']) ?>">
-                                    <div class="d-flex gap-3">
-                                        <img src="<?= esc($pro['imagen']) ?>" alt="<?= esc($pro['nombre']) ?>"
-                                             class="rounded-3 object-fit-cover" width="72" height="72">
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                                <div>
-                                                    <div class="small text-secondary mb-1"><?= esc($pro['ubicacion']) ?></div>
-                                                    <h3 class="h6 fw-bold mb-1"><?= esc($pro['profesion']) ?></h3>
-                                                    <div class="small text-secondary"><?= esc($pro['nombre']) ?></div>
-                                                </div>
-                                                <span class="badge bg-success-subtle text-success small">
-                                                    <?= esc($pro['rating']) ?> · <?= esc($pro['reviews']) ?> reseñas
-                                                </span>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center small mt-1">
-                                                <span class="text-secondary">Desde <strong>$<?= number_format($pro['precio'], 0, ',', '.') ?></strong></span>
-                                                <a href="/mapa" class="link-primary text-decoration-none">Ver más</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
+                <div class="col-lg-5">
+                    <div class="border rounded-4 overflow-hidden shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?auto=format&fit=crop&w=900&q=80"
+                             alt="Vista de mapa urbano" class="w-100" style="object-fit: cover; max-height: 260px;">
                     </div>
                 </div>
             </div>
@@ -572,12 +530,6 @@
         </div>
     </div>
 
-    <!-- Leaflet CSS/JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tDhH0PjQ8v+w4v0uGzLM=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/nav-floating.js"></script>
@@ -589,67 +541,6 @@
             loginModal.show();
         <?php endif; ?>
 
-        // --- Leaflet Map Setup para home ---
-        const homeMapEl = document.getElementById('leaflet-map');
-        if (homeMapEl) {
-            const map = L.map('leaflet-map', { zoomControl: true }).setView([4.6097, -74.0817], 12);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            const homeProfessionals = <?php echo json_encode($homeProfessionals, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
-            const markers = {};
-
-            homeProfessionals.forEach(p => {
-                if (!p.lat || !p.lng) return;
-
-                const marker = L.marker([p.lat, p.lng]).addTo(map);
-                marker.bindPopup(`<strong>${p.nombre}</strong><br/><small>${p.profesion}</small>`);
-                markers[p.id] = marker;
-            });
-
-            // Ajustar el mapa a los marcadores si hay datos
-            const markerVals = Object.values(markers);
-            if (markerVals.length > 1) {
-                const group = new L.featureGroup(markerVals);
-                map.fitBounds(group.getBounds().pad(0.1));
-            } else if (markerVals.length === 1) {
-                const only = markerVals[0].getLatLng();
-                map.setView(only, 13);
-            } else {
-                // Sin puntos: mantener centro base y un zoom razonable
-                map.setView([4.6097, -74.0817], 12);
-            }
-
-            // Interacción con las cards del panel flotante
-            document.querySelectorAll('.home-pro-card').forEach(card => {
-                const id = card.getAttribute('data-id');
-                const lat = parseFloat(card.getAttribute('data-lat'));
-                const lng = parseFloat(card.getAttribute('data-lng'));
-
-                card.addEventListener('mouseenter', () => {
-                    if (markers[id]) {
-                        markers[id].openPopup();
-                        map.setView([lat, lng], 14);
-                    }
-                });
-
-                card.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (markers[id]) {
-                        markers[id].openPopup();
-                        map.setView([lat, lng], 14);
-                    }
-                });
-            });
-
-            // Asegurar que Leaflet recalcule el tamaño una vez cargada la página
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    try { map.invalidateSize(); } catch (e) { }
-                }, 300);
-            });
-        }
     </script>
 
 </body>
