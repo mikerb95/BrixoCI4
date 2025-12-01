@@ -119,12 +119,12 @@
     transform: translateX(-50%) translateY(-20px);
     width: 90%;
     max-width: 1400px;
-    background: rgba(255,255,255,0.9);
+    background: #f5f5f5;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 18px;
-    padding: 12px 32px;
+    border-radius: 22px;
+    padding: 20px 36px;
     display: flex;
     align-items: center;
     opacity: 0;
@@ -136,7 +136,7 @@
     opacity:1;
     pointer-events:auto;
     transform: translateX(-50%) translateY(0);
-    box-shadow: 0 12px 32px -6px rgba(0,0,0,0.15);
+    box-shadow: 0 16px 40px -8px rgba(0,0,0,0.28);
 }
 .floating-navbar .brand {
     color: var(--primary-color);
@@ -170,6 +170,11 @@
 }
 @media (max-width: 768px){
     .floating-navbar { width: 96%; padding: 10px 20px; }
+}
+
+/* When floating navbar is visible, push page content further down */
+body.floating-offset {
+    padding-top: 120px;
 }
 
 
