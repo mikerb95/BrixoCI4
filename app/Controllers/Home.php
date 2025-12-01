@@ -17,6 +17,7 @@ class Home extends BaseController
             'user' => $session->get('user'),
             'message' => $session->getFlashdata('message'),
             'error' => $session->getFlashdata('error'),
+            'login_error' => $session->getFlashdata('login_error'),
             'userContracts' => [],
             'contractorContracts' => [],
             'homeProfessionals' => [],
@@ -69,7 +70,8 @@ class Home extends BaseController
                 $password = (string) $this->request->getPost('contrasena');
 
                 if ($email === '' || $password === '') {
-                    $session->setFlashdata('error', 'Debes escribir el correo y la contraseña.');
+                    $session->setFlashdata('login_error', true);
+                    $session->setFlashdata('error', 'Debes ingresar correo y contraseña.');
                     return redirect()->to('/');
                 }
 
@@ -106,7 +108,8 @@ class Home extends BaseController
                     return redirect()->to('/panel');
                 }
 
-                $session->setFlashdata('error', 'Las credenciales no coinciden con la base de datos.');
+                $session->setFlashdata('login_error', true);
+                $session->setFlashdata('error', 'Usuario inválido o contraseña incorrecta.');
                 return redirect()->to('/');
             }
         }

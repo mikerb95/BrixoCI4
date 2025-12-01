@@ -10,6 +10,7 @@ $routes->get('/logout', 'Home::logout');
 
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');
+$routes->get('/perfil', 'Panel::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
 

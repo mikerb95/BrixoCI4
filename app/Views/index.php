@@ -583,8 +583,8 @@
     <script src="/js/nav-floating.js"></script>
 
     <script>
-        // Show modal if there are errors
-        <?php if (!empty($error)): ?>
+        // Show login modal if there was a login error
+        <?php if (!empty($login_error)): ?>
             var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
             loginModal.show();
         <?php endif; ?>
