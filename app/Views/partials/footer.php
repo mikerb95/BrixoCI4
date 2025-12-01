@@ -5,7 +5,7 @@
             <div class="col-md-4 mb-4">
                 <h5 class="text-uppercase fw-bold text-primary mb-3">Brixo</h5>
                 <p class="small text-white-50">
-                    Conectando hogares con los mejores profesionales. 
+                    Conectando hogares con los mejores profesionales.
                     Calidad, confianza y seguridad en cada servicio.
                 </p>
                 <div class="d-flex gap-3 mt-3">
@@ -19,10 +19,14 @@
             <div class="col-md-4 mb-4">
                 <h5 class="text-uppercase fw-bold text-primary mb-3">Enlaces Rápidos</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="<?= base_url('/') ?>" class="text-decoration-none text-white-50 hover-text-white">Inicio</a></li>
-                    <li class="mb-2"><a href="<?= base_url('mapa') ?>" class="text-decoration-none text-white-50 hover-text-white">Mapa de Servicios</a></li>
-                    <li class="mb-2"><a href="<?= base_url('panel') ?>" class="text-decoration-none text-white-50 hover-text-white">Mi Panel</a></li>
-                    <li class="mb-2"><a href="<?= base_url('sobre-nosotros') ?>" class="text-decoration-none text-white-50 hover-text-white">Sobre Nosotros</a></li>
+                    <li class="mb-2"><a href="<?= base_url('/') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Inicio</a></li>
+                    <li class="mb-2"><a href="<?= base_url('mapa') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Mapa de Servicios</a></li>
+                    <li class="mb-2"><a href="<?= base_url('panel') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Mi Panel</a></li>
+                    <li class="mb-2"><a href="<?= base_url('sobre-nosotros') ?>"
+                            class="text-decoration-none text-white-50 hover-text-white">Sobre Nosotros</a></li>
                 </ul>
             </div>
 
@@ -32,27 +36,32 @@
                 <p class="small text-white-50 mb-2">Conoce a los creadores en GitHub:</p>
                 <ul class="list-unstyled d-flex flex-wrap gap-2">
                     <li>
-                        <a href="https://github.com/mikerb95" target="_blank" class="btn btn-sm btn-outline-light rounded-pill" title="Mike">
+                        <a href="https://github.com/mikerb95" target="_blank"
+                            class="btn btn-sm btn-outline-light rounded-pill" title="Mike">
                             <i class="fab fa-github me-1"></i> mikerb95
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/Jerson7molina" target="_blank" class="btn btn-sm btn-outline-light rounded-pill" title="Jerson">
+                        <a href="https://github.com/Jerson7molina" target="_blank"
+                            class="btn btn-sm btn-outline-light rounded-pill" title="Jerson">
                             <i class="fab fa-github me-1"></i> Jerson7molina
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/papidani1" target="_blank" class="btn btn-sm btn-outline-light rounded-pill" title="Dani">
+                        <a href="https://github.com/papidani1" target="_blank"
+                            class="btn btn-sm btn-outline-light rounded-pill" title="Dani">
                             <i class="fab fa-github me-1"></i> papidani1
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/DavidPino20" target="_blank" class="btn btn-sm btn-outline-light rounded-pill" title="David">
+                        <a href="https://github.com/DavidPino20" target="_blank"
+                            class="btn btn-sm btn-outline-light rounded-pill" title="David">
                             <i class="fab fa-github me-1"></i> DavidPino20
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/edwinmor24" target="_blank" class="btn btn-sm btn-outline-light rounded-pill" title="Edwin">
+                        <a href="https://github.com/edwinmor24" target="_blank"
+                            class="btn btn-sm btn-outline-light rounded-pill" title="Edwin">
                             <i class="fab fa-github me-1"></i> edwinmor24
                         </a>
                     </li>
