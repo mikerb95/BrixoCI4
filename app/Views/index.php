@@ -253,43 +253,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Domótica -->
-                <div class="col">
-                    <div
-                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1558002038-1091a166111c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-                            class="card-img h-100 object-fit-cover" alt="Domótica">
-                        <div class="card-img-overlay d-flex align-items-end p-0">
-                            <div class="w-100 p-4 bg-gradient-overlay">
-                                <h5 class="card-title fw-bold mb-0">Domótica</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Mascotas -->
-                <div class="col">
-                    <div
-                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1517635676447-3a326f5ebc3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-                            class="card-img h-100 object-fit-cover" alt="Mascotas">
-                        <div class="card-img-overlay d-flex align-items-end p-0">
-                            <div class="w-100 p-4 bg-gradient-overlay">
-                                <h5 class="card-title fw-bold mb-0">Cuidado de Mascotas</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Control de Plagas -->
-                <div class="col">
-                    <div
-                        class="card border-0 rounded-4 overflow-hidden text-white shadow-sm h-100 position-relative card-img-overlay-container">
-                        <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-                            class="card-img h-100 object-fit-cover" alt="Control de Plagas">
-                        <div class="card-img-overlay d-flex align-items-end p-0">
-                            <div class="w-100 p-4 bg-gradient-overlay">
-                                <h5 class="card-title fw-bold mb-0">Control de Plagas</h5>
-                            </div>
-                        </div>
+
 
                         <!-- User Panel Modal -->
                         <div class="modal fade" id="userPanel" tabindex="-1" aria-labelledby="userPanelLabel"
@@ -415,9 +379,6 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                </div>
             </div>
         </div>
     </section>
