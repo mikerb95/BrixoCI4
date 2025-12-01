@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS (moved to head to ensure proper initial render) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tDhH0PjQ8v+w4v0uGzLM=" crossorigin="" />
     <link rel="stylesheet" href="/css/brixo.css">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -18,42 +21,8 @@
     <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white"
         style="height: 100vh; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
-        <!-- Simple hero nav -->
-        <nav id="hero-nav" class="hero-nav position-absolute top-0 start-0 w-100">
-            <div class="hero-inner d-flex justify-content-start gap-4 py-3">
-                <a href="/" class="hero-link">Inicio</a>
-                <a href="/mapa" class="hero-link">Mapa</a>
-                <?php if (!empty(session()->get('user'))): ?>
-                    <?php $u = session()->get('user'); ?>
-                    <?php if (!empty($u['rol']) && $u['rol'] === 'contratista'): ?>
-                        <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#contractorPanel">Mi Panel</a>
-                    <?php else: ?>
-                        <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#userPanel">Mi Panel</a>
-                    <?php endif; ?>
-                    <a href="/logout" class="hero-link">Salir</a>
-                <?php else: ?>
-                    <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
-                    <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
-                <?php endif; ?>
-            </div>
-        </nav>
-        <!-- Floating navbar (hidden initially) -->
-        <nav id="floating-nav" class="floating-navbar">
-            <div class="floating-inner">
-                <div class="d-flex align-items-center gap-4">
-                    <a href="/" class="brand fw-bold">BRIXO</a>
-                </div>
-                <ul class="d-flex list-unstyled mb-0 align-items-center gap-3">
-                    <li><a href="/mapa" class="float-link">Mapa</a></li>
-                    <?php if (!empty(session()->get('user'))): ?>
-                        <li><a href="/logout" class="float-link">Salir</a></li>
-                    <?php else: ?>
-                        <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </nav>
+        <!-- Navbar Partial -->
+        <?= view('partials/navbar') ?>
         <div class="container position-relative z-1">
             <div class="row align-items-center">
                 <div class="col-lg-7 text-start mb-5 mb-lg-0">
@@ -387,46 +356,8 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-light py-5 border-top mt-auto">
-        <div class="container" style="max-width: 1200px;">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <h4 class="h5 fw-bold mb-3">Brixo</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Sobre
-                                nosotros</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Carreras</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Prensa</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4 class="h5 fw-bold mb-3">Clientes</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Cómo
-                                funciona</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Seguridad</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Ayuda</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4 class="h5 fw-bold mb-3">Profesionales</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary hover-underline">Únete
-                                como pro</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Historias de éxito</a></li>
-                        <li class="mb-2"><a href="#"
-                                class="text-decoration-none text-secondary hover-underline">Recursos</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Partial -->
+    <?= view('partials/footer') ?>
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -510,9 +441,7 @@
         </div>
     </div>
 
-    <!-- Leaflet CSS/JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tDhH0PjQ8v+w4v0uGzLM=" crossorigin="" />
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 

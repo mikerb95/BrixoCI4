@@ -259,3 +259,19 @@
     box-shadow: none;
     border-color: var(--primary-color);
 }
+
+/* ---------------------------------------------------------
+   Site Footer (Dark)
+   --------------------------------------------------------- */
+.site-footer {
+    background: #222; /* dark gray background */
+    color: #ddd;
+}
+.site-footer h4, .site-footer h5, .site-footer h6 { color: #fff; }
+.site-footer .footer-link {
+    color: #ccc;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+.site-footer .footer-link:hover { color: var(--primary-color); }
+.site-footer hr { border-color: #444 !important; }
