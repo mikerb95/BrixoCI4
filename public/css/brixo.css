@@ -267,3 +267,7 @@
 .leaflet-container .leaflet-tile {
     max-width: none !important; /* prevent Bootstrap from resizing map tiles */
 }
+.leaflet-container .leaflet-tile {
+    width: 256px !important;
+    height: 256px !important;
+}
