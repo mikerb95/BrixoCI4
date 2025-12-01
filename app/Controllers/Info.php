@@ -38,4 +38,19 @@ class Info extends BaseController
     {
         return view('info/recursos');
     }
+
+    public function carreras()
+    {
+        return view('info/carreras');
+    }
+
+    public function prensa()
+    {
+        return view('info/prensa');
+    }
+
+    public function blog()
+    {
+        return view('info/blog');
+    }
 }

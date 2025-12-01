@@ -15,10 +15,45 @@
     <?= view('partials/floating_nav') ?>
 
     <main class="flex-grow-1">
+        <section class="py-5 bg-light">
+            <div class="container text-center" style="max-width: 800px;">
+                <h1 class="display-4 fw-bold mb-4">Así de fácil es usar Brixo</h1>
+                <p class="lead text-muted">Encuentra al profesional perfecto en minutos, sin complicaciones.</p>
+            </div>
+        </section>
+
         <section class="py-5">
             <div class="container" style="max-width: 960px;">
-                <h1 class="h2 fw-bold mb-4">Cómo funciona</h1>
-                <p class="mb-3">Explica de forma sencilla los pasos para que un cliente publique una necesidad y contrate a un profesional.</p>
+                <div class="row g-5">
+                    <div class="col-md-4 text-center">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-4"
+                            style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold;">1</div>
+                        <h3 class="h4 fw-bold mb-3">Busca</h3>
+                        <p class="text-muted">Explora perfiles de profesionales verificados en tu zona. Filtra por
+                            especialidad, precio y calificaciones.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-4"
+                            style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold;">2</div>
+                        <h3 class="h4 fw-bold mb-3">Contacta</h3>
+                        <p class="text-muted">Chatea directamente con los expertos, pide cotizaciones y resuelve tus
+                            dudas antes de contratar.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-4"
+                            style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold;">3</div>
+                        <h3 class="h4 fw-bold mb-3">Contrata</h3>
+                        <p class="text-muted">Acuerda el servicio y paga de forma segura a través de la plataforma.
+                            ¡Disfruta del resultado!</p>
+                    </div>
+                </div>
+
+                <div class="mt-5 p-5 bg-light rounded-4 text-center">
+                    <h3 class="fw-bold mb-3">¿Eres un profesional?</h3>
+                    <p class="mb-4">Únete a Brixo y haz crecer tu negocio llegando a miles de clientes potenciales.</p>
+                    <a href="/unete-pro" class="btn btn-outline-primary btn-lg rounded-pill px-4">Empezar como
+                        Profesional</a>
+                </div>
             </div>
         </section>
     </main>

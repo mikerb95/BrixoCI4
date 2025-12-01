@@ -1,83 +1,118 @@
--- Create database (optional)
--- CREATE DATABASE IF NOT EXISTS brixo CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
--- USE brixo;
-
+-- Schema compatible con la aplicación actual (Legacy + Features)
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- Drop tables if exist (in FK-safe order for this minimal schema)
+-- Eliminar tablas si existen
 DROP TABLE IF EXISTS RESENA;
 DROP TABLE IF EXISTS CONTRATO;
+DROP TABLE IF EXISTS CONTRATISTA_SERVICIO;
+DROP TABLE IF EXISTS CONTRATISTA_UBICACION;
+DROP TABLE IF EXISTS SERVICIO;
+DROP TABLE IF EXISTS CATEGORIA;
+DROP TABLE IF EXISTS UBICACION;
+DROP TABLE IF EXISTS CONTRATISTA;
+DROP TABLE IF EXISTS CLIENTE;
+DROP TABLE IF EXISTS USUARIO; -- Limpiar tabla del intento anterior
 DROP TABLE IF EXISTS COTIZACION;
-DROP TABLE IF EXISTS USUARIO;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- Tabla USUARIO (unifica clientes, contratistas y admin)
-CREATE TABLE USUARIO (
-  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+-- 1. Tabla CLIENTE
+CREATE TABLE CLIENTE (
+  id_cliente INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(255) NOT NULL,
   correo VARCHAR(255) NOT NULL UNIQUE,
   contrasena VARCHAR(255) NOT NULL,
   telefono VARCHAR(50),
   foto_perfil VARCHAR(255),
-  rol ENUM('cliente','contratista','admin') NOT NULL DEFAULT 'cliente',
-  creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
-  actualizado_en DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabla COTIZACION (creada por un usuario con rol cliente)
-CREATE TABLE COTIZACION (
-  id_cotizacion INT AUTO_INCREMENT PRIMARY KEY,
-  estado ENUM('PENDIENTE','ACEPTADA','RECHAZADA','EXPIRADA') DEFAULT 'PENDIENTE',
-  fecha DATE,
+-- 2. Tabla CONTRATISTA
+CREATE TABLE CONTRATISTA (
+  id_contratista INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
+  correo VARCHAR(255) NOT NULL UNIQUE,
+  contrasena VARCHAR(255) NOT NULL,
+  telefono VARCHAR(50),
+  foto_perfil VARCHAR(255),
+  experiencia TEXT,
+  portafolio TEXT,
+  descripcion_perfil TEXT,
+  verificado TINYINT(1) DEFAULT 0,
+  creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 3. Tabla CATEGORIA
+CREATE TABLE CATEGORIA (
+  id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  descripcion TEXT,
+  imagen_url VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 4. Tabla SERVICIO
+CREATE TABLE SERVICIO (
+  id_servicio INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
   descripcion TEXT,
   precio_estimado DECIMAL(12,2),
-  id_cliente INT NOT NULL,
-  creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
-  actualizado_en DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT fk_cotizacion_cliente
-    FOREIGN KEY (id_cliente) REFERENCES USUARIO(id_usuario)
-    ON DELETE RESTRICT ON UPDATE CASCADE,
-  INDEX idx_cotizacion_cliente (id_cliente)
+  imagen_url VARCHAR(255),
+  id_categoria INT,
+  CONSTRAINT fk_servicio_categoria FOREIGN KEY (id_categoria) REFERENCES CATEGORIA(id_categoria) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabla CONTRATO (aceptación de una cotización por un contratista)
+-- 5. Tabla UBICACION
+CREATE TABLE UBICACION (
+  id_ubicacion INT AUTO_INCREMENT PRIMARY KEY,
+  ciudad VARCHAR(100),
+  departamento VARCHAR(100),
+  direccion VARCHAR(255),
+  latitud DECIMAL(10, 8),
+  longitud DECIMAL(11, 8)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 6. Tabla Intermedia CONTRATISTA_SERVICIO
+CREATE TABLE CONTRATISTA_SERVICIO (
+  id_contratista INT,
+  id_servicio INT,
+  precio_personalizado DECIMAL(12,2),
+  descripcion_personalizada TEXT,
+  PRIMARY KEY (id_contratista, id_servicio),
+  CONSTRAINT fk_cs_contratista FOREIGN KEY (id_contratista) REFERENCES CONTRATISTA(id_contratista) ON DELETE CASCADE,
+  CONSTRAINT fk_cs_servicio FOREIGN KEY (id_servicio) REFERENCES SERVICIO(id_servicio) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 7. Tabla Intermedia CONTRATISTA_UBICACION
+CREATE TABLE CONTRATISTA_UBICACION (
+  id_contratista INT,
+  id_ubicacion INT,
+  PRIMARY KEY (id_contratista, id_ubicacion),
+  CONSTRAINT fk_cu_contratista FOREIGN KEY (id_contratista) REFERENCES CONTRATISTA(id_contratista) ON DELETE CASCADE,
+  CONSTRAINT fk_cu_ubicacion FOREIGN KEY (id_ubicacion) REFERENCES UBICACION(id_ubicacion) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 8. Tabla CONTRATO
 CREATE TABLE CONTRATO (
   id_contrato INT AUTO_INCREMENT PRIMARY KEY,
   fecha_inicio DATE,
   fecha_fin DATE,
   costo_total DECIMAL(12,2),
-  estado ENUM('EN_PROCESO','ACTIVO','COMPLETADO','CANCELADO') DEFAULT 'EN_PROCESO',
-  id_cotizacion INT NOT NULL,
+  estado ENUM('PENDIENTE','ACTIVO','COMPLETADO','CANCELADO') DEFAULT 'PENDIENTE',
   id_contratista INT NOT NULL,
-  creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
-  actualizado_en DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT fk_contrato_cotizacion
-    FOREIGN KEY (id_cotizacion) REFERENCES COTIZACION(id_cotizacion)
-    ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT fk_contrato_contratista
-    FOREIGN KEY (id_contratista) REFERENCES USUARIO(id_usuario)
-    ON DELETE RESTRICT ON UPDATE CASCADE,
-  UNIQUE KEY ux_contrato_cotizacion (id_cotizacion),
-  INDEX idx_contrato_contratista (id_contratista)
+  id_cliente INT NOT NULL,
+  CONSTRAINT fk_contrato_contratista FOREIGN KEY (id_contratista) REFERENCES CONTRATISTA(id_contratista),
+  CONSTRAINT fk_contrato_cliente FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabla RESENA (reseña del cliente sobre el contrato)
+-- 9. Tabla RESENA
 CREATE TABLE RESENA (
   id_resena INT AUTO_INCREMENT PRIMARY KEY,
   comentario TEXT,
   fecha DATE,
-  calificacion TINYINT UNSIGNED NOT NULL,
+  calificacion TINYINT UNSIGNED NOT NULL CHECK (calificacion BETWEEN 1 AND 5),
   id_contrato INT NOT NULL,
   id_cliente INT NOT NULL,
-  CONSTRAINT chk_resena_calificacion CHECK (calificacion BETWEEN 1 AND 5),
-  CONSTRAINT fk_resena_contrato
-    FOREIGN KEY (id_contrato) REFERENCES CONTRATO(id_contrato)
-    ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT fk_resena_cliente
-    FOREIGN KEY (id_cliente) REFERENCES USUARIO(id_usuario)
-    ON DELETE RESTRICT ON UPDATE CASCADE,
-  UNIQUE KEY ux_resena_contrato_cliente (id_contrato, id_cliente),
-  INDEX idx_resena_cliente (id_cliente)
+  CONSTRAINT fk_resena_contrato FOREIGN KEY (id_contrato) REFERENCES CONTRATO(id_contrato),
+  CONSTRAINT fk_resena_cliente FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

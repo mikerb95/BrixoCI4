@@ -122,6 +122,25 @@
         </div>
     </section>
 
+    <!-- Tools Banner Section (same width as map container) -->
+    <section class="py-4 bg-light">
+        <div class="container d-flex justify-content-center" style="max-width: 1200px;">
+            <div class="position-relative overflow-hidden rounded-4 shadow-sm" style="width: 100%; max-height: 275px;">
+                <img src="/images/toolsbig.webp" alt="Herramientas Brixo" class="img-fluid w-100 h-100" style="object-fit: cover; object-position: center;">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="padding: 24px 40px;">
+                    <div class="text-white" style="max-width: 520px;">
+                        <h3 class="h2 fw-bold mb-3">¿Necesitas herramientas puntuales?</h3>
+                        <p class="mb-4">Alquila taladros, sierras, andamios y más por día u horas, sin comprar. Ideal para proyectos rápidos y profesionales en movimiento.</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="/mapa" class="btn btn-primary btn-lg px-4">Ver disponibilidad</a>
+                            <a href="#" class="btn btn-outline-light btn-lg px-4">Publicar necesidad</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Categories Section -->
     <section class="categories-section py-5">
         <div class="container" style="max-width: 1200px;">

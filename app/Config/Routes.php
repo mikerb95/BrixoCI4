@@ -21,4 +21,7 @@ $routes->get('ayuda', 'Info::ayuda');
 $routes->get('unete-pro', 'Info::unetePro');
 $routes->get('historias-exito', 'Info::historiasExito');
 $routes->get('recursos', 'Info::recursos');
+$routes->get('carreras', 'Info::carreras');
+$routes->get('prensa', 'Info::prensa');
+$routes->get('blog', 'Info::blog');
 

@@ -21,12 +21,12 @@ class Reportes extends BaseController
         // 1. Encabezados
         $headers = ['ID', 'Nombre', 'Correo', 'Teléfono', 'Ciudad', 'Departamento', 'Experiencia'];
         $column = 'A';
-        
+
         foreach ($headers as $header) {
             $sheet->setCellValue($column . '1', $header);
             $column++;
         }
-        
+
         // Estilo para encabezados (Negrita y Fondo Gris Claro)
         $headerStyle = [
             'font' => ['bold' => true],

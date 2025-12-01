@@ -15,10 +15,75 @@
     <?= view('partials/floating_nav') ?>
 
     <main class="flex-grow-1">
+        <section class="py-5 bg-light">
+            <div class="container text-center" style="max-width: 800px;">
+                <h1 class="display-4 fw-bold mb-4">Tu seguridad es nuestra prioridad</h1>
+                <p class="lead text-muted">Trabajamos día a día para crear un entorno confiable para clientes y
+                    profesionales.</p>
+            </div>
+        </section>
+
         <section class="py-5">
             <div class="container" style="max-width: 960px;">
-                <h1 class="h2 fw-bold mb-4">Seguridad</h1>
-                <p class="mb-3">Resumen de políticas de seguridad, verificación de profesionales y buenas prácticas.</p>
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="fas fa-user-check fa-2x text-success"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 fw-bold">Profesionales Verificados</h3>
+                                <p class="text-muted">Revisamos antecedentes y certificaciones de cada profesional para
+                                    asegurar que estás en buenas manos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="fas fa-lock fa-2x text-success"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 fw-bold">Pagos Protegidos</h3>
+                                <p class="text-muted">Tu dinero se mantiene seguro hasta que confirmas que el trabajo se
+                                    ha realizado satisfactoriamente.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="fas fa-star fa-2x text-success"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 fw-bold">Reseñas Reales</h3>
+                                <p class="text-muted">Solo los clientes que han contratado un servicio pueden dejar una
+                                    reseña, garantizando opiniones auténticas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="fas fa-headset fa-2x text-success"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 fw-bold">Soporte Dedicado</h3>
+                                <p class="text-muted">Nuestro equipo está listo para ayudarte a resolver cualquier
+                                    inconveniente que pueda surgir.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info border-0 rounded-4 p-4">
+                    <h4 class="fw-bold mb-3"><i class="fas fa-info-circle me-2"></i> Consejos de Seguridad</h4>
+                    <ul class="mb-0">
+                        <li class="mb-2">Mantén todas las comunicaciones dentro de la plataforma de Brixo.</li>
+                        <li class="mb-2">Nunca realices pagos en efectivo o fuera de la aplicación.</li>
+                        <li class="mb-2">Verifica la identidad del profesional al llegar a tu domicilio.</li>
+                    </ul>
+                </div>
             </div>
         </section>
     </main>

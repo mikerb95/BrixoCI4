@@ -1,255 +1,81 @@
--- Seed para esquema minimal: USUARIO, COTIZACION, CONTRATO, RESENA
+-- Seed compatible con el esquema Legacy + Features
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- Limpiar tablas
 TRUNCATE TABLE RESENA;
 TRUNCATE TABLE CONTRATO;
-TRUNCATE TABLE COTIZACION;
-TRUNCATE TABLE USUARIO;
+TRUNCATE TABLE CONTRATISTA_SERVICIO;
+TRUNCATE TABLE CONTRATISTA_UBICACION;
+TRUNCATE TABLE SERVICIO;
+TRUNCATE TABLE CATEGORIA;
+TRUNCATE TABLE UBICACION;
+TRUNCATE TABLE CONTRATISTA;
+TRUNCATE TABLE CLIENTE;
+
 SET FOREIGN_KEY_CHECKS = 1;
 
--- 1) Usuarios: 30 clientes (IDs 1-30) + 50 contratistas (IDs 31-80)
-INSERT INTO USUARIO (nombre, correo, contrasena, telefono, foto_perfil, rol) VALUES
--- Clientes (30)
-('Cliente 01','cliente01@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000001','https://randomuser.me/api/portraits/men/1.jpg','cliente'),
-('Cliente 02','cliente02@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000002','https://randomuser.me/api/portraits/women/2.jpg','cliente'),
-('Cliente 03','cliente03@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000003','https://randomuser.me/api/portraits/men/3.jpg','cliente'),
-('Cliente 04','cliente04@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000004','https://randomuser.me/api/portraits/women/4.jpg','cliente'),
-('Cliente 05','cliente05@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000005','https://randomuser.me/api/portraits/men/5.jpg','cliente'),
-('Cliente 06','cliente06@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000006','https://randomuser.me/api/portraits/women/6.jpg','cliente'),
-('Cliente 07','cliente07@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000007','https://randomuser.me/api/portraits/men/7.jpg','cliente'),
-('Cliente 08','cliente08@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000008','https://randomuser.me/api/portraits/women/8.jpg','cliente'),
-('Cliente 09','cliente09@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000009','https://randomuser.me/api/portraits/men/9.jpg','cliente'),
-('Cliente 10','cliente10@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000010','https://randomuser.me/api/portraits/women/10.jpg','cliente'),
-('Cliente 11','cliente11@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000011','https://randomuser.me/api/portraits/men/11.jpg','cliente'),
-('Cliente 12','cliente12@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000012','https://randomuser.me/api/portraits/women/12.jpg','cliente'),
-('Cliente 13','cliente13@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000013','https://randomuser.me/api/portraits/men/13.jpg','cliente'),
-('Cliente 14','cliente14@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000014','https://randomuser.me/api/portraits/women/14.jpg','cliente'),
-('Cliente 15','cliente15@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000015','https://randomuser.me/api/portraits/men/15.jpg','cliente'),
-('Cliente 16','cliente16@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000016','https://randomuser.me/api/portraits/women/16.jpg','cliente'),
-('Cliente 17','cliente17@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000017','https://randomuser.me/api/portraits/men/17.jpg','cliente'),
-('Cliente 18','cliente18@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000018','https://randomuser.me/api/portraits/women/18.jpg','cliente'),
-('Cliente 19','cliente19@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000019','https://randomuser.me/api/portraits/men/19.jpg','cliente'),
-('Cliente 20','cliente20@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000020','https://randomuser.me/api/portraits/women/20.jpg','cliente'),
-('Cliente 21','cliente21@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000021','https://randomuser.me/api/portraits/men/21.jpg','cliente'),
-('Cliente 22','cliente22@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000022','https://randomuser.me/api/portraits/women/22.jpg','cliente'),
-('Cliente 23','cliente23@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000023','https://randomuser.me/api/portraits/men/23.jpg','cliente'),
-('Cliente 24','cliente24@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000024','https://randomuser.me/api/portraits/women/24.jpg','cliente'),
-('Cliente 25','cliente25@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000025','https://randomuser.me/api/portraits/men/25.jpg','cliente'),
-('Cliente 26','cliente26@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000026','https://randomuser.me/api/portraits/women/26.jpg','cliente'),
-('Cliente 27','cliente27@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000027','https://randomuser.me/api/portraits/men/27.jpg','cliente'),
-('Cliente 28','cliente28@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000028','https://randomuser.me/api/portraits/women/28.jpg','cliente'),
-('Cliente 29','cliente29@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000029','https://randomuser.me/api/portraits/men/29.jpg','cliente'),
-('Cliente 30','cliente30@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3101000030','https://randomuser.me/api/portraits/women/30.jpg','cliente'),
--- Contratistas (50)
-('Contratista 01','pro01@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000101','https://randomuser.me/api/portraits/men/31.jpg','contratista'),
-('Contratista 02','pro02@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000102','https://randomuser.me/api/portraits/women/32.jpg','contratista'),
-('Contratista 03','pro03@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000103','https://randomuser.me/api/portraits/men/33.jpg','contratista'),
-('Contratista 04','pro04@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000104','https://randomuser.me/api/portraits/women/34.jpg','contratista'),
-('Contratista 05','pro05@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000105','https://randomuser.me/api/portraits/men/35.jpg','contratista'),
-('Contratista 06','pro06@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000106','https://randomuser.me/api/portraits/women/36.jpg','contratista'),
-('Contratista 07','pro07@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000107','https://randomuser.me/api/portraits/men/37.jpg','contratista'),
-('Contratista 08','pro08@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000108','https://randomuser.me/api/portraits/women/38.jpg','contratista'),
-('Contratista 09','pro09@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000109','https://randomuser.me/api/portraits/men/39.jpg','contratista'),
-('Contratista 10','pro10@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000110','https://randomuser.me/api/portraits/women/40.jpg','contratista'),
-('Contratista 11','pro11@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000111','https://randomuser.me/api/portraits/men/41.jpg','contratista'),
-('Contratista 12','pro12@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000112','https://randomuser.me/api/portraits/women/42.jpg','contratista'),
-('Contratista 13','pro13@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000113','https://randomuser.me/api/portraits/men/43.jpg','contratista'),
-('Contratista 14','pro14@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000114','https://randomuser.me/api/portraits/women/44.jpg','contratista'),
-('Contratista 15','pro15@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000115','https://randomuser.me/api/portraits/men/45.jpg','contratista'),
-('Contratista 16','pro16@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000116','https://randomuser.me/api/portraits/women/46.jpg','contratista'),
-('Contratista 17','pro17@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000117','https://randomuser.me/api/portraits/men/47.jpg','contratista'),
-('Contratista 18','pro18@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000118','https://randomuser.me/api/portraits/women/48.jpg','contratista'),
-('Contratista 19','pro19@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000119','https://randomuser.me/api/portraits/men/49.jpg','contratista'),
-('Contratista 20','pro20@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000120','https://randomuser.me/api/portraits/women/50.jpg','contratista'),
-('Contratista 21','pro21@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000121','https://randomuser.me/api/portraits/men/51.jpg','contratista'),
-('Contratista 22','pro22@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000122','https://randomuser.me/api/portraits/women/52.jpg','contratista'),
-('Contratista 23','pro23@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000123','https://randomuser.me/api/portraits/men/53.jpg','contratista'),
-('Contratista 24','pro24@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000124','https://randomuser.me/api/portraits/women/54.jpg','contratista'),
-('Contratista 25','pro25@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000125','https://randomuser.me/api/portraits/men/55.jpg','contratista'),
-('Contratista 26','pro26@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000126','https://randomuser.me/api/portraits/women/56.jpg','contratista'),
-('Contratista 27','pro27@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000127','https://randomuser.me/api/portraits/men/57.jpg','contratista'),
-('Contratista 28','pro28@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000128','https://randomuser.me/api/portraits/women/58.jpg','contratista'),
-('Contratista 29','pro29@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000129','https://randomuser.me/api/portraits/men/59.jpg','contratista'),
-('Contratista 30','pro30@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000130','https://randomuser.me/api/portraits/women/60.jpg','contratista'),
-('Contratista 31','pro31@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000131','https://randomuser.me/api/portraits/men/61.jpg','contratista'),
-('Contratista 32','pro32@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000132','https://randomuser.me/api/portraits/women/62.jpg','contratista'),
-('Contratista 33','pro33@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000133','https://randomuser.me/api/portraits/men/63.jpg','contratista'),
-('Contratista 34','pro34@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000134','https://randomuser.me/api/portraits/women/64.jpg','contratista'),
-('Contratista 35','pro35@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000135','https://randomuser.me/api/portraits/men/65.jpg','contratista'),
-('Contratista 36','pro36@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000136','https://randomuser.me/api/portraits/women/66.jpg','contratista'),
-('Contratista 37','pro37@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000137','https://randomuser.me/api/portraits/men/67.jpg','contratista'),
-('Contratista 38','pro38@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000138','https://randomuser.me/api/portraits/women/68.jpg','contratista'),
-('Contratista 39','pro39@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000139','https://randomuser.me/api/portraits/men/69.jpg','contratista'),
-('Contratista 40','pro40@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000140','https://randomuser.me/api/portraits/women/70.jpg','contratista'),
-('Contratista 41','pro41@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000141','https://randomuser.me/api/portraits/men/71.jpg','contratista'),
-('Contratista 42','pro42@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000142','https://randomuser.me/api/portraits/women/72.jpg','contratista'),
-('Contratista 43','pro43@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000143','https://randomuser.me/api/portraits/men/73.jpg','contratista'),
-('Contratista 44','pro44@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000144','https://randomuser.me/api/portraits/women/74.jpg','contratista'),
-('Contratista 45','pro45@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000145','https://randomuser.me/api/portraits/men/75.jpg','contratista'),
-('Contratista 46','pro46@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000146','https://randomuser.me/api/portraits/women/76.jpg','contratista'),
-('Contratista 47','pro47@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000147','https://randomuser.me/api/portraits/men/77.jpg','contratista'),
-('Contratista 48','pro48@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000148','https://randomuser.me/api/portraits/women/78.jpg','contratista'),
-('Contratista 49','pro49@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000149','https://randomuser.me/api/portraits/men/79.jpg','contratista'),
-('Contratista 50','pro50@demo.com','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','3201000150','https://randomuser.me/api/portraits/women/80.jpg','contratista');
+-- 1. Categorías
+INSERT INTO CATEGORIA (id_categoria, nombre, descripcion, imagen_url) VALUES
+(1, 'Hogar', 'Servicios generales para el hogar', 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=500&q=60'),
+(2, 'Construcción', 'Obras y remodelaciones', 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=500&q=60'),
+(3, 'Plomería', 'Reparación e instalación de tuberías', 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=500&q=60'),
+(4, 'Electricidad', 'Instalaciones y reparaciones eléctricas', 'https://images.unsplash.com/photo-1621905251189-fcfa35257645?auto=format&fit=crop&w=500&q=60'),
+(5, 'Limpieza', 'Servicios de limpieza profesional', 'https://images.unsplash.com/photo-1581578731117-104f2a863a30?auto=format&fit=crop&w=500&q=60');
 
--- 2) Cotizaciones (60 total, mezcla de estados; IDs 1-60)
-INSERT INTO COTIZACION (estado, fecha, descripcion, precio_estimado, id_cliente) VALUES
-('PENDIENTE','2025-10-01','Solicitud de plomería básica',80000.00,1),
-('ACEPTADA','2025-10-02','Instalación eléctrica cocina',95000.00,2),
-('ACEPTADA','2025-10-03','Limpieza profunda apartamento',120000.00,3),
-('RECHAZADA','2025-10-04','Formateo PC y optimización',70000.00,4),
-('ACEPTADA','2025-10-05','Pintura habitación principal',160000.00,5),
-('PENDIENTE','2025-10-06','Manicure evento',50000.00,6),
-('ACEPTADA','2025-10-07','Clase matemáticas grado 9',55000.00,7),
-('ACEPTADA','2025-10-08','Cambio de aceite vehículo',65000.00,8),
-('EXPIRADA','2025-10-09','Armado de mueble modular',60000.00,9),
-('ACEPTADA','2025-10-10','Fotografía evento social',150000.00,10),
-('ACEPTADA','2025-10-11','Reparación fuga baño',85000.00,11),
-('ACEPTADA','2025-10-12','Revisión cableado sala',90000.00,12),
-('PENDIENTE','2025-10-13','Servicio limpieza puntual',60000.00,13),
-('ACEPTADA','2025-10-14','Optimización laptop',75000.00,14),
-('ACEPTADA','2025-10-15','Pintura sala y comedor',140000.00,15),
-('ACEPTADA','2025-10-16','Uñas acrílicas completas',45000.00,16),
-('ACEPTADA','2025-10-17','Tutoría cálculo universidad',70000.00,17),
-('ACEPTADA','2025-10-18','Mantenimiento moto básico',65000.00,18),
-('PENDIENTE','2025-10-19','Restauración mesa madera',90000.00,19),
-('ACEPTADA','2025-10-20','Cobertura fotográfica boda',300000.00,20),
-('ACEPTADA','2025-10-21','Remodelación baño pequeño',500000.00,21),
-('ACEPTADA','2025-10-22','Diseño uñas temática',60000.00,22),
-('RECHAZADA','2025-10-23','Servicio redes hogar',95000.00,23),
-('ACEPTADA','2025-10-24','Decoración fiesta infantil',180000.00,24),
-('ACEPTADA','2025-10-25','Limpieza jardín',130000.00,25),
-('ACEPTADA','2025-10-26','Clases inglés conversación',45000.00,26),
-('ACEPTADA','2025-10-27','Cerrajería urgente puerta',50000.00,27),
-('EXPIRADA','2025-10-28','Maquillaje social evento',80000.00,28),
-('ACEPTADA','2025-10-29','Instalación drywall pared',180000.00,29),
-('ACEPTADA','2025-10-30','Sesión entrenamiento inicial',60000.00,30),
-('ACEPTADA','2025-11-01','Impermeabilización terraza',900000.00,1),
-('ACEPTADA','2025-11-02','Catering reunión pequeña',250000.00,2),
-('ACEPTADA','2025-11-03','Tapizado sofá 3 puestos',220000.00,3),
-('ACEPTADA','2025-11-04','Paseo perros x2 horas',60000.00,4),
-('ACEPTADA','2025-11-05','Instalación calentador gas',350000.00,5),
-('PENDIENTE','2025-11-06','Asesoría contable mensual',700000.00,6),
-('ACEPTADA','2025-11-07','Cambio vidrio ventana sala',120000.00,7),
-('ACEPTADA','2025-11-08','Asesoría color interior',80000.00,8),
-('ACEPTADA','2025-11-09','Mensajería documentos notariales',30000.00,9),
-('ACEPTADA','2025-11-10','Masaje relajante 60min',90000.00,10),
-('ACEPTADA','2025-11-11','Formateo + antivirus PC',85000.00,11),
-('ACEPTADA','2025-11-12','Pintura cocina y pasillo',200000.00,12),
-('ACEPTADA','2025-11-13','Fotografía producto catálogo',250000.00,13),
-('ACEPTADA','2025-11-14','Tutoría física mecánica',70000.00,14),
-('ACEPTADA','2025-11-15','Cambio aceite + filtros',120000.00,15),
-('ACEPTADA','2025-11-16','Armado closet grande',300000.00,16),
-('ACEPTADA','2025-11-17','Sesión fotos profesional',180000.00,17),
-('ACEPTADA','2025-11-18','Reparación tubería lavamanos',95000.00,18),
-('ACEPTADA','2025-11-19','Instalación lámparas led',110000.00,19),
-('ACEPTADA','2025-11-20','Limpieza alfombras profunda',160000.00,20),
-('ACEPTADA','2025-11-21','Optimización notebook vieja',70000.00,21),
-('ACEPTADA','2025-11-22','Pintura exterior fachada',800000.00,22),
-('ACEPTADA','2025-11-23','Manicure + nail art premium',65000.00,23),
-('ACEPTADA','2025-11-24','Refuerzo cálculo universitario',80000.00,24),
-('ACEPTADA','2025-11-25','Mantenimiento automóvil estándar',140000.00,25),
-('ACEPTADA','2025-11-26','Restauración mesa comedor',200000.00,26),
-('ACEPTADA','2025-11-27','Cobertura fotográfica conferencia',500000.00,27),
-('ACEPTADA','2025-11-28','Remodelación cocina parcial',1500000.00,28),
-('ACEPTADA','2025-11-29','Sesión maquillaje profesional',85000.00,29),
-('ACEPTADA','2025-11-30','Instalación divisiones drywall',600000.00,30);
+-- 2. Servicios
+INSERT INTO SERVICIO (id_servicio, nombre, descripcion, precio_estimado, imagen_url, id_categoria) VALUES
+(1, 'Limpieza General', 'Limpieza profunda de casas y apartamentos', 50000.00, 'https://images.unsplash.com/photo-1584622050111-993a426fbf0a?auto=format&fit=crop&w=500&q=60', 5),
+(2, 'Reparación de Tuberías', 'Arreglo de fugas y tuberías rotas', 80000.00, 'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=500&q=60', 3),
+(3, 'Instalación Eléctrica', 'Cableado y puntos de luz', 120000.00, 'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&w=500&q=60', 4),
+(4, 'Pintura de Interiores', 'Pintura de paredes y techos', 25000.00, 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=500&q=60', 1),
+(5, 'Remodelación de Baños', 'Cambio de enchapes y sanitarios', 1500000.00, 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=500&q=60', 2);
 
--- 3) Contratos para cotizaciones ACEPTADAS (mapear a contratistas variados)
--- Usamos sólo cotizaciones con estado ACEPTADA; contrato IDs siguen el orden.
-INSERT INTO CONTRATO (fecha_inicio, fecha_fin, costo_total, estado, id_cotizacion, id_contratista) VALUES
-('2025-10-02','2025-10-02',95000.00,'COMPLETADO',2,31),
-('2025-10-03','2025-10-03',120000.00,'COMPLETADO',3,32),
-('2025-10-05','2025-10-06',160000.00,'COMPLETADO',5,33),
-('2025-10-07','2025-10-07',55000.00,'COMPLETADO',7,34),
-('2025-10-08','2025-10-08',65000.00,'COMPLETADO',8,35),
-('2025-10-10','2025-10-10',150000.00,'COMPLETADO',10,36),
-('2025-10-11','2025-10-11',85000.00,'COMPLETADO',11,37),
-('2025-10-12','2025-10-12',90000.00,'COMPLETADO',12,38),
-('2025-10-14','2025-10-14',75000.00,'COMPLETADO',14,39),
-('2025-10-15','2025-10-16',140000.00,'COMPLETADO',15,40),
-('2025-10-16','2025-10-16',45000.00,'COMPLETADO',16,41),
-('2025-10-17','2025-10-17',70000.00,'COMPLETADO',17,42),
-('2025-10-18','2025-10-18',65000.00,'COMPLETADO',18,43),
-('2025-10-20','2025-10-20',300000.00,'COMPLETADO',20,44),
-('2025-10-21','2025-10-25',500000.00,'ACTIVO',21,45),
-('2025-10-22','2025-10-22',60000.00,'COMPLETADO',22,46),
-('2025-10-24','2025-10-24',180000.00,'COMPLETADO',24,47),
-('2025-10-25','2025-10-25',130000.00,'COMPLETADO',25,48),
-('2025-10-26','2025-10-26',45000.00,'COMPLETADO',26,49),
-('2025-10-27','2025-10-27',50000.00,'COMPLETADO',27,50),
-('2025-10-29','2025-10-30',180000.00,'COMPLETADO',29,51),
-('2025-10-30','2025-10-30',60000.00,'COMPLETADO',30,52),
-('2025-11-01','2025-11-03',900000.00,'ACTIVO',31,53),
-('2025-11-02','2025-11-02',250000.00,'COMPLETADO',32,54),
-('2025-11-03','2025-11-03',220000.00,'COMPLETADO',33,55),
-('2025-11-04','2025-11-04',60000.00,'COMPLETADO',34,56),
-('2025-11-05','2025-11-06',350000.00,'COMPLETADO',35,57),
-('2025-11-07','2025-11-07',120000.00,'COMPLETADO',37,58),
-('2025-11-08','2025-11-08',80000.00,'COMPLETADO',38,59),
-('2025-11-09','2025-11-09',30000.00,'COMPLETADO',39,60),
-('2025-11-10','2025-11-10',90000.00,'COMPLETADO',40,61),
-('2025-11-11','2025-11-11',85000.00,'COMPLETADO',41,62),
-('2025-11-12','2025-11-13',200000.00,'COMPLETADO',42,63),
-('2025-11-13','2025-11-13',250000.00,'COMPLETADO',43,64),
-('2025-11-14','2025-11-14',70000.00,'COMPLETADO',44,65),
-('2025-11-15','2025-11-15',120000.00,'COMPLETADO',45,66),
-('2025-11-16','2025-11-16',300000.00,'COMPLETADO',46,67),
-('2025-11-17','2025-11-17',180000.00,'COMPLETADO',47,68),
-('2025-11-18','2025-11-18',95000.00,'COMPLETADO',48,69),
-('2025-11-19','2025-11-19',110000.00,'COMPLETADO',49,70),
-('2025-11-20','2025-11-20',160000.00,'COMPLETADO',50,71),
-('2025-11-21','2025-11-21',70000.00,'COMPLETADO',51,72),
-('2025-11-22','2025-11-24',800000.00,'ACTIVO',52,73),
-('2025-11-23','2025-11-23',65000.00,'COMPLETADO',53,74),
-('2025-11-24','2025-11-24',80000.00,'COMPLETADO',54,75),
-('2025-11-25','2025-11-25',140000.00,'COMPLETADO',55,76),
-('2025-11-26','2025-11-26',200000.00,'COMPLETADO',56,77),
-('2025-11-27','2025-11-27',500000.00,'COMPLETADO',57,78),
-('2025-11-28','2025-11-30',1500000.00,'ACTIVO',58,79),
-('2025-11-29','2025-11-29',85000.00,'COMPLETADO',59,80),
-('2025-11-30','2025-12-02',600000.00,'ACTIVO',60,31);
+-- 3. Clientes (Contraseña: password)
+INSERT INTO CLIENTE (nombre, correo, contrasena, telefono, foto_perfil) VALUES
+('Juan Pérez', 'juan.perez@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3001234567', 'https://randomuser.me/api/portraits/men/1.jpg'),
+('Maria Gomez', 'maria.gomez@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3007654321', 'https://randomuser.me/api/portraits/women/2.jpg'),
+('Carlos Lopez', 'carlos.lopez@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3101112233', 'https://randomuser.me/api/portraits/men/3.jpg');
 
--- 4) Reseñas sólo para contratos COMPLETADOS (primeros 40 aprox.)
-INSERT INTO RESENA (comentario, fecha, calificacion, id_contrato, id_cliente) VALUES
-('Trabajo muy profesional y puntual.','2025-10-02',5,1,2),
-('Resultado correcto, podría mejorar la comunicación.','2025-10-03',4,2,3),
-('Excelente limpieza, todo impecable.','2025-10-06',5,3,5),
-('Clase clara y dinámica.','2025-10-07',5,4,7),
-('Servicio rápido y sin problemas.','2025-10-08',5,5,8),
-('Fotos de gran calidad, gracias.','2025-10-10',5,6,10),
-('Solución a la fuga definitiva.','2025-10-11',5,7,11),
-('Cableado quedó seguro.','2025-10-12',5,8,12),
-('Optimización mejoró el rendimiento.','2025-10-14',4,9,14),
-('Pintura muy prolija.','2025-10-16',5,10,15),
-('Uñas perfectas.','2025-10-16',5,11,16),
-('Muy buena tutoría.','2025-10-17',5,12,17),
-('Mantenimiento correcto.','2025-10-18',4,13,18),
-('Evento cubierto impecable.','2025-10-20',5,14,20),
-('Decoración excelente.','2025-10-24',5,17,24),
-('Jardín se ve mucho mejor.','2025-10-25',5,18,25),
-('Clase útil y clara.','2025-10-26',5,19,26),
-('Cerrajería rápida.','2025-10-27',5,20,27),
-('Instalación profesional drywall.','2025-10-30',5,21,29),
-('Armado sin errores.','2025-10-30',5,22,30),
-('Catering delicioso.','2025-11-02',5,24,2),
-('Tapizado como nuevo.','2025-11-03',5,25,3),
-('Paseo excelente para los perros.','2025-11-04',5,26,4),
-('Instalación de gas segura.','2025-11-06',5,27,5),
-('Cambio vidrio perfecto.','2025-11-07',5,28,7),
-('Asesoría color acertada.','2025-11-08',4,29,8),
-('Entrega rápida documentos.','2025-11-09',5,30,9),
-('Masaje muy relajante.','2025-11-10',5,31,10),
-('Formateo correcto.','2025-11-11',5,32,11),
-('Pintura de cocina excelente.','2025-11-13',5,33,12),
-('Fotos de producto nítidas.','2025-11-13',5,34,13),
-('Tutoría útil.','2025-11-14',5,35,14),
-('Mantenimiento vehículo completo.','2025-11-15',5,36,15),
-('Armado complejo sin errores.','2025-11-16',5,37,16),
-('Sesión fotos profesional muy buena.','2025-11-17',5,38,17),
-('Reparación tubería efectiva.','2025-11-18',5,39,18),
-('Instalación eléctrica correcta.','2025-11-19',5,40,19),
-('Limpieza alfombras profunda y efectiva.','2025-11-20',5,41,20),
-('Optimización notebook mejoró uso.','2025-11-21',4,42,21),
-('Manicure artístico excelente.','2025-11-23',5,44,23);
+-- 4. Contratistas (Contraseña: password)
+INSERT INTO CONTRATISTA (nombre, correo, contrasena, telefono, foto_perfil, experiencia, portafolio, descripcion_perfil, verificado) VALUES
+('Pedro Rodriguez', 'pedro.rodriguez@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3209998877', 'https://randomuser.me/api/portraits/men/4.jpg', '10 años en plomería', 'https://portfolio.example.com/pedro', 'Experto en reparaciones urgentes', 1),
+('Ana Martinez', 'ana.martinez@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3155556677', 'https://randomuser.me/api/portraits/women/5.jpg', '5 años en diseño de interiores y pintura', 'https://portfolio.example.com/ana', 'Transformo espacios con color', 1),
+('Luis Hernandez', 'luis.hernandez@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3004443322', 'https://randomuser.me/api/portraits/men/6.jpg', 'Ingeniero eléctrico certificado', 'https://portfolio.example.com/luis', 'Seguridad y eficiencia eléctrica', 1),
+('Sofia Ramirez', 'sofia.ramirez@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3112223344', 'https://randomuser.me/api/portraits/women/7.jpg', 'Especialista en limpieza profunda', 'https://portfolio.example.com/sofia', 'Tu casa impecable en horas', 0),
+('Jorge Torres', 'jorge.torres@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3123334455', 'https://randomuser.me/api/portraits/men/8.jpg', 'Maestro de obra', 'https://portfolio.example.com/jorge', 'Construcción y remodelación garantizada', 1);
 
--- Fin del seed minimal
+-- 5. Ubicaciones
+INSERT INTO UBICACION (ciudad, departamento, direccion, latitud, longitud) VALUES
+('Bogotá', 'Cundinamarca', 'Calle 123 # 45-67', 4.7110, -74.0721),
+('Medellín', 'Antioquia', 'Carrera 10 # 20-30', 6.2442, -75.5812),
+('Cali', 'Valle del Cauca', 'Avenida 6 # 12-34', 3.4516, -76.5320);
+
+-- 6. Relación Contratista - Servicio
+-- Pedro (Plomero) -> Reparación de Tuberías
+INSERT INTO CONTRATISTA_SERVICIO (id_contratista, id_servicio, precio_personalizado, descripcion_personalizada) VALUES
+(1, 2, 85000.00, 'Incluye materiales básicos');
+
+-- Ana (Pintora) -> Pintura de Interiores
+INSERT INTO CONTRATISTA_SERVICIO (id_contratista, id_servicio, precio_personalizado, descripcion_personalizada) VALUES
+(2, 4, 28000.00, 'Precio por metro cuadrado');
+
+-- Luis (Electricista) -> Instalación Eléctrica
+INSERT INTO CONTRATISTA_SERVICIO (id_contratista, id_servicio, precio_personalizado, descripcion_personalizada) VALUES
+(3, 3, 130000.00, 'Revisión inicial gratuita');
+
+-- Sofia (Limpieza) -> Limpieza General
+INSERT INTO CONTRATISTA_SERVICIO (id_contratista, id_servicio, precio_personalizado, descripcion_personalizada) VALUES
+(4, 1, 55000.00, 'Turno de 4 horas');
+
+-- Jorge (Constructor) -> Remodelación de Baños
+INSERT INTO CONTRATISTA_SERVICIO (id_contratista, id_servicio, precio_personalizado, descripcion_personalizada) VALUES
+(5, 5, 1600000.00, 'Mano de obra completa');
+
+-- 7. Relación Contratista - Ubicación
+INSERT INTO CONTRATISTA_UBICACION (id_contratista, id_ubicacion) VALUES
+(1, 1), -- Pedro en Bogotá
+(2, 2), -- Ana en Medellín
+(3, 3), -- Luis en Cali
+(4, 1), -- Sofia en Bogotá
+(5, 2); -- Jorge en Medellín
