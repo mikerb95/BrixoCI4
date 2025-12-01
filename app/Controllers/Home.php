@@ -45,22 +45,36 @@ class Home extends BaseController
                     'ubicacion_mapa' => $ubicacionMapa,
                 ];
 
-                if ($nombre === '' || $correo === '' || $contrasena === '' || $confirmacion === '' || ! in_array($rol, ['cliente', 'contratista'], true)) {
+                if ($nombre === '' || $correo === '' || $contrasena === '' || $confirmacion === '' || !in_array($rol, ['cliente', 'contratista'], true)) {
                     $session->setFlashdata('register_error', 'Completa todos los campos obligatorios y selecciona un tipo de cuenta válido.');
                     $session->setFlashdata('register_old', $old);
 
                     return redirect()->to('/');
                 }
 
-                if (! filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+                if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
                     $session->setFlashdata('register_error', 'Ingresa un correo electrónico válido.');
                     $session->setFlashdata('register_old', $old);
 
                     return redirect()->to('/');
                 }
 
+                // Validación de contraseñas: coincidencia y fortaleza
                 if ($contrasena !== $confirmacion) {
                     $session->setFlashdata('register_error', 'Las contraseñas no coinciden.');
+                    $session->setFlashdata('register_old', $old);
+
+                    return redirect()->to('/');
+                }
+
+                // Reglas de fortaleza: mínimo 8 caracteres, al menos una mayúscula, una minúscula, un dígito y un símbolo
+                $lenOk = strlen($contrasena) >= 8;
+                $upperOk = preg_match('/[A-Z]/', $contrasena) === 1;
+                $lowerOk = preg_match('/[a-z]/', $contrasena) === 1;
+                $digitOk = preg_match('/\d/', $contrasena) === 1;
+                $symbolOk = preg_match('/[^A-Za-z0-9]/', $contrasena) === 1;
+                if (!($lenOk && $upperOk && $lowerOk && $digitOk && $symbolOk)) {
+                    $session->setFlashdata('register_error', 'La contraseña debe tener mínimo 8 caracteres e incluir mayúsculas, minúsculas, números y símbolos.');
                     $session->setFlashdata('register_old', $old);
 
                     return redirect()->to('/');
@@ -131,7 +145,7 @@ class Home extends BaseController
                 return redirect()->to('/');
             }
 
-            if (! password_verify($password, $usuario['contrasena'])) {
+            if (!password_verify($password, $usuario['contrasena'])) {
                 $session->setFlashdata('login_error', 'La contraseña ingresada es incorrecta.');
 
                 return redirect()->to('/');
@@ -166,7 +180,7 @@ class Home extends BaseController
         }
 
         $user = $session->get('user');
-        if (! empty($user)) {
+        if (!empty($user)) {
             $db = db_connect();
             if ($user['rol'] === 'cliente') {
                 $data['userContracts'] = $db->query(

@@ -10,7 +10,8 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/brixo.css">
@@ -29,7 +30,8 @@
         }
 
         .main-container {
-            height: calc(100vh - 90px);
+            height: calc(100vh - var(--navbar-offset));
+            margin-top: var(--navbar-offset);
             /* Subtract navbar height */
             display: flex;
         }
@@ -97,6 +99,7 @@
                 flex-direction: column-reverse;
                 height: auto;
                 overflow: auto;
+                margin-top: var(--navbar-offset);
             }
 
             body {
@@ -120,6 +123,7 @@
 
 <body>
     <?= view('partials/navbar') ?>
+    <?= view('partials/floating_nav') ?>
 
     <div class="main-container">
         <!-- List Column -->
@@ -127,7 +131,8 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="fw-bold mb-0"><?= count($professionals) ?> profesionales encontrados</h5>
                 <div class="dropdown">
-                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle rounded-pill" type="button" data-bs-toggle="dropdown">
+                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle rounded-pill" type="button"
+                        data-bs-toggle="dropdown">
                         Filtrar
                     </button>
                     <ul class="dropdown-menu">
@@ -140,9 +145,11 @@
             <div class="row row-cols-1 g-3" id="cards-container">
                 <?php foreach ($professionals as $pro): ?>
                     <div class="col">
-                        <div class="card pro-card rounded-3 p-3" data-id="<?= $pro['id'] ?>" data-lat="<?= $pro['lat'] ?>" data-lng="<?= $pro['lng'] ?>">
+                        <div class="card pro-card rounded-3 p-3" data-id="<?= $pro['id'] ?>" data-lat="<?= $pro['lat'] ?>"
+                            data-lng="<?= $pro['lng'] ?>">
                             <div class="d-flex gap-3">
-                                <img src="<?= $pro['imagen'] ?>" alt="<?= $pro['nombre'] ?>" class="rounded-3 object-fit-cover" width="120" height="120">
+                                <img src="<?= $pro['imagen'] ?>" alt="<?= $pro['nombre'] ?>"
+                                    class="rounded-3 object-fit-cover" width="120" height="120">
                                 <div class="flex-grow-1">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
@@ -152,7 +159,8 @@
                                         <i class="far fa-heart text-muted cursor-pointer"></i>
                                     </div>
                                     <div class="mb-2">
-                                        <span class="fw-bold"><i class="fas fa-star rating-star"></i> <?= $pro['rating'] ?></span>
+                                        <span class="fw-bold"><i class="fas fa-star rating-star"></i>
+                                            <?= $pro['rating'] ?></span>
                                         <span class="text-muted small">(<?= $pro['reviews'] ?> reseñas)</span>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-end mt-2">
@@ -160,7 +168,8 @@
                                             <span class="badge bg-light text-dark border">Súper Pro</span>
                                         </div>
                                         <div class="text-end">
-                                            <div class="fw-bold">Desde $<?= number_format($pro['precio'], 0, ',', '.') ?></div>
+                                            <div class="fw-bold">Desde $<?= number_format($pro['precio'], 0, ',', '.') ?>
+                                            </div>
                                             <div class="small text-muted mb-2">por hora</div>
                                         </div>
                                     </div>
@@ -181,7 +190,9 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/js/nav-floating.js"></script>
 
     <script>
         // Initialize Map
@@ -212,7 +223,7 @@
         });
 
         // Add Markers
-        professionals.forEach(function(pro) {
+        professionals.forEach(function (pro) {
             var marker = L.marker([pro.lat, pro.lng], {
                 icon: customIcon
             }).addTo(map);
@@ -232,7 +243,7 @@
             markers[pro.id] = marker;
 
             // Marker click event
-            marker.on('click', function() {
+            marker.on('click', function () {
                 highlightCard(pro.id);
             });
         });
@@ -245,7 +256,7 @@
 
         // Card Interaction
         document.querySelectorAll('.pro-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
+            card.addEventListener('mouseenter', function () {
                 var id = this.getAttribute('data-id');
                 if (markers[id]) {
                     markers[id].setIcon(activeIcon);
@@ -253,7 +264,7 @@
                 }
             });
 
-            card.addEventListener('mouseleave', function() {
+            card.addEventListener('mouseleave', function () {
                 var id = this.getAttribute('data-id');
                 if (markers[id]) {
                     markers[id].setIcon(customIcon);
@@ -261,7 +272,7 @@
                 }
             });
 
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function () {
                 var id = this.getAttribute('data-id');
                 var lat = this.getAttribute('data-lat');
                 var lng = this.getAttribute('data-lng');

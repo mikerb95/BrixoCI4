@@ -25,9 +25,9 @@ class AuthTest extends CIUnitTestCase
     {
         $db = \Config\Database::connect();
         $this->assertNotEmpty($db);
-        
+
         $email = 'client_' . time() . '@test.com';
-        
+
         $result = $this->call('post', '/', [
             'action' => 'register',
             'nombre' => 'Test Client',
@@ -96,7 +96,7 @@ class AuthTest extends CIUnitTestCase
 
         $result->assertRedirectTo('/');
         $result->assertSessionHas('message', 'Inicio de sesión correcto. ¡Bienvenido!');
-        
+
         $user = session('user');
         $this->assertEquals('cliente', $user['rol']);
         $this->assertEquals($email, $user['correo']);
@@ -128,11 +128,11 @@ class AuthTest extends CIUnitTestCase
 
         $result->assertRedirectTo('/');
         $result->assertSessionHas('message', 'Inicio de sesión correcto. ¡Bienvenido!');
-        
+
         $user = session('user');
         $this->assertEquals('contratista', $user['rol']);
     }
-    
+
     public function testLoginInvalid()
     {
         $result = $this->call('post', '/', [

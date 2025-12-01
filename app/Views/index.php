@@ -26,7 +26,10 @@
                 <?php $heroUser = session()->get('user'); ?>
                 <?php if (!empty($heroUser)): ?>
                     <span class="hero-link text-white">Hola, <?= esc($heroUser['nombre'] ?? 'Usuario') ?></span>
-                    <?php if (($heroUser['rol'] ?? '') === 'contratista'): ?>
+                    <?php $role = $heroUser['rol'] ?? ''; ?>
+                    <?php if ($role === 'admin'): ?>
+                        <a href="/admin" class="hero-link">Mi Panel</a>
+                    <?php elseif ($role === 'contratista'): ?>
                         <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#contractorPanel">Mi Panel</a>
                     <?php else: ?>
                         <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#userPanel">Mi Panel</a>

@@ -7,13 +7,22 @@
             <li><a href="/mapa" class="float-link">Mapa</a></li>
             <?php $floatUser = session()->get('user'); ?>
             <?php if (!empty($floatUser)): ?>
-                <li class="d-none d-md-inline"><span class="float-link disabled">Hola, <?= esc($floatUser['nombre'] ?? 'Usuario') ?></span></li>
-                <li><a href="#" class="float-link" data-bs-toggle="modal"
-                        data-bs-target="<?= ($floatUser['rol'] ?? '') === 'contratista' ? '#contractorPanel' : '#userPanel' ?>">Mi Panel</a></li>
+                <li class="d-none d-md-inline"><span class="float-link disabled">Hola,
+                        <?= esc($floatUser['nombre'] ?? 'Usuario') ?></span></li>
+                <?php $role = $floatUser['rol'] ?? ''; ?>
+                <?php if ($role === 'admin'): ?>
+                    <li><a href="/admin" class="float-link">Mi Panel</a></li>
+                <?php elseif ($role === 'contratista'): ?>
+                    <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#contractorPanel">Mi Panel</a>
+                    </li>
+                <?php else: ?>
+                    <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#userPanel">Mi Panel</a></li>
+                <?php endif; ?>
                 <li><a href="/logout" class="float-link">Salir</a></li>
             <?php else: ?>
                 <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
-                <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a></li>
+                <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+                </li>
             <?php endif; ?>
         </ul>
     </div>

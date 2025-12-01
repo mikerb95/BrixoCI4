@@ -11,7 +11,7 @@ echo "<h1>Instalación de Base de Datos (Automática)</h1>";
 $host = getenv('database.default.hostname') ?: getenv('DB_HOST') ?: 'localhost';
 $user = getenv('database.default.username') ?: getenv('DB_USER') ?: 'root';
 $pass = getenv('database.default.password') ?: getenv('DB_PASSWORD') ?: '';
-$db   = getenv('database.default.database') ?: getenv('DB_NAME') ?: 'brixo';
+$db = getenv('database.default.database') ?: getenv('DB_NAME') ?: 'brixo';
 $port = getenv('database.default.port') ?: getenv('DB_PORT') ?: 3306;
 
 echo "<ul>";
@@ -44,22 +44,33 @@ try {
     $pdo = new PDO($dsn, $user, $pass, $options);
     echo "<p style='color:green'><strong>✅ Conexión exitosa.</strong></p>";
 
-    // 1. Limpiar base de datos
-    echo "<p>Limpiando tablas antiguas...</p>";
+    // 1. Limpiar base de datos (Eliminar TODAS las tablas y vistas)
+    echo "<p>Limpiando base de datos (Eliminando esquema actual)...</p>";
     $pdo->exec('SET FOREIGN_KEY_CHECKS = 0');
-    
-    $toDrop = [
-        'RESENA', 'CONTRATO', 'COTIZACION', 'USUARIO',
-        'ADMINISTRADOR', 'CONTRATISTA', 'CLIENTE',
-        'SERVICIO', 'RESENAS', 'COTIZACIONES', 'CONTRATOS',
-        'migrations', 'CONTRATISTA_UBICACION', 'UBICACION'
-    ];
 
-    foreach ($toDrop as $tbl) {
-        $pdo->exec("DROP TABLE IF EXISTS `$tbl`");
+    // Obtener todas las tablas
+    $stmt = $pdo->query("SHOW TABLES");
+    $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    if (empty($tables)) {
+        echo "<p>La base de datos ya estaba vacía.</p>";
+    } else {
+        foreach ($tables as $table) {
+            $pdo->exec("DROP TABLE IF EXISTS `$table`");
+            echo "<p style='font-size:0.9em; color:gray;'> - Tabla eliminada: $table</p>";
+        }
     }
+
+    // Obtener todas las vistas (si las hay)
+    $stmt = $pdo->query("SHOW FULL TABLES WHERE Table_type = 'VIEW'");
+    $views = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    foreach ($views as $view) {
+        $pdo->exec("DROP VIEW IF EXISTS `$view`");
+        echo "<p style='font-size:0.9em; color:gray;'> - Vista eliminada: $view</p>";
+    }
+
     $pdo->exec('SET FOREIGN_KEY_CHECKS = 1');
-    echo "<p>Tablas eliminadas.</p>";
+    echo "<p><strong>Esquema eliminado correctamente.</strong></p>";
 
     // 2. Ejecutar Schema
     $schemaFile = __DIR__ . '/schema.sql';
