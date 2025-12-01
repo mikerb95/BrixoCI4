@@ -259,3 +259,11 @@
     box-shadow: none;
     border-color: var(--primary-color);
 }
+
+/* ---------------------------------------------------------
+   Leaflet compatibility fix against Bootstrap img rules
+   --------------------------------------------------------- */
+.leaflet-container img,
+.leaflet-container .leaflet-tile {
+    max-width: none !important; /* prevent Bootstrap from resizing map tiles */
+}

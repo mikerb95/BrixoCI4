@@ -584,6 +584,11 @@
             item.addEventListener('click', (e) => { e.preventDefault(); map.setView([p.lat, p.lng], 14); marker.openPopup(); });
             proList.appendChild(item);
         });
+
+        // Asegurar que Leaflet recalcule el tamaño una vez cargada la página
+        window.addEventListener('load', () => {
+            try { map.invalidateSize(); } catch (e) {}
+        });
     </script>
 
 </body>
