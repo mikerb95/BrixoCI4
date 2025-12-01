@@ -20,6 +20,13 @@
             <a href="/" class="btn btn-outline-secondary">Inicio</a>
         </div>
 
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= esc($message) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
         <div class="row g-4">
             <div class="col-lg-8">
                 <div class="card shadow-sm">

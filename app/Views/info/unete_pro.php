@@ -19,8 +19,10 @@
         <section class="py-5 bg-dark text-white">
             <div class="container text-center" style="max-width: 800px;">
                 <h1 class="display-4 fw-bold mb-4">Haz crecer tu negocio con Brixo</h1>
-                <p class="lead mb-4">Conecta con clientes que buscan tus servicios y gestiona tu trabajo de forma profesional.</p>
-                <a href="#" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold" data-bs-toggle="modal" data-bs-target="#registerModal">Regístrate Gratis</a>
+                <p class="lead mb-4">Conecta con clientes que buscan tus servicios y gestiona tu trabajo de forma
+                    profesional.</p>
+                <a href="#" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold" data-bs-toggle="modal"
+                    data-bs-target="#registerModal">Regístrate Gratis</a>
             </div>
         </section>
 
@@ -49,13 +51,17 @@
                         <h2 class="fw-bold mb-4">¿Cómo empezar?</h2>
                         <ol class="list-group list-group-numbered list-group-flush bg-transparent">
                             <li class="list-group-item bg-transparent border-0 ps-0">Regístrate como Contratista.</li>
-                            <li class="list-group-item bg-transparent border-0 ps-0">Completa tu perfil con fotos y experiencia.</li>
-                            <li class="list-group-item bg-transparent border-0 ps-0">Verifica tu identidad para ganar confianza.</li>
+                            <li class="list-group-item bg-transparent border-0 ps-0">Completa tu perfil con fotos y
+                                experiencia.</li>
+                            <li class="list-group-item bg-transparent border-0 ps-0">Verifica tu identidad para ganar
+                                confianza.</li>
                             <li class="list-group-item bg-transparent border-0 ps-0">¡Empieza a recibir ofertas!</li>
                         </ol>
                     </div>
                     <div class="col-md-6 h-100">
-                        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Profesional trabajando" class="img-fluid h-100 object-fit-cover" style="min-height: 300px;">
+                        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Profesional trabajando" class="img-fluid h-100 object-fit-cover"
+                            style="min-height: 300px;">
                     </div>
                 </div>
             </div>

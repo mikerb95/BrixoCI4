@@ -25,29 +25,29 @@ class Database extends Config
      * @var array<string, mixed>
      */
     public array $default = [
-        'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
-        'DBDriver'     => 'MySQLi',
-        'DBPrefix'     => '',
-        'pConnect'     => false,
-        'DBDebug'      => true,
-        'charset'      => 'utf8mb4',
-        'DBCollat'     => 'utf8mb4_general_ci',
-        'swapPre'      => '',
-        'encrypt'      => false,
-        'compress'     => false,
-        'strictOn'     => false,
-        'failover'     => [],
-        'port'         => 3306,
+        'DSN' => '',
+        'hostname' => 'localhost',
+        'username' => '',
+        'password' => '',
+        'database' => '',
+        'DBDriver' => 'MySQLi',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug' => true,
+        'charset' => 'utf8mb4',
+        'DBCollat' => 'utf8mb4_general_ci',
+        'swapPre' => '',
+        'encrypt' => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port' => 3306,
         'numberNative' => false,
-        'foundRows'    => false,
-        'dateFormat'   => [
-            'date'     => 'Y-m-d',
+        'foundRows' => false,
+        'dateFormat' => [
+            'date' => 'Y-m-d',
             'datetime' => 'Y-m-d H:i:s',
-            'time'     => 'H:i:s',
+            'time' => 'H:i:s',
         ],
     ];
 
@@ -163,29 +163,29 @@ class Database extends Config
      * @var array<string, mixed>
      */
     public array $tests = [
-        'DSN'         => '',
-        'hostname'    => 'localhost',
-        'username'    => 'root',
-        'password'    => '',
-        'database'    => 'brixo',
-        'DBDriver'    => 'MySQLi',
-        'DBPrefix'    => '',
-        'pConnect'    => false,
-        'DBDebug'     => true,
-        'charset'     => 'utf8mb4',
-        'DBCollat'    => 'utf8mb4_general_ci',
-        'swapPre'     => '',
-        'encrypt'     => false,
-        'compress'    => false,
-        'strictOn'    => false,
-        'failover'    => [],
-        'port'        => 3306,
+        'DSN' => '',
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'brixo',
+        'DBDriver' => 'MySQLi',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug' => true,
+        'charset' => 'utf8mb4',
+        'DBCollat' => 'utf8mb4_general_ci',
+        'swapPre' => '',
+        'encrypt' => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port' => 3306,
         'foreignKeys' => true,
         'busyTimeout' => 1000,
-        'dateFormat'  => [
-            'date'     => 'Y-m-d',
+        'dateFormat' => [
+            'date' => 'Y-m-d',
             'datetime' => 'Y-m-d H:i:s',
-            'time'     => 'H:i:s',
+            'time' => 'H:i:s',
         ],
     ];
 
@@ -214,7 +214,7 @@ class Database extends Config
             $this->default['database'] = $name;
         }
         if ($port = getenv('DB_PORT')) {
-            $this->default['port'] = (int)$port;
+            $this->default['port'] = (int) $port;
         }
         if (getenv('DB_SSL') === 'true') {
             $this->default['encrypt'] = true;
@@ -224,6 +224,6 @@ class Database extends Config
         // Esto asegura que los tests usen la base de datos remota configurada en .env
         $this->tests = $this->default;
         // Forzamos el grupo de pruebas para evitar prefijos extraños si no se desean
-        $this->tests['DBPrefix'] = ''; 
+        $this->tests['DBPrefix'] = '';
     }
 }

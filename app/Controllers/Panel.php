@@ -9,6 +9,7 @@ class Panel extends BaseController
     {
         $session = session();
         $user = $session->get('user');
+        $message = $session->getFlashdata('message');
         if (empty($user)) {
             return redirect()->to('/');
         }
@@ -41,6 +42,7 @@ class Panel extends BaseController
                 'user' => $user,
                 'contracts' => $contracts,
                 'reviews' => $reviews,
+                'message' => $message,
             ]);
         }
 
@@ -71,6 +73,7 @@ class Panel extends BaseController
             'user' => $user,
             'contracts' => $contracts,
             'reviews' => $reviews,
+            'message' => $message,
         ]);
     }
 }

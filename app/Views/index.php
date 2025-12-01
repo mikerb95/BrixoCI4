@@ -40,10 +40,17 @@
         <!-- Floating navbar (hidden initially) -->
         <?= view('partials/floating_nav') ?>
         <div class="container position-relative z-1">
+            <?php if (!empty($message)): ?>
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    <?= esc($message) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
             <div class="row align-items-center">
                 <!-- Logo justo encima del bloque de texto principal -->
                 <div class="col-lg-7 text-start mb-3">
-                    <img src="/images/brixo-logo-wh.png" alt="Brixo" style="height:128px;width:auto;" onerror="this.style.display='none'">
+                    <img src="/images/brixo-logo-wh.png" alt="Brixo" style="height:128px;width:auto;"
+                        onerror="this.style.display='none'">
                 </div>
                 <div class="col-lg-7 text-start mb-5 mb-lg-0">
                     <h1 class="display-3 fw-bold mb-4 lh-sm">Profesionales<br>confiables, cuando<br>los necesitas</h1>
@@ -103,21 +110,66 @@
         </div>
     </section>
 
-    <!-- Map + Professionals Section -->
+    <!-- Mapa estilo Airbnb con Leaflet y contratistas reales -->
     <section class="map-section py-5">
         <div class="container" style="max-width: 1200px;">
-            <h2 class="h3 fw-bold mb-4">Profesionales cerca de ti</h2>
-            <div class="map-layout d-flex gap-4">
-                <div id="leaflet-map" class="flex-grow-1 map-canvas"></div>
-                <aside class="map-sidebar">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="h6 fw-bold mb-0">Disponibles en esta zona</h3>
-                        <span class="text-secondary small" id="pro-count">0</span>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h2 class="h3 fw-bold mb-1">Explora profesionales en tu zona</h2>
+                    <p class="text-secondary mb-0">Mira opciones disponibles directamente sobre el mapa.</p>
+                </div>
+                <a href="/mapa" class="btn btn-outline-primary rounded-pill">Abrir mapa detallado</a>
+            </div>
+
+            <div class="position-relative" style="border-radius: 24px; overflow: hidden;">
+                <!-- Mapa Leaflet de fondo -->
+                <div id="leaflet-map"></div>
+
+                <!-- Panel flotante de resultados, similar a Airbnb -->
+                <div class="position-absolute top-0 end-0 h-100 d-flex align-items-stretch">
+                    <div class="bg-white shadow-lg" style="width: 380px; max-width: 100%; padding: 18px; overflow-y: auto;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small text-secondary">
+                                <?php if (!empty($homeProfessionals)): ?>
+                                    <?= count($homeProfessionals) ?> profesionales destacados en tu zona
+                                <?php else: ?>
+                                    Sin profesionales cargados aún
+                                <?php endif; ?>
+                            </span>
+                            <span class="badge rounded-pill text-bg-light">Vista rápida</span>
+                        </div>
+
+                        <div class="d-flex flex-column gap-3" id="home-pro-list">
+                            <?php foreach ($homeProfessionals as $pro): ?>
+                                <div class="border rounded-3 p-3 hover-shadow transition bg-white home-pro-card"
+                                     data-id="<?= esc($pro['id']) ?>"
+                                     data-lat="<?= esc($pro['lat']) ?>"
+                                     data-lng="<?= esc($pro['lng']) ?>">
+                                    <div class="d-flex gap-3">
+                                        <img src="<?= esc($pro['imagen']) ?>" alt="<?= esc($pro['nombre']) ?>"
+                                             class="rounded-3 object-fit-cover" width="72" height="72">
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <div>
+                                                    <div class="small text-secondary mb-1"><?= esc($pro['ubicacion']) ?></div>
+                                                    <h3 class="h6 fw-bold mb-1"><?= esc($pro['profesion']) ?></h3>
+                                                    <div class="small text-secondary"><?= esc($pro['nombre']) ?></div>
+                                                </div>
+                                                <span class="badge bg-success-subtle text-success small">
+                                                    <?= esc($pro['rating']) ?> · <?= esc($pro['reviews']) ?> reseñas
+                                                </span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center small mt-1">
+                                                <span class="text-secondary">Desde <strong>$<?= number_format($pro['precio'], 0, ',', '.') ?></strong></span>
+                                                <a href="/mapa" class="link-primary text-decoration-none">Ver más</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
-                    <div id="pro-list" class="list-group list-group-flush">
-                        <!-- Se llenará dinámicamente -->
-                    </div>
-                </aside>
+                </div>
             </div>
         </div>
     </section>
@@ -126,11 +178,14 @@
     <section class="py-4 bg-light">
         <div class="container d-flex justify-content-center" style="max-width: 1200px;">
             <div class="position-relative overflow-hidden rounded-4 shadow-sm" style="width: 100%; max-height: 275px;">
-                <img src="/images/toolsbig.webp" alt="Herramientas Brixo" class="img-fluid w-100 h-100" style="object-fit: cover; object-position: center;">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="padding: 24px 40px;">
+                <img src="/images/toolsbig.webp" alt="Herramientas Brixo" class="img-fluid w-100 h-100"
+                    style="object-fit: cover; object-position: center;">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+                    style="padding: 24px 40px;">
                     <div class="text-white" style="max-width: 520px;">
                         <h3 class="h2 fw-bold mb-3">¿Necesitas herramientas puntuales?</h3>
-                        <p class="mb-4">Alquila taladros, sierras, andamios y más por día u horas, sin comprar. Ideal para proyectos rápidos y profesionales en movimiento.</p>
+                        <p class="mb-4">Alquila taladros, sierras, andamios y más por día u horas, sin comprar. Ideal
+                            para proyectos rápidos y profesionales en movimiento.</p>
                         <div class="d-flex flex-wrap gap-3">
                             <a href="/mapa" class="btn btn-primary btn-lg px-4">Ver disponibilidad</a>
                             <a href="#" class="btn btn-outline-light btn-lg px-4">Publicar necesidad</a>
@@ -415,7 +470,8 @@
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="/como-funciona" class="text-decoration-none hover-underline">Cómo
                                 funciona</a></li>
-                        <li class="mb-2"><a href="/seguridad" class="text-decoration-none hover-underline">Seguridad</a></li>
+                        <li class="mb-2"><a href="/seguridad" class="text-decoration-none hover-underline">Seguridad</a>
+                        </li>
                         <li class="mb-2"><a href="/ayuda" class="text-decoration-none hover-underline">Ayuda</a></li>
                     </ul>
                 </div>
@@ -424,8 +480,10 @@
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="/unete-pro" class="text-decoration-none hover-underline">Únete
                                 como pro</a></li>
-                        <li class="mb-2"><a href="/historias-exito" class="text-decoration-none hover-underline">Historias de éxito</a></li>
-                        <li class="mb-2"><a href="/recursos" class="text-decoration-none hover-underline">Recursos</a></li>
+                        <li class="mb-2"><a href="/historias-exito"
+                                class="text-decoration-none hover-underline">Historias de éxito</a></li>
+                        <li class="mb-2"><a href="/recursos" class="text-decoration-none hover-underline">Recursos</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -531,48 +589,67 @@
             loginModal.show();
         <?php endif; ?>
 
-        // --- Leaflet Map Setup ---
-        const map = L.map('leaflet-map', { zoomControl: true }).setView([4.711, -74.072], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+        // --- Leaflet Map Setup para home ---
+        const homeMapEl = document.getElementById('leaflet-map');
+        if (homeMapEl) {
+            const map = L.map('leaflet-map', { zoomControl: true }).setView([4.6097, -74.0817], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
 
-        // Datos de ejemplo de profesionales (reemplazar con API en el futuro)
-        const professionals = [
-            { id: 31, nombre: 'Contratista 01', especialidad: 'Plomería', foto: 'https://randomuser.me/api/portraits/men/31.jpg', lat: 4.681, lng: -74.06 },
-            { id: 32, nombre: 'Contratista 02', especialidad: 'Electricidad', foto: 'https://randomuser.me/api/portraits/women/32.jpg', lat: 4.703, lng: -74.09 },
-            { id: 33, nombre: 'Contratista 03', especialidad: 'Limpieza', foto: 'https://randomuser.me/api/portraits/men/33.jpg', lat: 4.72, lng: -74.05 },
-            { id: 34, nombre: 'Contratista 04', especialidad: 'Carpintería', foto: 'https://randomuser.me/api/portraits/women/34.jpg', lat: 4.69, lng: -74.08 }
-        ];
+            const homeProfessionals = <?php echo json_encode($homeProfessionals, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
+            const markers = {};
 
-        const proList = document.getElementById('pro-list');
-        const proCount = document.getElementById('pro-count');
-        proCount.textContent = professionals.length + ' resultados';
+            homeProfessionals.forEach(p => {
+                if (!p.lat || !p.lng) return;
 
-        professionals.forEach(p => {
-            // Marker
-            const marker = L.marker([p.lat, p.lng]).addTo(map);
-            marker.bindPopup(`<strong>${p.nombre}</strong><br/><small>${p.especialidad}</small>`);
+                const marker = L.marker([p.lat, p.lng]).addTo(map);
+                marker.bindPopup(`<strong>${p.nombre}</strong><br/><small>${p.profesion}</small>`);
+                markers[p.id] = marker;
+            });
 
-            // List item
-            const item = document.createElement('a');
-            item.href = '/mapa';
-            item.className = 'list-group-item list-group-item-action d-flex gap-3 align-items-center';
-            item.innerHTML = `
-                <img src="${p.foto}" alt="${p.nombre}" class="rounded-3" style="width:56px;height:56px;object-fit:cover;">
-                <div class="flex-grow-1">
-                    <div class="fw-semibold">${p.nombre}</div>
-                    <div class="text-secondary small">${p.especialidad}</div>
-                </div>`;
-            item.addEventListener('mouseenter', () => marker.openPopup());
-            item.addEventListener('click', (e) => { e.preventDefault(); map.setView([p.lat, p.lng], 14); marker.openPopup(); });
-            proList.appendChild(item);
-        });
+            // Ajustar el mapa a los marcadores si hay datos
+            const markerVals = Object.values(markers);
+            if (markerVals.length > 1) {
+                const group = new L.featureGroup(markerVals);
+                map.fitBounds(group.getBounds().pad(0.1));
+            } else if (markerVals.length === 1) {
+                const only = markerVals[0].getLatLng();
+                map.setView(only, 13);
+            } else {
+                // Sin puntos: mantener centro base y un zoom razonable
+                map.setView([4.6097, -74.0817], 12);
+            }
 
-        // Asegurar que Leaflet recalcule el tamaño una vez cargada la página
-        window.addEventListener('load', () => {
-            try { map.invalidateSize(); } catch (e) { }
-        });
+            // Interacción con las cards del panel flotante
+            document.querySelectorAll('.home-pro-card').forEach(card => {
+                const id = card.getAttribute('data-id');
+                const lat = parseFloat(card.getAttribute('data-lat'));
+                const lng = parseFloat(card.getAttribute('data-lng'));
+
+                card.addEventListener('mouseenter', () => {
+                    if (markers[id]) {
+                        markers[id].openPopup();
+                        map.setView([lat, lng], 14);
+                    }
+                });
+
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (markers[id]) {
+                        markers[id].openPopup();
+                        map.setView([lat, lng], 14);
+                    }
+                });
+            });
+
+            // Asegurar que Leaflet recalcule el tamaño una vez cargada la página
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    try { map.invalidateSize(); } catch (e) { }
+                }, 300);
+            });
+        }
     </script>
 
 </body>

@@ -47,11 +47,14 @@
                         <h2 class="fw-bold mb-3">Nuestros Valores</h2>
                         <ul class="list-unstyled">
                             <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>
-                                <strong>Confianza:</strong> Verificamos a cada profesional.</li>
+                                <strong>Confianza:</strong> Verificamos a cada profesional.
+                            </li>
                             <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>
-                                <strong>Calidad:</strong> Nos aseguramos de que recibas el mejor servicio.</li>
+                                <strong>Calidad:</strong> Nos aseguramos de que recibas el mejor servicio.
+                            </li>
                             <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>
-                                <strong>Innovación:</strong> Usamos tecnología para facilitarte la vida.</li>
+                                <strong>Innovación:</strong> Usamos tecnología para facilitarte la vida.
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-6">
