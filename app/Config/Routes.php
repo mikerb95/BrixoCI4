@@ -21,6 +21,7 @@ $routes->get('/perfil', 'Panel::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
 $routes->get('/debug-auth', 'DebugAuth::index');
+$routes->get('/setup/solicitudes', 'Setup::solicitudes'); // Ruta de instalación
 
 // Solicitudes
 $routes->get('/solicitud/nueva', 'Solicitud::nueva');
