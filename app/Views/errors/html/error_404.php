@@ -108,7 +108,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-0">
-                    <form method="post" action="/">
+                    <form method="post" action="/register">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="register">
                         <div class="mb-3">

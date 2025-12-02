@@ -426,7 +426,7 @@
                     <?php if (!empty($register_error)): ?>
                         <div class="alert alert-danger mb-4"><?= esc($register_error) ?></div>
                     <?php endif; ?>
-                    <form method="post" action="/" id="registerForm">
+                    <form method="post" action="/register" id="registerForm">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="register">
                         <div class="mb-3">

@@ -12,6 +12,9 @@ $routes->get('/login', 'Auth::showLogin');
 $routes->post('/login', 'Auth::login');
 $routes->get('/logout', 'Auth::logout');
 
+// Registration
+$routes->post('/register', 'Register::register');
+
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');
 $routes->get('/perfil', 'Panel::index');
