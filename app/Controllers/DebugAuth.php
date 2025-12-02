@@ -45,7 +45,7 @@ class DebugAuth extends BaseController
         $hasCookie = isset($_COOKIE[$cookieName]);
         echo "<tr><td>Cookie Navegador ($cookieName)</td><td>" . ($hasCookie ? 'Presente' : 'Ausente') . "</td><td>" . ($hasCookie ? '<span class="pass">OK</span>' : '<span class="fail">FAIL</span>') . "</td></tr>";
         
-        echo "<tr><td>Config: Secure</td><td>" . (config('Cookie')->secure ? 'true' : 'false') . "</td><td>" . (is_https() && !config('Cookie')->secure ? '<span class="warn">Debería ser true en HTTPS</span>' : 'Info') . "</td></tr>";
+        echo "<tr><td>Config: Secure</td><td>" . (config('Cookie')->secure ? 'true' : 'false') . "</td><td>" . ($this->request->isSecure() && !config('Cookie')->secure ? '<span class="warn">Debería ser true en HTTPS</span>' : 'Info') . "</td></tr>";
         echo "<tr><td>Config: SameSite</td><td>" . config('Cookie')->samesite . "</td><td>Info</td></tr>";
         echo "<tr><td>Config: Domain</td><td>'" . config('Cookie')->domain . "'</td><td>" . (config('Cookie')->domain == '' ? 'Info (Auto)' : 'Info') . "</td></tr>";
         echo "</table>";
@@ -53,7 +53,7 @@ class DebugAuth extends BaseController
         echo "<h2>3. Entorno del Servidor</h2>";
         echo "<table>";
         echo "<tr><th>Variable</th><th>Valor</th></tr>";
-        echo "<tr><td>HTTPS Detectado (is_https())</td><td>" . (is_https() ? 'Sí' : 'No') . "</td></tr>";
+        echo "<tr><td>HTTPS Detectado (request->isSecure())</td><td>" . ($this->request->isSecure() ? 'Sí' : 'No') . "</td></tr>";
         echo "<tr><td>$_SERVER['HTTPS']</td><td>" . ($_SERVER['HTTPS'] ?? 'N/A') . "</td></tr>";
         echo "<tr><td>$_SERVER['HTTP_X_FORWARDED_PROTO']</td><td>" . ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? 'N/A') . "</td></tr>";
         echo "<tr><td>$_SERVER['REMOTE_ADDR']</td><td>" . ($_SERVER['REMOTE_ADDR'] ?? 'N/A') . "</td></tr>";
