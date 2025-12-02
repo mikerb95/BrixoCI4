@@ -180,7 +180,12 @@ class App extends BaseConfig
      *
      * @var array<string, string>
      */
-    public array $proxyIPs = ['0.0.0.0/0' => 'HTTP_X_FORWARDED_FOR'];
+    public array $proxyIPs = [
+        '0.0.0.0/0' => 'HTTP_X_FORWARDED_FOR',
+        '10.0.0.0/8' => 'HTTP_X_FORWARDED_FOR',
+        '172.16.0.0/12' => 'HTTP_X_FORWARDED_FOR',
+        '192.168.0.0/16' => 'HTTP_X_FORWARDED_FOR',
+    ];
 
     /**
      * --------------------------------------------------------------------------
