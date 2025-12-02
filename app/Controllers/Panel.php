@@ -17,13 +17,13 @@ class Panel extends BaseController
         $db = db_connect();
         if ($user['rol'] === 'cliente') {
             $contracts = $db->query(
-                'SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
-                        "Servicio contratado" as detalle,
+                "SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
+                        'Servicio contratado' as detalle,
                         con.nombre as contratista
                  FROM CONTRATO ct
                  JOIN CONTRATISTA con ON con.id_contratista = ct.id_contratista
                  WHERE ct.id_cliente = ?
-                 ORDER BY ct.fecha_inicio DESC',
+                 ORDER BY ct.fecha_inicio DESC",
                 [$user['id']]
             )->getResultArray();
 
@@ -48,13 +48,13 @@ class Panel extends BaseController
 
         // Contratista
         $contracts = $db->query(
-            'SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
-                    "Servicio contratado" as detalle,
+            "SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
+                    'Servicio contratado' as detalle,
                     cli.nombre as cliente
              FROM CONTRATO ct
              JOIN CLIENTE cli ON cli.id_cliente = ct.id_cliente
              WHERE ct.id_contratista = ?
-             ORDER BY ct.fecha_inicio DESC',
+             ORDER BY ct.fecha_inicio DESC",
             [$user['id']]
         )->getResultArray();
 
