@@ -22,6 +22,11 @@ $routes->get('/perfil', 'Panel::index');
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
 $routes->get('/debug-auth', 'DebugAuth::index');
 
+// Solicitudes
+$routes->get('/solicitud/nueva', 'Solicitud::nueva');
+$routes->post('/solicitud/guardar', 'Solicitud::guardar');
+$routes->get('/tablon-tareas', 'Solicitud::index'); // Para contratistas
+
 // Páginas estáticas del footer
 $routes->get('sobre-nosotros', 'Info::sobreNosotros');
 $routes->get('como-funciona', 'Info::comoFunciona');

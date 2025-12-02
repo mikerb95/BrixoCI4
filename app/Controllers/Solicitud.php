@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\HTTP\RedirectResponse;
+
+class Solicitud extends BaseController
+{
+    public function nueva(): string|RedirectResponse
+    {
+        $session = session();
+        $user = $session->get('user');
+
+        // Solo clientes pueden crear solicitudes
+        if (empty($user) || $user['rol'] !== 'cliente') {
+            return redirect()->to('/')->with('error', 'Debes iniciar sesión como cliente para crear una solicitud.');
+        }
+
+        // Si viene un ID de contratista en la URL (para solicitud directa)
+        $idContratista = $this->request->getGet('contratista');
+        $nombreContratista = '';
+
+        if ($idContratista) {
+            $db = db_connect();
+            $contratista = $db->table('CONTRATISTA')->select('nombre')->where('id_contratista', $idContratista)->get()->getRowArray();
+            if ($contratista) {
+                $nombreContratista = $contratista['nombre'];
+            }
+        }
+
+        return view('solicitud/nueva', [
+            'user' => $user,
+            'id_contratista' => $idContratista,
+            'nombre_contratista' => $nombreContratista
+        ]);
+    }
+
+    public function guardar(): RedirectResponse
+    {
+        $session = session();
+        $user = $session->get('user');
+
+        if (empty($user) || $user['rol'] !== 'cliente') {
+            return redirect()->to('/');
+        }
+
+        $titulo = trim((string) $this->request->getPost('titulo'));
+        $descripcion = trim((string) $this->request->getPost('descripcion'));
+        $presupuesto = $this->request->getPost('presupuesto');
+        $ubicacion = trim((string) $this->request->getPost('ubicacion'));
+        $idContratista = $this->request->getPost('id_contratista'); // Puede ser vacío (abierta)
+
+        if ($titulo === '' || $descripcion === '') {
+            return redirect()->back()->with('error', 'El título y la descripción son obligatorios.');
+        }
+
+        $data = [
+            'id_cliente' => $user['id'],
+            'titulo' => $titulo,
+            'descripcion' => $descripcion,
+            'presupuesto' => $presupuesto ?: 0,
+            'ubicacion' => $ubicacion,
+            'estado' => 'ABIERTA',
+            'id_contratista' => !empty($idContratista) ? $idContratista : null
+        ];
+
+        $db = db_connect();
+        $db->table('SOLICITUD')->insert($data);
+
+        $mensaje = !empty($idContratista)
+            ? 'Solicitud enviada al contratista correctamente.'
+            : 'Solicitud publicada en el tablón de tareas abiertas.';
+
+        return redirect()->to('/panel')->with('message', $mensaje);
+    }
+
+    // Listar solicitudes abiertas (Para contratistas)
+    public function index(): string|RedirectResponse
+    {
+        $session = session();
+        $user = $session->get('user');
+
+        if (empty($user) || $user['rol'] !== 'contratista') {
+            return redirect()->to('/')->with('error', 'Acceso exclusivo para contratistas.');
+        }
+
+        $db = db_connect();
+
+        // Obtener solicitudes abiertas (id_contratista IS NULL)
+        $solicitudes = $db->query("
+            SELECT s.*, c.nombre as nombre_cliente 
+            FROM SOLICITUD s
+            JOIN CLIENTE c ON c.id_cliente = s.id_cliente
+            WHERE s.id_contratista IS NULL 
+            AND s.estado = 'ABIERTA'
+            ORDER BY s.creado_en DESC
+        ")->getResultArray();
+
+        return view('solicitud/lista', [
+            'user' => $user,
+            'solicitudes' => $solicitudes
+        ]);
+    }
+}
