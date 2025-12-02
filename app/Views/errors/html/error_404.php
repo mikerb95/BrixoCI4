@@ -62,7 +62,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Asegurar que la navbar flotante esté visible en 404 y no interfiera con layout
-        (function(){
+        (function () {
             const nav = document.getElementById('floating-nav');
             if (nav) {
                 nav.classList.add('visible');
@@ -80,7 +80,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-0">
-                    <form method="post" action="/">
+                    <form method="post" action="/login">
                         <?= csrf_field() ?>
                         <div class="mb-3">
                             <label for="correo" class="form-label fw-semibold">Correo electrónico</label>

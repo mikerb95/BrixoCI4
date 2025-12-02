@@ -30,8 +30,7 @@
         }
 
         .main-container {
-            height: calc(100vh - var(--navbar-offset));
-            margin-top: var(--navbar-offset);
+            height: calc(100vh - 90px);
             /* Subtract navbar height */
             display: flex;
         }
@@ -99,7 +98,6 @@
                 flex-direction: column-reverse;
                 height: auto;
                 overflow: auto;
-                margin-top: var(--navbar-offset);
             }
 
             body {
@@ -123,7 +121,6 @@
 
 <body>
     <?= view('partials/navbar') ?>
-    <?= view('partials/floating_nav') ?>
 
     <div class="main-container">
         <!-- List Column -->
@@ -192,7 +189,6 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="/js/nav-floating.js"></script>
 
     <script>
         // Initialize Map

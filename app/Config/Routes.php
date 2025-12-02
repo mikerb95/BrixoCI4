@@ -6,7 +6,11 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->match(['get', 'post', 'head'], '/', 'Home::index');
-$routes->get('/logout', 'Home::logout');
+
+// Auth (basic educational handlers)
+$routes->get('/login', 'Auth::showLogin');
+$routes->post('/login', 'Auth::login');
+$routes->get('/logout', 'Auth::logout');
 
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');
