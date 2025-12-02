@@ -56,4 +56,25 @@ $paths = new Paths();
 // LOAD THE FRAMEWORK BOOTSTRAP FILE
 require $paths->systemDirectory . '/Boot.php';
 
+// Support HTTPS when running behind a reverse proxy (e.g., Render.com)
+// Many platforms terminate TLS at the load balancer and forward requests
+// to the application via HTTP while setting the X-Forwarded-Proto header.
+// When that happens, tell PHP/CodeIgniter the request is secure so that
+// cookies with the `Secure` flag will be sent and URL generation uses https.
+if (
+    empty($_SERVER['HTTPS'])
+    && !empty($_SERVER['HTTP_X_FORWARDED_PROTO'])
+    && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https'
+) {
+    $_SERVER['HTTPS'] = 'on';
+    // Some libraries check REQUEST_SCHEME when building URLs
+    $_SERVER['REQUEST_SCHEME'] = 'https';
+    // Also set forwarded port if provided
+    if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+        $_SERVER['SERVER_PORT'] = $_SERVER['HTTP_X_FORWARDED_PORT'];
+    } else {
+        $_SERVER['SERVER_PORT'] = 443;
+    }
+}
+
 exit(Boot::bootWeb($paths));
