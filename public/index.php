@@ -32,6 +32,11 @@ if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
+// FIX: Force HTTPS for Render.com (Load Balancer Termination)
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
+
 // Ensure the current directory is pointing to the front controller's directory
 if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
     chdir(FCPATH);
