@@ -1,131 +1,92 @@
 <?php
 // public/debug_session_db.php
 
-// Enable error reporting
+// Configuración para mostrar errores
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+header('Content-Type: text/html; charset=utf-8');
 
-echo "<h1>Debug Session DB</h1>";
+echo "<h1>Diagnóstico de Sesiones en Base de Datos (Modo Seguro)</h1>";
 
-// 1. Load CI4 Config
-define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
+// 1. Obtener credenciales directamente del entorno (Como lo hace Render)
+$host = getenv('database.default.hostname') ?: getenv('DB_HOST') ?: 'localhost';
+$user = getenv('database.default.username') ?: getenv('DB_USER') ?: 'root';
+$pass = getenv('database.default.password') ?: getenv('DB_PASSWORD') ?: '';
+$db = getenv('database.default.database') ?: getenv('DB_NAME') ?: 'brixo';
+$port = getenv('database.default.port') ?: getenv('DB_PORT') ?: 3306;
 
-// Load Composer Autoloader to allow classes to be found
-if (file_exists(FCPATH . '../vendor/autoload.php')) {
-    require FCPATH . '../vendor/autoload.php';
-} else {
-    die("Vendor autoload not found. Run composer install.");
-}
+echo "<h2>1. Verificación de Credenciales</h2>";
+echo "<ul>";
+echo "<li><strong>Host:</strong> $host</li>";
+echo "<li><strong>Database:</strong> $db</li>";
+echo "<li><strong>User:</strong> " . ($user ? '******' : 'Vacío') . "</li>";
+echo "</ul>";
 
-$pathsPath = FCPATH . '../app/Config/Paths.php';
-require $pathsPath;
-$paths = new Config\Paths();
-
-// Define constants required by Config files
-if (! defined('APPPATH')) {
-    define('APPPATH', realpath(rtrim($paths->appDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
-}
-if (! defined('WRITEPATH')) {
-    define('WRITEPATH', realpath(rtrim($paths->writableDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
-}
-if (! defined('SYSTEMPATH')) {
-    define('SYSTEMPATH', realpath(rtrim($paths->systemDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
-}
-
-$appConfigPath = $paths->appDirectory . '/Config/App.php';
-$dbConfigPath = $paths->appDirectory . '/Config/Database.php';
-
-// Load Services to ensure environment variables are loaded if needed (dotenv)
-// But for now, let's just rely on the classes.
-// Note: BaseConfig is in system/Config/BaseConfig.php, which autoloader should find.
-
-require $appConfigPath;
-require $dbConfigPath;
-
-// 2. Connect to DB manually
-$dbConfig = new Config\Database();
-$group = 'default';
-$config = $dbConfig->$group;
-
-echo "<h2>Database Connection</h2>";
-echo "Host: " . ($config['hostname'] ?? 'N/A') . "<br>";
-echo "User: " . ($config['username'] ?? 'N/A') . "<br>";
-echo "Database: " . ($config['database'] ?? 'N/A') . "<br>";
-
+// 2. Conexión PDO Directa
+echo "<h2>2. Prueba de Conexión</h2>";
 try {
-    $dsn = "mysql:host={$config['hostname']};port={$config['port']};dbname={$config['database']};charset={$config['charset']}";
-    $pdo = new PDO($dsn, $config['username'], $config['password']);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "<p style='color:green'>✅ PDO Connection Successful</p>";
+    $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
+    $options = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+    ];
 
-    // 3. Check Table
-    echo "<h2>Table Check</h2>";
+    $pdo = new PDO($dsn, $user, $pass, $options);
+    echo "<p style='color:green'><strong>✅ Conexión exitosa a la base de datos.</strong></p>";
+
+    // 3. Verificar Tabla ci_sessions
+    echo "<h2>3. Estado de la Tabla de Sesiones</h2>";
     $stmt = $pdo->query("SHOW TABLES LIKE 'ci_sessions'");
     if ($stmt->rowCount() > 0) {
-        echo "<p style='color:green'>✅ Table 'ci_sessions' exists.</p>";
+        echo "<p style='color:green'><strong>✅ La tabla `ci_sessions` EXISTE.</strong></p>";
 
-        // Count rows
-        $stmt = $pdo->query("SELECT COUNT(*) FROM ci_sessions");
-        $count = $stmt->fetchColumn();
-        echo "<p>Current active sessions: <strong>$count</strong></p>";
+        // Contar sesiones
+        $count = $pdo->query("SELECT COUNT(*) FROM ci_sessions")->fetchColumn();
+        echo "<p>Sesiones activas actualmente: <strong>$count</strong></p>";
 
-        // Show last 5 sessions (masked IP)
-        $stmt = $pdo->query("SELECT id, ip_address, timestamp, LENGTH(data) as data_len FROM ci_sessions ORDER BY timestamp DESC LIMIT 5");
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // 4. Prueba de Escritura (CRÍTICO)
+        echo "<h2>4. Prueba de Escritura (INSERT/DELETE)</h2>";
+        $testId = 'test_' . bin2hex(random_bytes(8));
+        $ip = '127.0.0.1';
+        $ts = time();
+        $blob = 'data_prueba';
 
-        if ($rows) {
-            echo "<table border='1' cellpadding='5'><tr><th>ID</th><th>IP</th><th>Time</th><th>Data Size</th></tr>";
-            foreach ($rows as $row) {
-                echo "<tr>";
-                echo "<td>" . substr($row['id'], 0, 10) . "...</td>";
-                echo "<td>" . $row['ip_address'] . "</td>";
-                echo "<td>" . date('Y-m-d H:i:s', $row['timestamp']) . "</td>";
-                echo "<td>" . $row['data_len'] . " bytes</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "<p>No sessions found.</p>";
+        try {
+            $sql = "INSERT INTO ci_sessions (id, ip_address, timestamp, data) VALUES (?, ?, ?, ?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$testId, $ip, $ts, $blob]);
+            echo "<p style='color:green'><strong>✅ Escritura exitosa:</strong> Se pudo insertar una sesión de prueba.</p>";
+
+            // Borrar prueba
+            $pdo->exec("DELETE FROM ci_sessions WHERE id = '$testId'");
+            echo "<p style='color:green'><strong>✅ Borrado exitoso:</strong> Se eliminó la sesión de prueba.</p>";
+
+        } catch (PDOException $e) {
+            echo "<p style='color:red; background:#ffe6e6; padding:10px; border:1px solid red;'>
+                <strong>❌ ERROR DE ESCRITURA:</strong> No se pudo escribir en la tabla.<br>
+                Mensaje: " . $e->getMessage() . "
+            </p>";
         }
 
     } else {
-        echo "<p style='color:red'>❌ Table 'ci_sessions' DOES NOT exist.</p>";
-    }
-
-    // 4. Test Write Permission
-    echo "<h2>Write Test</h2>";
-    $testId = 'test_' . bin2hex(random_bytes(8));
-    $ip = '127.0.0.1';
-    $ts = time();
-    $data = 'blob_data_test';
-
-    try {
-        $sql = "INSERT INTO ci_sessions (id, ip_address, timestamp, data) VALUES (?, ?, ?, ?)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$testId, $ip, $ts, $data]);
-        echo "<p style='color:green'>✅ Manual INSERT successful (ID: $testId)</p>";
-
-        // Clean up
-        $pdo->exec("DELETE FROM ci_sessions WHERE id = '$testId'");
-        echo "<p>Test row deleted.</p>";
-
-    } catch (Exception $e) {
-        echo "<p style='color:red'>❌ Manual INSERT failed: " . $e->getMessage() . "</p>";
+        echo "<p style='color:red; background:#ffe6e6; padding:10px; border:1px solid red;'>
+            <strong>❌ ERROR CRÍTICO:</strong> La tabla `ci_sessions` NO EXISTE.
+            <br>Ejecuta el script de instalación nuevamente.
+        </p>";
     }
 
 } catch (PDOException $e) {
-    echo "<p style='color:red'>❌ Connection Failed: " . $e->getMessage() . "</p>";
+    echo "<h3 style='color:red'>❌ Falló la conexión</h3>";
+    echo "<p>" . $e->getMessage() . "</p>";
 }
 
-// 5. CI4 Session Test (Simulated)
-echo "<h2>CI4 Session Config Check</h2>";
-$sessionConfigPath = $paths->appDirectory . '/Config/Session.php';
-require $sessionConfigPath;
-$sessionConfig = new Config\Session();
-
-echo "Driver: " . $sessionConfig->driver . "<br>";
-echo "Save Path: " . $sessionConfig->savePath . "<br>";
-echo "Cookie Name: " . $sessionConfig->cookieName . "<br>";
-echo "Match IP: " . ($sessionConfig->matchIP ? 'Yes' : 'No') . "<br>";
-
+// 5. Información de Cookies (PHP)
+echo "<h2>5. Configuración de Cookies (PHP.ini)</h2>";
+echo "<ul>";
+echo "<li><strong>session.save_handler:</strong> " . ini_get('session.save_handler') . " (Debería ser 'user' o similar en CI4, pero aquí muestra el default de PHP)</li>";
+echo "<li><strong>session.cookie_secure:</strong> " . (ini_get('session.cookie_secure') ? 'On' : 'Off') . "</li>";
+echo "<li><strong>session.cookie_httponly:</strong> " . (ini_get('session.cookie_httponly') ? 'On' : 'Off') . "</li>";
+echo "<li><strong>session.cookie_samesite:</strong> " . ini_get('session.cookie_samesite') . "</li>";
+echo "</ul>";
 ?>
