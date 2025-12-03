@@ -33,6 +33,36 @@
 
             <div class="row g-4">
                 <div class="col-lg-8">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="h5 fw-bold mb-0">Mis Solicitudes</h2>
+                                <a href="/solicitud/nueva" class="btn btn-primary btn-sm">Crear Solicitud</a>
+                            </div>
+                            <?php if (!empty($solicitudes)): ?>
+                                <ul class="list-group list-group-flush mt-3">
+                                    <?php foreach ($solicitudes as $s): ?>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="fw-semibold"><?= esc($s['titulo']) ?></div>
+                                                <div class="small text-secondary"><?= esc($s['descripcion']) ?></div>
+                                                <span class="badge bg-info text-dark"><?= esc($s['estado']) ?></span>
+                                            </div>
+                                            <div class="text-end small">
+                                                <div><?= esc($s['creado_en']) ?></div>
+                                                <div class="fw-semibold text-dark">
+                                                    $<?= esc(number_format((float) $s['presupuesto'], 0, ',', '.')) ?>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php else: ?>
+                                <p class="text-secondary mt-2">No has creado solicitudes.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h2 class="h5 fw-bold">Mis contratos</h2>

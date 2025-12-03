@@ -38,10 +38,16 @@ class Panel extends BaseController
                 [$user['id']]
             )->getResultArray();
 
+            $solicitudes = $db->query(
+                "SELECT * FROM SOLICITUD WHERE id_cliente = ? ORDER BY creado_en DESC",
+                [$user['id']]
+            )->getResultArray();
+
             return view('panel_cliente', [
                 'user' => $user,
                 'contracts' => $contracts,
                 'reviews' => $reviews,
+                'solicitudes' => $solicitudes,
                 'message' => $message,
             ]);
         }
