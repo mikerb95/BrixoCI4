@@ -370,8 +370,7 @@
                                         aceptadas.</p>
                                 <?php endif; ?>
                                 <div class="d-flex justify-content-end">
-                                    <a href="/mapa" class="btn btn-sm btn-primary rounded-3">Ver solicitudes
-                                        cercanas</a>
+                                    <a href="/tablon-tareas" class="btn btn-sm btn-primary rounded-3">Ver solicitudes</a>
                                 </div>
                             </div>
                         </div>
