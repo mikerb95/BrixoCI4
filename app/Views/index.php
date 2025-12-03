@@ -24,7 +24,9 @@
         <!-- Simple hero nav -->
         <nav id="hero-nav" class="hero-nav position-absolute top-0 start-0 w-100">
             <div class="hero-inner d-flex justify-content-start gap-4 py-3">
-                <a href="/" class="hero-link">Inicio</a>
+                <?php if (uri_string() !== ''): ?>
+                    <a href="/" class="hero-link">Inicio</a>
+                <?php endif; ?>
                 <a href="/mapa" class="hero-link">Mapa</a>
                 <?php $heroUser = session()->get('user'); ?>
                 <?php if (!empty($heroUser)): ?>
