@@ -158,7 +158,7 @@
                             para proyectos rápidos y profesionales en movimiento.</p>
                         <div class="d-flex flex-wrap gap-3">
                             <a href="/mapa" class="btn btn-primary btn-lg px-4">Ver disponibilidad</a>
-                            <a href="#" class="btn btn-outline-light btn-lg px-4">Publicar necesidad</a>
+                            <a href="/solicitud/nueva" class="btn btn-outline-light btn-lg px-4">Publicar necesidad</a>
                         </div>
                     </div>
                 </div>
