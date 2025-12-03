@@ -101,4 +101,32 @@ class Solicitud extends BaseController
             'solicitudes' => $solicitudes
         ]);
     }
+
+    public function eliminar($id)
+    {
+        $session = session();
+        $user = $session->get('user');
+
+        if (empty($user) || $user['rol'] !== 'cliente') {
+            return redirect()->to('/')->with('error', 'Acceso denegado.');
+        }
+
+        $db = db_connect();
+        
+        // Verificar que la solicitud pertenezca al usuario
+        $solicitud = $db->table('SOLICITUD')
+            ->where('id_solicitud', $id)
+            ->where('id_cliente', $user['id'])
+            ->get()
+            ->getRowArray();
+
+        if (!$solicitud) {
+            return redirect()->to('/panel')->with('error', 'Solicitud no encontrada o no tienes permiso para eliminarla.');
+        }
+
+        // Eliminar
+        $db->table('SOLICITUD')->where('id_solicitud', $id)->delete();
+
+        return redirect()->to('/panel')->with('message', 'Solicitud eliminada correctamente.');
+    }
 }

@@ -53,6 +53,11 @@
                                                 <div class="fw-semibold text-dark">
                                                     $<?= esc(number_format((float) $s['presupuesto'], 0, ',', '.')) ?>
                                                 </div>
+                                                <a href="/solicitud/eliminar/<?= $s['id_solicitud'] ?>" 
+                                                   class="btn btn-outline-danger btn-sm mt-1"
+                                                   onclick="return confirm('¿Estás seguro de eliminar esta solicitud?');">
+                                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                                </a>
                                             </div>
                                         </li>
                                     <?php endforeach; ?>
