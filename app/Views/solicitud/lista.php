@@ -21,8 +21,15 @@
     </nav>
 
     <div class="container py-5">
-        <h2 class="fw-bold mb-4">📋 Tablón de Tareas Disponibles</h2>
-        <p class="text-muted mb-4">Aquí encontrarás solicitudes de clientes que buscan profesionales como tú.</p>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-0">📋 Tablón de Tareas Disponibles</h2>
+                <p class="text-muted mb-0 mt-2">Aquí encontrarás solicitudes de clientes que buscan profesionales como tú.</p>
+            </div>
+            <a href="/reportes/solicitudes-xlsx" class="btn btn-success">
+                <i class="fas fa-file-excel me-2"></i>Descargar Reporte
+            </a>
+        </div>
 
         <?php if (empty($solicitudes)): ?>
             <div class="alert alert-info text-center p-5">
