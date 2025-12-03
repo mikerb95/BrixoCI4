@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="/css/brixo.css">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 </head>
 
 <body class="home-page">
@@ -471,13 +474,13 @@
                                     placeholder="Bogotá" value="<?= esc($registerOld['ciudad'] ?? '') ?>">
                             </div>
                             <div class="mb-3">
-                                <label for="registro_ubicacion" class="form-label fw-semibold">Ubicación exacta
-                                    (latitud,longitud)</label>
+                                <label for="registro_ubicacion" class="form-label fw-semibold">Ubicación exacta</label>
+                                <div id="mapaRegistro"
+                                    style="height: 300px; width: 100%; border-radius: 10px; margin-bottom: 10px;"></div>
                                 <input id="registro_ubicacion" name="ubicacion_mapa" type="text"
-                                    class="form-control p-3 rounded-3" placeholder="4.710989,-74.072090"
-                                    value="<?= esc($registerOld['ubicacion_mapa'] ?? '') ?>">
-                                <small class="text-muted">Puedes copiar las coordenadas del mapa para una precisión
-                                    mayor.</small>
+                                    class="form-control p-3 rounded-3" placeholder="Selecciona en el mapa"
+                                    value="<?= esc($registerOld['ubicacion_mapa'] ?? '') ?>" readonly>
+                                <small class="text-muted">Arrastra el marcador azul para indicar tu ubicación.</small>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Registrarme</button>
@@ -489,6 +492,9 @@
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="/js/nav-floating.js"></script>
 
     <script>
@@ -497,17 +503,97 @@
             const contractorFields = document.getElementById('contractorFields');
             const cityInput = document.getElementById('registro_ciudad');
             const mapInput = document.getElementById('registro_ubicacion');
+            let map = null;
+            let marker = null;
+
+            const initMap = () => {
+                if (map) return; // Ya inicializado
+
+                // Coordenadas por defecto (Bogotá)
+                const defaultLat = 4.6097;
+                const defaultLng = -74.0817;
+
+                map = L.map('mapaRegistro').setView([defaultLat, defaultLng], 13);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                // Icono personalizado (opcional, usando el default por ahora)
+
+                // Crear marcador arrastrable
+                marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
+
+                // Evento al arrastrar
+                marker.on('dragend', function (event) {
+                    const position = marker.getLatLng();
+                    mapInput.value = `${position.lat},${position.lng}`;
+                });
+
+                // Evento al hacer clic en el mapa
+                map.on('click', function (e) {
+                    marker.setLatLng(e.latlng);
+                    mapInput.value = `${e.latlng.lat},${e.latlng.lng}`;
+                });
+
+                // Intentar geolocalización
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        const newLatLng = new L.LatLng(lat, lng);
+                        marker.setLatLng(newLatLng);
+                        map.setView(newLatLng, 15);
+                        mapInput.value = `${lat},${lng}`;
+                    });
+                }
+
+                // Si ya había un valor (ej. error de validación), poner el marcador ahí
+                if (mapInput.value) {
+                    const parts = mapInput.value.split(',');
+                    if (parts.length === 2) {
+                        const lat = parseFloat(parts[0]);
+                        const lng = parseFloat(parts[1]);
+                        if (!isNaN(lat) && !isNaN(lng)) {
+                            const savedLatLng = new L.LatLng(lat, lng);
+                            marker.setLatLng(savedLatLng);
+                            map.setView(savedLatLng, 15);
+                        }
+                    }
+                }
+            };
 
             const toggleContractorFields = () => {
                 const isContractor = roleSelect.value === 'contratista';
                 contractorFields.classList.toggle('d-none', !isContractor);
                 cityInput.required = isContractor;
                 mapInput.required = isContractor;
+
+                if (isContractor) {
+                    // Pequeño retraso para asegurar que el div sea visible antes de cargar el mapa
+                    setTimeout(() => {
+                        initMap();
+                        if (map) map.invalidateSize(); // Arregla problemas de renderizado en modales
+                    }, 200);
+                }
             };
 
             if (roleSelect && contractorFields && cityInput && mapInput) {
                 roleSelect.addEventListener('change', toggleContractorFields);
-                toggleContractorFields();
+                // Ejecutar al inicio por si el navegador guardó la selección
+                if (roleSelect.value === 'contratista') {
+                    toggleContractorFields();
+                }
+            }
+
+            // Asegurar que el mapa se redibuje correctamente cuando se abre el modal
+            const registerModalEl = document.getElementById('registerModal');
+            if (registerModalEl) {
+                registerModalEl.addEventListener('shown.bs.modal', function () {
+                    if (roleSelect.value === 'contratista' && map) {
+                        map.invalidateSize();
+                    }
+                });
             }
 
             <?php if (!empty($login_error)): ?>
