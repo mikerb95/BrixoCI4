@@ -35,9 +35,8 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 # 8. Instalar dependencias de PHP (producción)
-# Instala dependencias en producción y asegura SimpleXLSXGen
-RUN composer install --no-dev --optimize-autoloader \
-    && composer require --no-dev shuchkin/simplexlsxgen
+# Instala dependencias en producción (no interactivo, prefer dist)
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction --no-progress
 
 # 9. Ajustar permisos para la carpeta writable
 # Apache corre como www-data, necesita escribir en writable

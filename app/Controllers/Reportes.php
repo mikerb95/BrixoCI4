@@ -4,8 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ContratistaModel;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+// Eliminado PhpSpreadsheet para simplificar dependencias
+use Shuchkin\SimpleXLSXGen;
 use Shuchkin\SimpleXLSXGen;
 
 class Reportes extends BaseController
@@ -13,58 +13,30 @@ class Reportes extends BaseController
     public function contratistas()
     {
         $model = new ContratistaModel();
-        // Usamos getWithLocation para obtener datos más completos incluyendo ubicación
         $data = $model->getWithLocation();
 
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        // 1. Encabezados
-        $headers = ['ID', 'Nombre', 'Correo', 'Teléfono', 'Ciudad', 'Departamento', 'Experiencia'];
-        $column = 'A';
-
-        foreach ($headers as $header) {
-            $sheet->setCellValue($column . '1', $header);
-            $column++;
-        }
-
-        // Estilo para encabezados (Negrita y Fondo Gris Claro)
-        $headerStyle = [
-            'font' => ['bold' => true],
-            'fill' => [
-                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => ['argb' => 'FFEEEEEE'],
-            ],
-        ];
-        $sheet->getStyle('A1:G1')->applyFromArray($headerStyle);
-
-        // 2. Llenar datos
-        $row = 2;
+        $rows = [];
+        $rows[] = ['ID', 'Nombre', 'Correo', 'Teléfono', 'Ciudad', 'Departamento', 'Experiencia'];
         foreach ($data as $item) {
-            $sheet->setCellValue('A' . $row, $item['id_contratista']);
-            $sheet->setCellValue('B' . $row, $item['nombre']);
-            $sheet->setCellValue('C' . $row, $item['correo']);
-            $sheet->setCellValue('D' . $row, $item['telefono']);
-            $sheet->setCellValue('E' . $row, $item['ciudad'] ?? 'N/A');
-            $sheet->setCellValue('F' . $row, $item['departamento'] ?? 'N/A');
-            $sheet->setCellValue('G' . $row, $item['experiencia']);
-            $row++;
+            $rows[] = [
+                $item['id_contratista'],
+                $item['nombre'],
+                $item['correo'],
+                $item['telefono'],
+                $item['ciudad'] ?? 'N/A',
+                $item['departamento'] ?? 'N/A',
+                $item['experiencia'],
+            ];
         }
 
-        // 3. Autoajustar columnas
-        foreach (range('A', 'G') as $col) {
-            $sheet->getColumnDimension($col)->setAutoSize(true);
-        }
-
-        // 4. Descargar archivo
+        $xlsx = SimpleXLSXGen::fromArray($rows)->setDefaultFont('Arial');
         $filename = 'reporte_contratistas_' . date('Y-m-d_H-i') . '.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
 
-        $writer = new Xlsx($spreadsheet);
-        $writer->save('php://output');
+        $xlsx->saveAs('php://output');
         exit;
     }
 
