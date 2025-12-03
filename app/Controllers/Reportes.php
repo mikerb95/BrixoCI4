@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use App\Models\ContratistaModel;
 // Eliminado PhpSpreadsheet para simplificar dependencias
 use Shuchkin\SimpleXLSXGen;
-use Shuchkin\SimpleXLSXGen;
 
 class Reportes extends BaseController
 {
