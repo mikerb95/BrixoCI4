@@ -466,7 +466,7 @@
                                 <option value="contratista" <?= (isset($registerOld['rol']) && $registerOld['rol'] === 'contratista') ? 'selected' : '' ?>>Contratista</option>
                             </select>
                         </div>
-                        
+
                         <!-- Location Fields (Required for everyone) -->
                         <div class="mb-3">
                             <label for="registro_departamento" class="form-label fw-semibold">Departamento</label>
@@ -474,7 +474,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="registro_ciudad" class="form-label fw-semibold">Ciudad</label>
-                            <select id="registro_ciudad" name="ciudad" class="form-select p-3 rounded-3" disabled required></select>
+                            <select id="registro_ciudad" name="ciudad" class="form-select p-3 rounded-3" disabled
+                                required></select>
                         </div>
 
                         <div id="contractorFields"
@@ -582,7 +583,7 @@
                 const isContractor = roleSelect.value === 'contratista';
                 contractorFields.classList.toggle('d-none', !isContractor);
                 // Dept and City are always required now
-                if(mapInput) mapInput.required = isContractor;
+                if (mapInput) mapInput.required = isContractor;
 
                 if (isContractor) {
                     // Pequeño retraso para asegurar que el div sea visible antes de cargar el mapa
