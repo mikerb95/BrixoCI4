@@ -22,8 +22,8 @@ RUN a2enmod rewrite
 # 4. Configurar DocumentRoot para apuntar a la carpeta public
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 # 5. Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -35,7 +35,9 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 # 8. Instalar dependencias de PHP (producción)
-RUN composer install --no-dev --optimize-autoloader
+# Instala dependencias en producción y asegura SimpleXLSXGen
+RUN composer install --no-dev --optimize-autoloader \
+    && composer require --no-dev shuchkin/simplexlsxgen
 
 # 9. Ajustar permisos para la carpeta writable
 # Apache corre como www-data, necesita escribir en writable
@@ -44,3 +46,6 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # 10. Exponer puerto 80 (Render usa este puerto por defecto para detectar la app)
 EXPOSE 80
+
+# Config para proxies (Render) opcional: permitir encabezados X-Forwarded-Proto
+# Apache ya suele propagar esto; la app maneja HTTPS detrás de proxy en public/index.php

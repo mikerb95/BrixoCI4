@@ -19,6 +19,9 @@
                 <div class="d-flex gap-2">
                     <a href="/panel" class="btn btn-outline-primary btn-sm">Mi Panel</a>
                     <a href="/mapa" class="btn btn-outline-secondary btn-sm">Mapa</a>
+                    <a href="/reportes/solicitudes-xlsx" class="btn btn-success btn-sm" title="Descargar XLSX">
+                        Descargar XLSX
+                    </a>
                 </div>
             </div>
 

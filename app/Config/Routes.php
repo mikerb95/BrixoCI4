@@ -21,6 +21,7 @@ $routes->get('/perfil', 'Panel::index');
 $routes->get('/solicitudes', 'Solicitudes::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
+$routes->get('reportes/solicitudes-xlsx', 'Reportes::solicitudesXlsx');
 $routes->get('/debug-auth', 'DebugAuth::index');
 $routes->get('/setup/solicitudes', 'Setup::solicitudes'); // Ruta de instalación
 $routes->get('/setup/update-cliente', 'Setup::update_cliente'); // Ruta de actualización DB

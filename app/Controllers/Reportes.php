@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\ContratistaModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Shuchkin\SimpleXLSXGen;
 
 class Reportes extends BaseController
 {
@@ -64,6 +65,42 @@ class Reportes extends BaseController
 
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
+        exit;
+    }
+
+    public function solicitudesXlsx()
+    {
+        // Export simple usando SimpleXLSXGen para minimizar dependencias y conflictos
+        $db = db_connect();
+        $rows = $db->table('SOLICITUD')
+            ->select('id_solicitud, id_cliente, id_contratista, titulo, descripcion, presupuesto, ubicacion, estado, creado_en')
+            ->orderBy('creado_en', 'DESC')
+            ->get()->getResultArray();
+
+        $data = [];
+        $data[] = ['ID', 'Cliente', 'Contratista', 'Título', 'Descripción', 'Presupuesto', 'Ubicación', 'Estado', 'Creado en'];
+        foreach ($rows as $r) {
+            $data[] = [
+                $r['id_solicitud'],
+                $r['id_cliente'],
+                $r['id_contratista'],
+                $r['titulo'],
+                $r['descripcion'],
+                $r['presupuesto'],
+                $r['ubicacion'],
+                $r['estado'],
+                $r['creado_en'],
+            ];
+        }
+
+        $xlsx = SimpleXLSXGen::fromArray($data)->setDefaultFont('Arial');
+        $fileName = 'reporte_solicitudes_' . date('Ymd_His') . '.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header('Cache-Control: max-age=0');
+
+        $xlsx->saveAs('php://output');
         exit;
     }
 }
