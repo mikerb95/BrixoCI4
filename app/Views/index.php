@@ -469,9 +469,12 @@
                         <div id="contractorFields"
                             class="mb-3 <?= (isset($registerOld['rol']) && $registerOld['rol'] === 'contratista') ? '' : 'd-none' ?>">
                             <div class="mb-3">
+                                <label for="registro_departamento" class="form-label fw-semibold">Departamento</label>
+                                <select id="registro_departamento" class="form-select p-3 rounded-3"></select>
+                            </div>
+                            <div class="mb-3">
                                 <label for="registro_ciudad" class="form-label fw-semibold">Ciudad</label>
-                                <input id="registro_ciudad" name="ciudad" type="text" class="form-control p-3 rounded-3"
-                                    placeholder="Bogotá" value="<?= esc($registerOld['ciudad'] ?? '') ?>">
+                                <select id="registro_ciudad" name="ciudad" class="form-select p-3 rounded-3" disabled></select>
                             </div>
                             <div class="mb-3">
                                 <label for="registro_ubicacion" class="form-label fw-semibold">Ubicación exacta</label>
@@ -495,14 +498,23 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/js/colombia-locations.js"></script>
     <script src="/js/nav-floating.js"></script>
 
     <script>
         (function () {
             const roleSelect = document.getElementById('registro_rol');
             const contractorFields = document.getElementById('contractorFields');
+            const deptInput = document.getElementById('registro_departamento');
             const cityInput = document.getElementById('registro_ciudad');
             const mapInput = document.getElementById('registro_ubicacion');
+
+            // Initialize Colombia Selects
+            const oldCity = "<?= esc($registerOld['ciudad'] ?? '') ?>";
+            if (typeof initColombiaSelects === 'function') {
+                initColombiaSelects('registro_departamento', 'registro_ciudad', oldCity);
+            }
+
             let map = null;
             let marker = null;
 
@@ -566,8 +578,9 @@
             const toggleContractorFields = () => {
                 const isContractor = roleSelect.value === 'contratista';
                 contractorFields.classList.toggle('d-none', !isContractor);
-                cityInput.required = isContractor;
-                mapInput.required = isContractor;
+                if(deptInput) deptInput.required = isContractor;
+                if(cityInput) cityInput.required = isContractor;
+                if(mapInput) mapInput.required = isContractor;
 
                 if (isContractor) {
                     // Pequeño retraso para asegurar que el div sea visible antes de cargar el mapa

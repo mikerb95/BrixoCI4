@@ -19,6 +19,21 @@ body {
     padding-top: 0;
 }
 
+/* Cuando la navbar flotante está presente (se añade la clase `floating-offset` al body) 
+   añadimos espacio superior para separar la navbar fija de botones/elementos de panel. */
+body.floating-offset main,
+body.floating-offset .container,
+body.floating-offset .container-fluid {
+    padding-top: calc(var(--navbar-offset) + 12px);
+}
+@media (max-width: 768px) {
+    body.floating-offset main,
+    body.floating-offset .container,
+    body.floating-offset .container-fluid {
+        padding-top: calc(var(--navbar-offset) / 1.8);
+    }
+}
+
 /* Altura consistente para el mapa del home, independiente de la cantidad de puntos */
 #leaflet-map {
     width: 100%;
