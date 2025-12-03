@@ -466,16 +466,19 @@
                                 <option value="contratista" <?= (isset($registerOld['rol']) && $registerOld['rol'] === 'contratista') ? 'selected' : '' ?>>Contratista</option>
                             </select>
                         </div>
+                        
+                        <!-- Location Fields (Required for everyone) -->
+                        <div class="mb-3">
+                            <label for="registro_departamento" class="form-label fw-semibold">Departamento</label>
+                            <select id="registro_departamento" class="form-select p-3 rounded-3" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registro_ciudad" class="form-label fw-semibold">Ciudad</label>
+                            <select id="registro_ciudad" name="ciudad" class="form-select p-3 rounded-3" disabled required></select>
+                        </div>
+
                         <div id="contractorFields"
                             class="mb-3 <?= (isset($registerOld['rol']) && $registerOld['rol'] === 'contratista') ? '' : 'd-none' ?>">
-                            <div class="mb-3">
-                                <label for="registro_departamento" class="form-label fw-semibold">Departamento</label>
-                                <select id="registro_departamento" class="form-select p-3 rounded-3"></select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registro_ciudad" class="form-label fw-semibold">Ciudad</label>
-                                <select id="registro_ciudad" name="ciudad" class="form-select p-3 rounded-3" disabled></select>
-                            </div>
                             <div class="mb-3">
                                 <label for="registro_ubicacion" class="form-label fw-semibold">Ubicación exacta</label>
                                 <div id="mapaRegistro"
@@ -578,8 +581,7 @@
             const toggleContractorFields = () => {
                 const isContractor = roleSelect.value === 'contratista';
                 contractorFields.classList.toggle('d-none', !isContractor);
-                if(deptInput) deptInput.required = isContractor;
-                if(cityInput) cityInput.required = isContractor;
+                // Dept and City are always required now
                 if(mapInput) mapInput.required = isContractor;
 
                 if (isContractor) {

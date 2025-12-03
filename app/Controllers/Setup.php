@@ -34,4 +34,31 @@ class Setup extends BaseController
             echo "<pre>" . $e->getMessage() . "</pre>";
         }
     }
+
+    public function update_cliente()
+    {
+        $db = db_connect();
+        try {
+            // Check if column exists
+            $fields = $db->getFieldData('CLIENTE');
+            $exists = false;
+            foreach ($fields as $field) {
+                if ($field->name === 'ciudad') {
+                    $exists = true;
+                    break;
+                }
+            }
+
+            if (!$exists) {
+                $db->query("ALTER TABLE CLIENTE ADD COLUMN ciudad VARCHAR(100) AFTER telefono");
+                echo "<h1>✅ Columna 'ciudad' agregada a la tabla CLIENTE.</h1>";
+            } else {
+                echo "<h1>ℹ️ La columna 'ciudad' ya existe en la tabla CLIENTE.</h1>";
+            }
+            echo "<p><a href='/'>Volver al Inicio</a></p>";
+        } catch (\Throwable $e) {
+            echo "<h1>❌ Error:</h1>";
+            echo "<pre>" . $e->getMessage() . "</pre>";
+        }
+    }
 }

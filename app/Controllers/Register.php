@@ -63,8 +63,15 @@ class Register extends BaseController
             return redirect()->to('/');
         }
 
-        if ($rol === 'contratista' && ($ciudad === '' || $ubicacionMapa === '')) {
-            $session->setFlashdata('register_error', 'Los contratistas deben indicar la ciudad y la ubicación exacta en el mapa.');
+        // Validación de ciudad para todos
+        if ($ciudad === '') {
+            $session->setFlashdata('register_error', 'Por favor selecciona tu ciudad.');
+            $session->setFlashdata('register_old', $old);
+            return redirect()->to('/');
+        }
+
+        if ($rol === 'contratista' && $ubicacionMapa === '') {
+            $session->setFlashdata('register_error', 'Los contratistas deben indicar la ubicación exacta en el mapa.');
             $session->setFlashdata('register_old', $old);
 
             return redirect()->to('/');
@@ -89,6 +96,7 @@ class Register extends BaseController
                 'correo' => $correo,
                 'telefono' => $telefono,
                 'contrasena' => $hash,
+                'ciudad' => $ciudad,
             ]);
         } else {
             $db->table('CONTRATISTA')->insert([
