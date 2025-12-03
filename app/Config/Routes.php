@@ -18,6 +18,7 @@ $routes->post('/register', 'Register::register');
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');
 $routes->get('/perfil', 'Panel::index');
+$routes->get('/solicitudes', 'Solicitudes::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
 $routes->get('/debug-auth', 'DebugAuth::index');
