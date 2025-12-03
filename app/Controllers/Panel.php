@@ -75,10 +75,22 @@ class Panel extends BaseController
             [$user['id']]
         )->getResultArray();
 
+        // Obtener solicitudes abiertas recientes para mostrar en el panel
+        $solicitudesDisponibles = $db->query("
+            SELECT s.*, c.nombre as nombre_cliente 
+            FROM SOLICITUD s
+            JOIN CLIENTE c ON c.id_cliente = s.id_cliente
+            WHERE s.id_contratista IS NULL 
+            AND s.estado = 'ABIERTA'
+            ORDER BY s.creado_en DESC
+            LIMIT 5
+        ")->getResultArray();
+
         return view('panel_contratista', [
             'user' => $user,
             'contracts' => $contracts,
             'reviews' => $reviews,
+            'solicitudesDisponibles' => $solicitudesDisponibles,
             'message' => $message,
         ]);
     }

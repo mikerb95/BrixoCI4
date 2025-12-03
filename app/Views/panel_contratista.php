@@ -33,6 +33,42 @@
 
             <div class="row g-4">
                 <div class="col-lg-8">
+                    <!-- Sección de Oportunidades / Solicitudes Recientes -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2 class="h5 fw-bold mb-0">Oportunidades Recientes</h2>
+                                <a href="/tablon-tareas" class="btn btn-primary btn-sm">Ver todas</a>
+                            </div>
+                            
+                            <?php if (!empty($solicitudesDisponibles)): ?>
+                                <div class="list-group list-group-flush">
+                                    <?php foreach ($solicitudesDisponibles as $s): ?>
+                                        <a href="/tablon-tareas" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="fw-semibold text-primary"><?= esc($s['titulo']) ?></div>
+                                                <div class="small text-secondary">
+                                                    <i class="fas fa-user me-1"></i> <?= esc($s['nombre_cliente']) ?> &bull; 
+                                                    <i class="fas fa-map-marker-alt me-1"></i> <?= esc($s['ubicacion']) ?>
+                                                </div>
+                                            </div>
+                                            <div class="text-end">
+                                                <span class="badge bg-success rounded-pill">
+                                                    $<?= esc(number_format((float) $s['presupuesto'], 0, ',', '.')) ?>
+                                                </span>
+                                                <div class="small text-muted mt-1"><?= date('d M', strtotime($s['creado_en'])) ?></div>
+                                            </div>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php else: ?>
+                                <div class="text-center py-3 text-secondary">
+                                    <p class="mb-0">No hay solicitudes abiertas en este momento.</p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h2 class="h5 fw-bold">Contratos activos</h2>
