@@ -54,7 +54,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
                                         <input type="number" class="form-control p-3" id="presupuesto"
-                                            name="presupuesto" value="<?= esc($solicitud['presupuesto']) ?>" placeholder="0">
+                                            name="presupuesto" value="<?= esc($solicitud['presupuesto']) ?>"
+                                            placeholder="0">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -65,7 +66,8 @@
                             </div>
 
                             <div class="d-grid gap-2 mt-4">
-                                <button type="submit" class="btn btn-primary btn-lg fw-bold">Actualizar Solicitud</button>
+                                <button type="submit" class="btn btn-primary btn-lg fw-bold">Actualizar
+                                    Solicitud</button>
                                 <a href="/panel" class="btn btn-link text-secondary">Cancelar</a>
                             </div>
                         </form>

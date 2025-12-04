@@ -112,7 +112,7 @@ class Solicitud extends BaseController
         }
 
         $db = db_connect();
-        
+
         // Verificar que la solicitud pertenezca al usuario
         $solicitud = $db->table('SOLICITUD')
             ->where('id_solicitud', $id)
@@ -140,7 +140,7 @@ class Solicitud extends BaseController
         }
 
         $db = db_connect();
-        
+
         // Verificar que la solicitud pertenezca al usuario
         $solicitud = $db->table('SOLICITUD')
             ->where('id_solicitud', $id)
@@ -165,7 +165,7 @@ class Solicitud extends BaseController
         }
 
         $db = db_connect();
-        
+
         // Verificar que la solicitud pertenezca al usuario
         $solicitud = $db->table('SOLICITUD')
             ->where('id_solicitud', $id)
