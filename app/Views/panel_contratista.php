@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="/css/brixo.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
-    <?= view('partials/navbar') ?>
+<body class="d-flex flex-column min-vh-100 always-show-floating-nav">
     <?= view('partials/floating_nav') ?>
 
     <main class="flex-grow-1">

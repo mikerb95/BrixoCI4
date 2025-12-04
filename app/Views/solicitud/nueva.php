@@ -9,17 +9,9 @@
     <link rel="stylesheet" href="/css/brixo.css">
 </head>
 
-<body class="bg-light">
+<body class="bg-light always-show-floating-nav">
 
-    <!-- Navbar simple -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/">Brixo</a>
-            <div class="d-flex">
-                <a href="/panel" class="btn btn-outline-light btn-sm">Volver al Panel</a>
-            </div>
-        </div>
-    </nav>
+    <?= view('partials/floating_nav') ?>
 
     <div class="container py-5">
         <div class="row justify-content-center">
@@ -108,6 +100,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/colombia-locations.js"></script>
+    <script src="/js/nav-floating.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             if (typeof initColombiaSelects === 'function') {

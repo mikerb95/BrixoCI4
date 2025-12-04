@@ -4,6 +4,7 @@
     const heroNav = document.getElementById('hero-nav');
     const topNav = document.querySelector('.brixo-navbar');
     const isHome = !!hero; // usamos presencia de .hero para detectar index
+    const alwaysVisible = document.body.classList.contains('always-show-floating-nav');
 
     function showFloatingNav(show) {
         if (!floatingNav) return;
@@ -11,6 +12,14 @@
         // Ocultamos la barra fija (y hero-nav en home) cuando aparece la flotante
         if (topNav) topNav.classList.toggle('d-none', !!show);
         if (isHome && heroNav) heroNav.classList.toggle('hidden', !!show);
+        
+        // Toggle body class for offset adjustments
+        document.body.classList.toggle('floating-offset', !!show);
+    }
+
+    if (alwaysVisible) {
+        showFloatingNav(true);
+        return;
     }
 
     if (hero && 'IntersectionObserver' in window) {
