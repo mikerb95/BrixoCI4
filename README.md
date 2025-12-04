@@ -1,11 +1,40 @@
-README.md
+Brixo 🛠️
+Conectando necesidades con soluciones locales.
 
----------
+Brixo es una plataforma web que conecta a usuarios con profesionales locales (contratistas) para servicios del hogar como obra, carpintería, plomería y más. Permite publicar solicitudes de servicio, buscar profesionales en un mapa interactivo y gestionar contrataciones.
 
-## Flujo de inicio de sesión y registro
+🚀 Características Principales
+Roles de Usuario: Perfiles diferenciados para Clientes y Contratistas.
+Geolocalización: Búsqueda de profesionales cercanos mediante mapa interactivo (Leaflet/OpenStreetMap).
+Solicitudes de Servicio:
+Abiertas: Publicadas en un tablón para cualquier contratista.
+Directas: Enviadas a un profesional específico.
+Gestión de Perfiles: Portafolio, experiencia y ubicación para contratistas.
+Sistema de Reseñas: Calificación de servicios completados.
+🛠️ Tecnologías
+Backend: PHP 8.x (CodeIgniter 4 Framework)
+Frontend: HTML5, CSS3 (Bootstrap 5), JavaScript
+Base de Datos: MySQL
+Mapas: Leaflet.js + OpenStreetMap
+Infraestructura: Compatible con despliegue en Render/XAMPP/Apache.
+📦 Instalación Local
+Clonar el repositorio:
 
-- La ruta `/` (controlador `Home::index`) muestra el formulario de inicio de sesión. Valida que se envíen `correo` y `contrasena`, busca el registro en la tabla `ADMINISTRADOR` y compara la contraseña usando `password_verify()`. Por compatibilidad, todavía acepta contraseñas planas si existieran datos antiguos. Tras un inicio de sesión exitoso se regenera la sesión y se guarda la información mínima del usuario.
-- La vista `app/Views/index.php` carga `public/css/styles.css` y muestra mensajes flash (`message` y `error`). Cuando no hay sesión activa incluye un enlace a `/register`.
-- La ruta `/register` (controlador `Auth::register`) sirve tanto GET como POST. En GET muestra `app/Views/auth/register.php`. En POST valida `nombre`, `correo` (único en la tabla) y la confirmación de contraseña. Si todo es correcto inserta el administrador con `password_hash()` y redirige a `/` con un mensaje de éxito.
-- Las rutas están definidas en `app/Config/Routes.php`. `/logout` destruye la sesión y redirige a `/`.
-- Todos los formularios incluyen `csrf_field()` y dependen del helper `form`, que se carga desde los controladores correspondientes antes de renderizar las vistas.
+Configurar Base de Datos:
+
+Crea una base de datos MySQL llamada brixo.
+Importa el esquema inicial desde schema.sql.
+(Opcional) Ejecuta los scripts de setup en public si es necesario (setup_db.php, etc.).
+Configurar Entorno:
+
+Copia env a .env.
+Configura las credenciales de base de datos (database.default...) y la app.baseURL.
+Ejecutar:
+
+Si usas XAMPP,
+coloca el proyecto en htdocs.
+* O usa el servidor de desarrollo de Spark:
+bash         php spark serve         
+
+📄 Licencia
+Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
