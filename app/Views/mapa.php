@@ -119,8 +119,8 @@
     </style>
 </head>
 
-<body>
-    <?= view('partials/navbar') ?>
+<body class="always-show-floating-nav">
+    <?= view('partials/floating_nav') ?>
 
     <div class="main-container">
         <!-- List Column -->
@@ -189,6 +189,7 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/js/nav-floating.js"></script>
 
     <script>
         // Initialize Map

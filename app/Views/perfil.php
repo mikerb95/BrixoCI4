@@ -53,9 +53,8 @@
     </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 always-show-floating-nav">
 
-    <?= view('partials/navbar') ?>
     <?= view('partials/floating_nav') ?>
 
     <main class="flex-grow-1">

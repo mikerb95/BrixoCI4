@@ -24,9 +24,8 @@
     </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 always-show-floating-nav">
 
-    <?= view('partials/navbar') ?>
     <?= view('partials/floating_nav') ?>
 
     <main class="flex-grow-1">
@@ -121,8 +120,11 @@
     </main>
 
     <!-- Bootstrap 5 JS Bundle -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/nav-floating.js"></script>
+</body>
+<script src="/js/nav-floating.js"></script>
 </body>
 
 </html>

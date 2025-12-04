@@ -83,8 +83,7 @@
     </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
-    <?= view('partials/navbar') ?>
+<body class="d-flex flex-column min-vh-100 always-show-floating-nav">
     <?= view('partials/floating_nav') ?>
 
     <main class="flex-grow-1">
@@ -107,15 +106,18 @@
                         <div class="mb-4">
                             <h6 class="filter-title">Opinión de clientes</h6>
                             <a href="#" class="filter-link rating-filter">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="far fa-star"></i>
                                 <span class="ms-1 text-dark">o más</span>
                             </a>
                             <a href="#" class="filter-link rating-filter">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="far fa-star"></i><i class="far fa-star"></i>
                                 <span class="ms-1 text-dark">o más</span>
                             </a>
                             <a href="#" class="filter-link rating-filter">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i
+                                    class="far fa-star"></i><i class="far fa-star"></i>
                                 <span class="ms-1 text-dark">o más</span>
                             </a>
                         </div>
@@ -145,7 +147,8 @@
                 </div>
 
                 <div class="col-12 col-lg-8 col-xl-9">
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
+                    <div
+                        class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
                         <div>
                             <h5 class="fw-bold mb-1">Resultados para "Servicios"</h5>
                             <small class="text-muted"><?= count($services) ?> resultados encontrados</small>
@@ -166,38 +169,47 @@
                             <div class="col">
                                 <div class="card h-100 service-card rounded-3 overflow-hidden">
                                     <div class="position-relative">
-                                        <img src="<?= $service['imagen'] ?>" class="card-img-top service-img" alt="<?= $service['titulo'] ?>">
-                                        <span class="position-absolute top-0 end-0 m-2 badge bg-dark bg-opacity-75 rounded-pill">
+                                        <img src="<?= $service['imagen'] ?>" class="card-img-top service-img"
+                                            alt="<?= $service['titulo'] ?>">
+                                        <span
+                                            class="position-absolute top-0 end-0 m-2 badge bg-dark bg-opacity-75 rounded-pill">
                                             <?= $service['categoria'] ?>
                                         </span>
                                     </div>
                                     <div class="card-body p-3">
-                                        <a href="/profesional/<?= $service['profesional']['id'] ?>" class="text-decoration-none text-dark">
-                                            <h6 class="card-title fw-bold mb-1 text-truncate" title="<?= $service['titulo'] ?>"><?= $service['titulo'] ?></h6>
+                                        <a href="/profesional/<?= $service['profesional']['id'] ?>"
+                                            class="text-decoration-none text-dark">
+                                            <h6 class="card-title fw-bold mb-1 text-truncate"
+                                                title="<?= $service['titulo'] ?>"><?= $service['titulo'] ?></h6>
                                         </a>
                                         <div class="mb-2 small">
-                                            <a href="/profesional/<?= $service['profesional']['id'] ?>" class="text-muted text-decoration-none hover-underline">
+                                            <a href="/profesional/<?= $service['profesional']['id'] ?>"
+                                                class="text-muted text-decoration-none hover-underline">
                                                 Por <?= $service['profesional']['nombre'] ?>
                                             </a>
                                         </div>
                                         <div class="mb-2">
                                             <span class="text-warning small">
                                                 <?php for ($i = 0; $i < 5; $i++): ?>
-                                                    <i class="<?= $i < floor($service['rating']) ? 'fas' : 'far' ?> fa-star"></i>
+                                                    <i
+                                                        class="<?= $i < floor($service['rating']) ? 'fas' : 'far' ?> fa-star"></i>
                                                 <?php endfor; ?>
                                             </span>
                                             <span class="text-primary small ms-1"><?= $service['reviews'] ?></span>
                                         </div>
                                         <div class="mb-3">
-                                            <span class="price-tag">$<?= number_format($service['precio'], 0, ',', '.') ?></span>
+                                            <span
+                                                class="price-tag">$<?= number_format($service['precio'], 0, ',', '.') ?></span>
                                             <span class="small text-muted">/ servicio</span>
                                         </div>
                                         <div class="d-grid">
-                                            <a href="/profesional/<?= $service['profesional']['id'] ?>" class="btn btn-warning btn-sm rounded-pill fw-bold">Ver detalles</a>
+                                            <a href="/profesional/<?= $service['profesional']['id'] ?>"
+                                                class="btn btn-warning btn-sm rounded-pill fw-bold">Ver detalles</a>
                                         </div>
                                     </div>
                                     <div class="card-footer bg-white border-top-0 pt-0 pb-3">
-                                        <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i> <?= $service['profesional']['ubicacion'] ?></small>
+                                        <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i>
+                                            <?= $service['profesional']['ubicacion'] ?></small>
                                     </div>
                                 </div>
                             </div>
