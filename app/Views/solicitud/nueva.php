@@ -74,11 +74,25 @@
                                             name="presupuesto" placeholder="0">
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="ubicacion" class="form-label fw-semibold">Ubicación / Barrio</label>
-                                    <input type="text" class="form-control p-3" id="ubicacion" name="ubicacion"
-                                        placeholder="Ej: Chapinero, Bogotá">
+                                    <label for="departamento" class="form-label fw-semibold">Departamento</label>
+                                    <select id="departamento" name="departamento" class="form-select p-3"
+                                        required></select>
                                 </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="ciudad" class="form-label fw-semibold">Ciudad</label>
+                                    <select id="ciudad" name="ciudad" class="form-select p-3" disabled
+                                        required></select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="ubicacion" class="form-label fw-semibold">Barrio / Dirección</label>
+                                <input type="text" class="form-control p-3" id="ubicacion" name="ubicacion"
+                                    placeholder="Ej: Chapinero, Calle 123 # 45-67">
                             </div>
 
                             <div class="d-grid gap-2 mt-4">
@@ -93,6 +107,14 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/colombia-locations.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof initColombiaSelects === 'function') {
+                initColombiaSelects('departamento', 'ciudad');
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -47,7 +47,17 @@ class Solicitud extends BaseController
         $titulo = trim((string) $this->request->getPost('titulo'));
         $descripcion = trim((string) $this->request->getPost('descripcion'));
         $presupuesto = $this->request->getPost('presupuesto');
-        $ubicacion = trim((string) $this->request->getPost('ubicacion'));
+
+        // Capturar ubicación detallada
+        $departamento = trim((string) $this->request->getPost('departamento'));
+        $ciudad = trim((string) $this->request->getPost('ciudad'));
+        $direccion = trim((string) $this->request->getPost('ubicacion'));
+
+        $ubicacionFinal = $direccion;
+        if (!empty($ciudad) && !empty($departamento)) {
+            $ubicacionFinal = $ciudad . ', ' . $departamento . ($direccion ? ' - ' . $direccion : '');
+        }
+
         $idContratista = $this->request->getPost('id_contratista'); // Puede ser vacío (abierta)
 
         if ($titulo === '' || $descripcion === '') {
@@ -59,7 +69,7 @@ class Solicitud extends BaseController
             'titulo' => $titulo,
             'descripcion' => $descripcion,
             'presupuesto' => $presupuesto ?: 0,
-            'ubicacion' => $ubicacion,
+            'ubicacion' => $ubicacionFinal,
             'estado' => 'ABIERTA',
             'id_contratista' => !empty($idContratista) ? $idContratista : null
         ];
