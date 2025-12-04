@@ -129,4 +129,72 @@ class Solicitud extends BaseController
 
         return redirect()->to('/panel')->with('message', 'Solicitud eliminada correctamente.');
     }
+
+    public function editar($id)
+    {
+        $session = session();
+        $user = $session->get('user');
+
+        if (empty($user) || $user['rol'] !== 'cliente') {
+            return redirect()->to('/')->with('error', 'Acceso denegado.');
+        }
+
+        $db = db_connect();
+        
+        // Verificar que la solicitud pertenezca al usuario
+        $solicitud = $db->table('SOLICITUD')
+            ->where('id_solicitud', $id)
+            ->where('id_cliente', $user['id'])
+            ->get()
+            ->getRowArray();
+
+        if (!$solicitud) {
+            return redirect()->to('/panel')->with('error', 'Solicitud no encontrada o no tienes permiso para editarla.');
+        }
+
+        return view('solicitud/editar', ['solicitud' => $solicitud]);
+    }
+
+    public function actualizar($id)
+    {
+        $session = session();
+        $user = $session->get('user');
+
+        if (empty($user) || $user['rol'] !== 'cliente') {
+            return redirect()->to('/')->with('error', 'Acceso denegado.');
+        }
+
+        $db = db_connect();
+        
+        // Verificar que la solicitud pertenezca al usuario
+        $solicitud = $db->table('SOLICITUD')
+            ->where('id_solicitud', $id)
+            ->where('id_cliente', $user['id'])
+            ->get()
+            ->getRowArray();
+
+        if (!$solicitud) {
+            return redirect()->to('/panel')->with('error', 'Solicitud no encontrada o no tienes permiso para editarla.');
+        }
+
+        $titulo = trim((string) $this->request->getPost('titulo'));
+        $descripcion = trim((string) $this->request->getPost('descripcion'));
+        $presupuesto = $this->request->getPost('presupuesto');
+        $ubicacion = trim((string) $this->request->getPost('ubicacion'));
+
+        if ($titulo === '' || $descripcion === '') {
+            return redirect()->back()->with('error', 'El título y la descripción son obligatorios.');
+        }
+
+        $data = [
+            'titulo' => $titulo,
+            'descripcion' => $descripcion,
+            'presupuesto' => $presupuesto ?: 0,
+            'ubicacion' => $ubicacion,
+        ];
+
+        $db->table('SOLICITUD')->where('id_solicitud', $id)->update($data);
+
+        return redirect()->to('/panel')->with('message', 'Solicitud actualizada correctamente.');
+    }
 }

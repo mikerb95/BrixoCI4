@@ -53,6 +53,10 @@
                                                 <div class="fw-semibold text-dark">
                                                     $<?= esc(number_format((float) $s['presupuesto'], 0, ',', '.')) ?>
                                                 </div>
+                                                <a href="/solicitud/editar/<?= $s['id_solicitud'] ?>" 
+                                                   class="btn btn-outline-primary btn-sm mt-1">
+                                                    <i class="fas fa-edit"></i> Editar
+                                                </a>
                                                 <a href="/solicitud/eliminar/<?= $s['id_solicitud'] ?>" 
                                                    class="btn btn-outline-danger btn-sm mt-1"
                                                    onclick="return confirm('¿Estás seguro de eliminar esta solicitud?');">

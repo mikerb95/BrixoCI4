@@ -29,6 +29,8 @@ $routes->get('/setup/update-cliente', 'Setup::update_cliente'); // Ruta de actua
 // Solicitudes
 $routes->get('/solicitud/nueva', 'Solicitud::nueva');
 $routes->post('/solicitud/guardar', 'Solicitud::guardar');
+$routes->get('/solicitud/editar/(:num)', 'Solicitud::editar/$1');
+$routes->post('/solicitud/actualizar/(:num)', 'Solicitud::actualizar/$1');
 $routes->get('/solicitud/eliminar/(:num)', 'Solicitud::eliminar/$1');
 $routes->get('/tablon-tareas', 'Solicitud::index'); // Para contratistas
 
