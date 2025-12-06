@@ -190,7 +190,6 @@
                             <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
                                 <?= strtoupper(substr($user['nombre'], 0, 1)) ?>
                             </div>
-                            <span><?= esc($user['nombre']) ?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
                             <li><a class="dropdown-item" href="/perfil">Mi Perfil</a></li>
