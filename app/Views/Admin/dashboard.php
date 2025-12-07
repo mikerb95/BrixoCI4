@@ -51,7 +51,8 @@
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Dashboard</h1>
                 </div>
 
@@ -186,8 +187,10 @@
                     <a href="/explorar" class="nav-link text-dark">Explorar</a>
                     <a href="/mis-tareas" class="nav-link text-dark">Mis Tareas</a>
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
-                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
+                            data-bs-toggle="dropdown">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 32px; height: 32px;">
                                 <?= strtoupper(substr($user['nombre'], 0, 1)) ?>
                             </div>
                         </a>
@@ -210,7 +213,8 @@
             <!-- Sidebar / Profile Summary -->
             <div class="col-lg-3 mb-4">
                 <div class="card border-0 shadow-sm text-center p-4">
-                    <div class="mb-3 mx-auto bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fs-2" style="width: 80px; height: 80px;">
+                    <div class="mb-3 mx-auto bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fs-2"
+                        style="width: 80px; height: 80px;">
                         <?= strtoupper(substr($user['nombre'], 0, 1)) ?>
                     </div>
                     <h5 class="fw-bold mb-1"><?= esc($user['nombre']) ?></h5>
@@ -300,7 +304,8 @@
                                         </div>
                                         <div>
                                             <h6 class="fw-bold mb-1">Reparación de tubería</h6>
-                                            <p class="text-muted small mb-0"><i class="far fa-clock me-1"></i> Publicado hace 2 días</p>
+                                            <p class="text-muted small mb-0"><i class="far fa-clock me-1"></i> Publicado
+                                                hace 2 días</p>
                                         </div>
                                     </div>
                                     <span class="badge bg-warning text-dark rounded-pill px-3">En proceso</span>
@@ -315,7 +320,8 @@
                                         </div>
                                         <div>
                                             <h6 class="fw-bold mb-1">Pintura de sala</h6>
-                                            <p class="text-muted small mb-0"><i class="far fa-clock me-1"></i> Publicado hace 1 semana</p>
+                                            <p class="text-muted small mb-0"><i class="far fa-clock me-1"></i> Publicado
+                                                hace 1 semana</p>
                                         </div>
                                     </div>
                                     <span class="badge bg-success rounded-pill px-3">Completado</span>

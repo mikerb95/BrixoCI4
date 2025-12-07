@@ -161,7 +161,8 @@
                                                 </div>
                                                 <div class="text-end">
                                                     <div class="small text-muted">Inicio:
-                                                        <?= date('d M', strtotime($c['fecha_inicio'])) ?></div>
+                                                        <?= date('d M', strtotime($c['fecha_inicio'])) ?>
+                                                    </div>
                                                     <div class="fw-bold text-dark mt-1">
                                                         $<?= esc(number_format((float) $c['costo_total'], 0, ',', '.')) ?>
                                                     </div>
