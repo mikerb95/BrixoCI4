@@ -20,7 +20,7 @@
 
     <main class="flex-grow-1">
         <div class="container my-5" style="max-width:1200px;">
-            
+
             <!-- Dashboard Header -->
             <div class="dashboard-header d-flex justify-content-between align-items-center shadow-sm">
                 <div class="position-relative z-1">
@@ -76,7 +76,8 @@
                 <div class="col-lg-8">
                     <!-- Solicitudes Section -->
                     <div class="card card-dashboard mb-4">
-                        <div class="card-header bg-white border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                        <div
+                            class="card-header bg-white border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
                             <h2 class="h5 fw-bold mb-0 text-dark">Mis Solicitudes</h2>
                             <a href="/solicitud/nueva" class="btn btn-primary btn-sm rounded-pill px-3 fw-bold">
                                 <i class="fas fa-plus me-1"></i> Nueva Solicitud
@@ -97,20 +98,30 @@
                                                         <?= esc($s['descripcion']) ?>
                                                     </p>
                                                     <div class="d-flex align-items-center gap-3 text-secondary small">
-                                                        <span><i class="far fa-calendar me-1"></i> <?= date('d M, Y', strtotime($s['creado_en'])) ?></span>
+                                                        <span><i class="far fa-calendar me-1"></i>
+                                                            <?= date('d M, Y', strtotime($s['creado_en'])) ?></span>
                                                         <span class="fw-semibold text-dark">
-                                                            <i class="fas fa-tag me-1 text-muted"></i> $<?= esc(number_format((float) $s['presupuesto'], 0, ',', '.')) ?>
+                                                            <i class="fas fa-tag me-1 text-muted"></i>
+                                                            $<?= esc(number_format((float) $s['presupuesto'], 0, ',', '.')) ?>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-light btn-sm rounded-circle" type="button" data-bs-toggle="dropdown">
+                                                    <button class="btn btn-light btn-sm rounded-circle" type="button"
+                                                        data-bs-toggle="dropdown">
                                                         <i class="fas fa-ellipsis-v text-muted"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
-                                                        <li><a class="dropdown-item" href="/solicitud/editar/<?= $s['id_solicitud'] ?>"><i class="fas fa-edit me-2 text-primary"></i>Editar</a></li>
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li><a class="dropdown-item text-danger" href="/solicitud/eliminar/<?= $s['id_solicitud'] ?>" onclick="return confirm('¿Estás seguro?');"><i class="fas fa-trash-alt me-2"></i>Eliminar</a></li>
+                                                        <li><a class="dropdown-item"
+                                                                href="/solicitud/editar/<?= $s['id_solicitud'] ?>"><i
+                                                                    class="fas fa-edit me-2 text-primary"></i>Editar</a></li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item text-danger"
+                                                                href="/solicitud/eliminar/<?= $s['id_solicitud'] ?>"
+                                                                onclick="return confirm('¿Estás seguro?');"><i
+                                                                    class="fas fa-trash-alt me-2"></i>Eliminar</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -121,8 +132,10 @@
                                 <div class="empty-state">
                                     <div class="empty-state-icon"><i class="fas fa-clipboard"></i></div>
                                     <h5 class="fw-bold text-dark">Sin solicitudes activas</h5>
-                                    <p class="text-muted mb-3">Publica tu primera solicitud para encontrar profesionales.</p>
-                                    <a href="/solicitud/nueva" class="btn btn-outline-primary rounded-pill">Crear Solicitud</a>
+                                    <p class="text-muted mb-3">Publica tu primera solicitud para encontrar profesionales.
+                                    </p>
+                                    <a href="/solicitud/nueva" class="btn btn-outline-primary rounded-pill">Crear
+                                        Solicitud</a>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -147,7 +160,8 @@
                                                     <span class="badge badge-soft-primary"><?= esc($c['estado']) ?></span>
                                                 </div>
                                                 <div class="text-end">
-                                                    <div class="small text-muted">Inicio: <?= date('d M', strtotime($c['fecha_inicio'])) ?></div>
+                                                    <div class="small text-muted">Inicio:
+                                                        <?= date('d M', strtotime($c['fecha_inicio'])) ?></div>
                                                     <div class="fw-bold text-dark mt-1">
                                                         $<?= esc(number_format((float) $c['costo_total'], 0, ',', '.')) ?>
                                                     </div>
@@ -180,9 +194,11 @@
                                         <div class="list-group-item list-group-item-action">
                                             <div class="d-flex justify-content-between mb-2">
                                                 <div class="text-warning small">
-                                                    <?php for($i=0; $i<$r['calificacion']; $i++) echo '<i class="fas fa-star"></i>'; ?>
+                                                    <?php for ($i = 0; $i < $r['calificacion']; $i++)
+                                                        echo '<i class="fas fa-star"></i>'; ?>
                                                 </div>
-                                                <small class="text-muted"><?= date('d M', strtotime($r['fecha_resena'])) ?></small>
+                                                <small
+                                                    class="text-muted"><?= date('d M', strtotime($r['fecha_resena'])) ?></small>
                                             </div>
                                             <p class="mb-1 text-dark small">"<?= esc($r['comentario']) ?>"</p>
                                             <small class="text-muted">Para: <?= esc($r['contratista']) ?></small>

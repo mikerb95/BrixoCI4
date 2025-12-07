@@ -23,13 +23,15 @@ body {
    añadimos espacio superior para separar la navbar fija de botones/elementos de panel. */
 body.floating-offset main,
 body.floating-offset .container,
-body.floating-offset .container-fluid {
+body.floating-offset .container-fluid,
+body.floating-offset .main-container {
     padding-top: calc(var(--navbar-offset) + 12px);
 }
 @media (max-width: 768px) {
     body.floating-offset main,
     body.floating-offset .container,
-    body.floating-offset .container-fluid {
+    body.floating-offset .container-fluid,
+    body.floating-offset .main-container {
         padding-top: calc(var(--navbar-offset) / 1.8);
     }
 }

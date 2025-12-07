@@ -20,7 +20,7 @@
 
     <main class="flex-grow-1">
         <div class="container my-5" style="max-width:1200px;">
-            
+
             <!-- Dashboard Header -->
             <div class="dashboard-header d-flex justify-content-between align-items-center shadow-sm">
                 <div class="position-relative z-1">
@@ -76,7 +76,8 @@
                 <div class="col-lg-8">
                     <!-- Sección de Oportunidades / Solicitudes Recientes -->
                     <div class="card card-dashboard mb-4">
-                        <div class="card-header bg-white border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                        <div
+                            class="card-header bg-white border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
                             <h2 class="h5 fw-bold mb-0 text-dark">Oportunidades Recientes</h2>
                             <a href="/tablon-tareas" class="btn btn-primary btn-sm rounded-pill px-3 fw-bold">
                                 Ver todas <i class="fas fa-arrow-right ms-1"></i>
@@ -93,7 +94,8 @@
                                                     <h6 class="fw-bold mb-1 text-primary"><?= esc($s['titulo']) ?></h6>
                                                     <div class="small text-muted mb-1">
                                                         <i class="fas fa-user me-1"></i> <?= esc($s['nombre_cliente']) ?> &bull;
-                                                        <i class="fas fa-map-marker-alt me-1 ms-2"></i> <?= esc($s['ubicacion']) ?>
+                                                        <i class="fas fa-map-marker-alt me-1 ms-2"></i>
+                                                        <?= esc($s['ubicacion']) ?>
                                                     </div>
                                                 </div>
                                                 <div class="text-end">
@@ -137,7 +139,8 @@
                                                     <span class="badge badge-soft-dark"><?= esc($c['estado']) ?></span>
                                                 </div>
                                                 <div class="text-end">
-                                                    <div class="small text-muted">Inicio: <?= date('d M', strtotime($c['fecha_inicio'])) ?></div>
+                                                    <div class="small text-muted">Inicio:
+                                                        <?= date('d M', strtotime($c['fecha_inicio'])) ?></div>
                                                     <div class="fw-bold text-dark mt-1">
                                                         $<?= esc(number_format((float) $c['costo_total'], 0, ',', '.')) ?>
                                                     </div>
@@ -170,9 +173,11 @@
                                         <div class="list-group-item list-group-item-action">
                                             <div class="d-flex justify-content-between mb-2">
                                                 <div class="text-warning small">
-                                                    <?php for($i=0; $i<$r['calificacion']; $i++) echo '<i class="fas fa-star"></i>'; ?>
+                                                    <?php for ($i = 0; $i < $r['calificacion']; $i++)
+                                                        echo '<i class="fas fa-star"></i>'; ?>
                                                 </div>
-                                                <small class="text-muted"><?= date('d M', strtotime($r['fecha_resena'])) ?></small>
+                                                <small
+                                                    class="text-muted"><?= date('d M', strtotime($r['fecha_resena'])) ?></small>
                                             </div>
                                             <p class="mb-1 text-dark small">"<?= esc($r['comentario']) ?>"</p>
                                             <small class="text-muted">De: <?= esc($r['cliente']) ?></small>
