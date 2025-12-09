@@ -23,10 +23,11 @@
                             class="form-control p-3 rounded-3" placeholder="Tu contraseña" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Entrar</button>
-                    
+
                     <div class="text-center mt-3">
-                        <small class="text-muted">¿No tienes una cuenta? 
-                            <a href="#" class="text-primary fw-bold text-decoration-none" data-bs-toggle="modal" data-bs-target="#registerModal">Regístrate</a>
+                        <small class="text-muted">¿No tienes una cuenta?
+                            <a href="#" class="text-primary fw-bold text-decoration-none" data-bs-toggle="modal"
+                                data-bs-target="#registerModal">Regístrate</a>
                         </small>
                     </div>
                 </form>
@@ -59,8 +60,7 @@
                     <div class="mb-3">
                         <label for="registro_correo" class="form-label fw-semibold">Correo electrónico</label>
                         <input id="registro_correo" name="correo" type="email" class="form-control p-3 rounded-3"
-                            placeholder="nombre@ejemplo.com" value="<?= esc($registerOld['correo'] ?? '') ?>"
-                            required>
+                            placeholder="nombre@ejemplo.com" value="<?= esc($registerOld['correo'] ?? '') ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="registro_telefono" class="form-label fw-semibold">Teléfono</label>

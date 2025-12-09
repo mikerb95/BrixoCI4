@@ -58,7 +58,7 @@ class Panel extends BaseController
         if ($user['rol'] === 'contratista') {
             $contratistaModel = new ContratistaModel();
             $full = $contratistaModel->find($user['id']);
-            if (! empty($full)) {
+            if (!empty($full)) {
                 // mezclar datos para que la vista pueda usar $user['foto_perfil'] etc
                 $user = array_merge($user, $full);
             }
@@ -127,16 +127,16 @@ class Panel extends BaseController
             ],
         ];
 
-        if (! $this->validate($validationRules)) {
+        if (!$this->validate($validationRules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $img = $this->request->getFile('imagen');
-        if ($img && $img->isValid() && ! $img->hasMoved()) {
+        if ($img && $img->isValid() && !$img->hasMoved()) {
             $newName = $img->getRandomName();
             // Guardar en public/images/profiles/
             $targetDir = FCPATH . 'images/profiles/';
-            if (! is_dir($targetDir)) {
+            if (!is_dir($targetDir)) {
                 mkdir($targetDir, 0755, true);
             }
 
@@ -159,7 +159,7 @@ class Panel extends BaseController
             $contratistaModel = new ContratistaModel();
             // Borrar imagen antigua si existe
             $old = $contratistaModel->find($user['id']);
-            if (! empty($old['foto_perfil'])) {
+            if (!empty($old['foto_perfil'])) {
                 @unlink($targetDir . $old['foto_perfil']);
                 @unlink($targetDir . 'thumb_' . preg_replace('/^profile_/', '', $old['foto_perfil']));
             }
