@@ -37,11 +37,8 @@
                 </div>
             <?php endif; ?>
             <div class="row align-items-center">
-                <!-- Logo justo encima del bloque de texto principal -->
-                <div class="col-lg-7 text-start mb-3">
-                    <img src="/images/brixo-logo-wh.png" alt="Brixo" style="height:128px;width:auto;"
-                        onerror="this.style.display='none'">
-                </div>
+                <!-- Logo removido del hero -->
+                <div class="col-lg-7 text-start mb-3"></div>
                 <div class="col-lg-7 text-start mb-5 mb-lg-0">
                     <h1 class="display-3 fw-bold mb-4 lh-sm">Profesionales<br>confiables, cuando<br>los necesitas</h1>
                     <p class="fs-5 mb-4 fw-light" style="max-width: 600px;">Reserva por horas a expertos en obra,

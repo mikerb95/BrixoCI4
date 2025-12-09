@@ -166,6 +166,10 @@ class Panel extends BaseController
 
             $contratistaModel->update($user['id'], ['foto_perfil' => 'profile_' . $newName]);
 
+            // Actualizar sesión para que la navbar refleje el cambio inmediatamente
+            $user['foto_perfil'] = 'profile_' . $newName;
+            $session->set('user', $user);
+
             return redirect()->to('/panel')->with('message', 'Imagen de perfil actualizada.');
         }
 
