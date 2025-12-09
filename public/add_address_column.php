@@ -29,18 +29,43 @@ try {
     }
 
     // CLIENTE
+    // 1. Asegurar que existe 'ciudad'
+    if (!columnExists($pdo, 'CLIENTE', 'ciudad')) {
+        echo "Agregando 'ciudad' a CLIENTE... ";
+        $pdo->exec("ALTER TABLE CLIENTE ADD COLUMN ciudad VARCHAR(100) AFTER telefono");
+        echo "<span style='color:green'>OK</span><br>";
+    }
+
+    // 2. Asegurar que existe 'direccion'
     if (!columnExists($pdo, 'CLIENTE', 'direccion')) {
         echo "Agregando 'direccion' a CLIENTE... ";
-        $pdo->exec("ALTER TABLE CLIENTE ADD COLUMN direccion VARCHAR(255) AFTER ciudad");
+        // Intentamos ponerla después de ciudad, si falla (raro porque acabamos de verificar), la ponemos al final
+        try {
+            $pdo->exec("ALTER TABLE CLIENTE ADD COLUMN direccion VARCHAR(255) AFTER ciudad");
+        } catch (Exception $e) {
+             $pdo->exec("ALTER TABLE CLIENTE ADD COLUMN direccion VARCHAR(255)");
+        }
         echo "<span style='color:green'>OK</span><br>";
     } else {
         echo "Columna 'direccion' ya existe en CLIENTE.<br>";
     }
 
     // CONTRATISTA
+    // 1. Asegurar que existe 'ciudad'
+    if (!columnExists($pdo, 'CONTRATISTA', 'ciudad')) {
+        echo "Agregando 'ciudad' a CONTRATISTA... ";
+        $pdo->exec("ALTER TABLE CONTRATISTA ADD COLUMN ciudad VARCHAR(100) AFTER telefono");
+        echo "<span style='color:green'>OK</span><br>";
+    }
+
+    // 2. Asegurar que existe 'direccion'
     if (!columnExists($pdo, 'CONTRATISTA', 'direccion')) {
         echo "Agregando 'direccion' a CONTRATISTA... ";
-        $pdo->exec("ALTER TABLE CONTRATISTA ADD COLUMN direccion VARCHAR(255) AFTER ciudad");
+        try {
+            $pdo->exec("ALTER TABLE CONTRATISTA ADD COLUMN direccion VARCHAR(255) AFTER ciudad");
+        } catch (Exception $e) {
+            $pdo->exec("ALTER TABLE CONTRATISTA ADD COLUMN direccion VARCHAR(255)");
+        }
         echo "<span style='color:green'>OK</span><br>";
     } else {
         echo "Columna 'direccion' ya existe en CONTRATISTA.<br>";
