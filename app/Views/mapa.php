@@ -25,9 +25,7 @@
 
         .navbar {
             height: auto;
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-
-            z-index: 1030;
+            <link rel="icon" href="/favicon.svg" type="image/svg+xml">z-index: 1030;
         }
 
         .main-container {

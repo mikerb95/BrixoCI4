@@ -12,8 +12,6 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-    <?= view('partials/floating_nav') ?>
-
     <main class="flex-grow-1">
         <section class="py-5 bg-light">
             <div class="container text-center" style="max-width: 800px;">

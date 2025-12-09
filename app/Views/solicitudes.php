@@ -7,10 +7,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/brixo.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 
-<body class="d-flex flex-column min-vh-100 always-show-floating-nav">
-    <?= view('partials/floating_nav') ?>
+<body class="d-flex flex-column min-vh-100">
 
     <main class="flex-grow-1">
         <div class="container py-4">
@@ -63,7 +63,6 @@
     <?= view('partials/footer') ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/nav-floating.js"></script>
 </body>
 
 </html>

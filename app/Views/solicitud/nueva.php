@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/brixo.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 
-<body class="bg-light always-show-floating-nav">
-
-    <?= view('partials/floating_nav') ?>
+<body class="bg-light">
 
     <div class="container py-5">
         <div class="row justify-content-center">
@@ -102,7 +101,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/colombia-locations.js"></script>
-    <script src="/js/nav-floating.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             if (typeof initColombiaSelects === 'function') {

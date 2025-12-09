@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="/css/brixo.css">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 
-<body class="d-flex flex-column min-vh-100 always-show-floating-nav">
-
-    <?= view('partials/floating_nav') ?>
+<body class="d-flex flex-column min-vh-100">
 
     <!-- 404 Content -->
     <section class="d-flex align-items-center justify-content-center flex-grow-1 py-5 text-center">

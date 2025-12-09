@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/brixo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
 <body class="bg-light">
 

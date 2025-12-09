@@ -22,11 +22,10 @@
             max-width: 700px;
         }
     </style>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 
-<body class="d-flex flex-column min-vh-100 always-show-floating-nav">
-
-    <?= view('partials/floating_nav') ?>
+<body class="d-flex flex-column min-vh-100">
 
     <main class="flex-grow-1">
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -122,9 +121,7 @@
     <!-- Bootstrap 5 JS Bundle -->
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/nav-floating.js"></script>
 </body>
-<script src="/js/nav-floating.js"></script>
 </body>
 
 </html>
