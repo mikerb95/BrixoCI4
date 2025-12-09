@@ -28,6 +28,10 @@
                     <p class="mb-0 opacity-75">Bienvenido a tu panel de control</p>
                 </div>
                 <div class="position-relative z-1 d-none d-md-block">
+                    <a href="/perfil/editar"
+                        class="btn btn-light text-primary fw-bold rounded-pill px-4 shadow-sm me-2">
+                        <i class="fas fa-user-edit me-2"></i>Editar Perfil
+                    </a>
                     <a href="/" class="btn btn-light text-primary fw-bold rounded-pill px-4 shadow-sm">
                         <i class="fas fa-home me-2"></i>Ir al Inicio
                     </a>

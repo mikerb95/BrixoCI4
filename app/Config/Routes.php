@@ -18,6 +18,8 @@ $routes->post('/register', 'Register::register');
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');
 $routes->get('/perfil', 'Panel::index');
+$routes->get('/perfil/editar', 'Panel::editarPerfil');
+$routes->post('/perfil/actualizar', 'Panel::actualizarPerfil');
 // New Airbnb-style map
 $routes->get('/map', 'Mapa::mapaAirbnb');
 $routes->get('/solicitudes', 'Solicitudes::index');
