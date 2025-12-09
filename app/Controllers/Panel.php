@@ -292,18 +292,24 @@ class Panel extends BaseController
         }
 
         // Update DB
-        if ($user['rol'] === 'cliente') {
-            $model = new ClienteModel();
-            $model->update($user['id'], $data);
-        } else {
-            $model = new ContratistaModel();
-            $model->update($user['id'], $data);
-        }
+        try {
+            if ($user['rol'] === 'cliente') {
+                $model = new ClienteModel();
+                $model->update($user['id'], $data);
+            } else {
+                $model = new ContratistaModel();
+                $model->update($user['id'], $data);
+            }
 
-        // Update Session
-        $updatedUser = $model->find($user['id']);
-        $updatedUser['rol'] = $user['rol'];
-        $session->set('user', $updatedUser);
+            // Update Session
+            $updatedUser = $model->find($user['id']);
+            if ($updatedUser) {
+                $updatedUser['rol'] = $user['rol'];
+                $session->set('user', $updatedUser);
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error al actualizar perfil: ' . $e->getMessage());
+        }
 
         return redirect()->to('/perfil/editar')->with('message', 'Perfil actualizado correctamente.');
     }

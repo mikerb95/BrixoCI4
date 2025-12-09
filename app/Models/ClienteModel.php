@@ -8,6 +8,6 @@ class ClienteModel extends Model
 {
     protected $table = 'CLIENTE';
     protected $primaryKey = 'id_cliente';
-    protected $allowedFields = ['nombre', 'correo', 'contrasena', 'telefono', 'ciudad', 'foto_perfil'];
+    protected $allowedFields = ['nombre', 'correo', 'contrasena', 'telefono', 'ciudad', 'direccion', 'foto_perfil'];
     protected $returnType = 'array';
 }
