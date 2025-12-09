@@ -39,3 +39,4 @@
         </div>
     </div>
 </nav>
+<?= view('partials/modals') ?>

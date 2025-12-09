@@ -58,11 +58,66 @@ class Mapa extends BaseController
                 ];
             }
 
+
+            // Pass professionals data to view
+            return view('mapa', ['professionals' => $professionals]);
             $data['professionals'] = $professionals;
 
             return view('mapa', $data);
         } catch (\Throwable $e) {
             // Temporary debugging: Show error directly
+
+    public function mapaAirbnb()
+    {
+        // Reuse logic from index to get professionals
+        try {
+            $contratistaModel = new ContratistaModel();
+            $resenaModel = new ResenaModel();
+
+            $rawProfessionals = $contratistaModel->getWithLocation();
+            $professionals = [];
+
+            $baseLat = 4.6097;
+            $baseLng = -74.0817;
+
+            foreach ($rawProfessionals as $pro) {
+                $reviews = $resenaModel->getByContratista($pro['id_contratista']);
+                $ratingSum = 0;
+                foreach ($reviews as $r) {
+                    $ratingSum += $r['calificacion'];
+                }
+                $avgRating = count($reviews) > 0 ? $ratingSum / count($reviews) : 0;
+
+                if (!empty($pro['latitud']) && !empty($pro['longitud'])) {
+                    $lat = $pro['latitud'];
+                    $lng = $pro['longitud'];
+                } else {
+                    $id = (int)$pro['id_contratista'];
+                    $latOffset = (sin($id) * 0.05);
+                    $lngOffset = (cos($id) * 0.05);
+                    $lat = $baseLat + $latOffset;
+                    $lng = $baseLng + $lngOffset;
+                }
+
+                $professionals[] = [
+                    'id' => $pro['id_contratista'],
+                    'nombre' => $pro['nombre'],
+                    'profesion' => $pro['experiencia'] ?: 'Profesional',
+                    'rating' => number_format($avgRating, 1),
+                    'reviews' => count($reviews),
+                    'precio' => 50000,
+                    'lat' => $lat,
+                    'lng' => $lng,
+                    'imagen' => !empty($pro['foto_perfil']) ? '/images/profiles/' . $pro['foto_perfil'] : 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random',
+                    'ubicacion' => $pro['ciudad'] ?? 'Bogotá'
+                ];
+            }
+
+            return view('mapa_airbnb', ['professionals' => $professionals]);
+        } catch (\Throwable $e) {
+            return view('mapa_airbnb', ['professionals' => []]);
+        }
+    }
             return $e->getMessage() . "<br><pre>" . $e->getTraceAsString() . "</pre>";
         }
     }
