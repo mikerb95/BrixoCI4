@@ -98,6 +98,8 @@
 <script>
     window.brixoUser = <?= json_encode(session()->get('user') ?? null) ?>;
 </script>
+
+<?= view('partials/modals') ?>
 <script src="/js/navbar.js"></script>
 
 <style>
