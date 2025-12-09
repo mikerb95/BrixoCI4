@@ -1,4 +1,4 @@
-<footer class="bg-dark text-light pt-5 pb-3 mt-auto">
+<footer class="bg-dark text-light py-3 mt-auto">
     <div class="container">
         <div class="row">
             <!-- Brand & About -->

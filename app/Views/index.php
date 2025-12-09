@@ -13,6 +13,7 @@
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 
 <body class="home-page">
@@ -21,30 +22,7 @@
     <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white"
         style="height: 100vh; background-image: url(https://brixo-services.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero2.457d5ba2.jpg&w=1920&q=75); background-size: cover; background-position: center;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
-        <!-- Simple hero nav -->
-        <nav id="hero-nav" class="hero-nav position-absolute top-0 start-0 w-100">
-            <div class="hero-inner d-flex justify-content-start gap-4 py-3">
-                <a href="/mapa" class="hero-link">Mapa</a>
-                <?php $heroUser = session()->get('user'); ?>
-                <?php if (!empty($heroUser)): ?>
-                    <span class="hero-link text-white">Hola, <?= esc($heroUser['nombre'] ?? 'Usuario') ?></span>
-                    <?php $role = $heroUser['rol'] ?? ''; ?>
-                    <?php if ($role === 'admin'): ?>
-                        <a href="/admin" class="hero-link">Mi Panel</a>
-                    <?php elseif ($role === 'contratista'): ?>
-                        <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#contractorPanel">Mi Panel</a>
-                    <?php else: ?>
-                        <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#userPanel">Mi Panel</a>
-                    <?php endif; ?>
-                    <a href="/logout" class="hero-link">Salir</a>
-                <?php else: ?>
-                    <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a>
-                    <a href="#" class="hero-link" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
-                <?php endif; ?>
-            </div>
-        </nav>
-        <!-- Floating navbar (hidden initially) -->
-        <?= view('partials/floating_nav') ?>
+        
         <div class="container position-relative z-1">
             <?php if (!empty($message)): ?>
                 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -502,7 +480,6 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="/js/colombia-locations.js"></script>
-    <script src="/js/nav-floating.js"></script>
 
     <script>
         (function () {

@@ -15,8 +15,7 @@
     <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100 always-show-floating-nav">
-    <?= view('partials/floating_nav') ?>
+<body class="d-flex flex-column min-vh-100">
 
     <main class="flex-grow-1">
         <div class="container my-5" style="max-width:1200px;">
@@ -222,7 +221,6 @@
     <?= view('partials/footer') ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/nav-floating.js"></script>
 </body>
 
 </html>
