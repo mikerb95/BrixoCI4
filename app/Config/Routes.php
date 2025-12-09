@@ -18,8 +18,6 @@ $routes->post('/register', 'Register::register');
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');
 $routes->get('/perfil', 'Panel::index');
-// Subida de imagen de perfil (contratistas)
-$routes->post('/perfil/subir-imagen', 'Panel::subirImagen');
 $routes->get('/solicitudes', 'Solicitudes::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
@@ -31,8 +29,6 @@ $routes->get('/setup/update-cliente', 'Setup::update_cliente'); // Ruta de actua
 // Solicitudes
 $routes->get('/solicitud/nueva', 'Solicitud::nueva');
 $routes->post('/solicitud/guardar', 'Solicitud::guardar');
-$routes->get('/solicitud/editar/(:num)', 'Solicitud::editar/$1');
-$routes->post('/solicitud/actualizar/(:num)', 'Solicitud::actualizar/$1');
 $routes->get('/solicitud/eliminar/(:num)', 'Solicitud::eliminar/$1');
 $routes->get('/tablon-tareas', 'Solicitud::index'); // Para contratistas
 
