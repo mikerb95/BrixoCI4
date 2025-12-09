@@ -81,6 +81,12 @@
                                     value="<?= esc($user['telefono']) ?>">
                             </div>
 
+                            <div class="col-12">
+                                <label for="direccion" class="form-label fw-semibold">Dirección</label>
+                                <input type="text" class="form-control rounded-3 p-3" id="direccion" name="direccion"
+                                    value="<?= esc($user['direccion'] ?? '') ?>" required>
+                            </div>
+
                             <!-- Ubicación -->
                             <div class="col-md-6">
                                 <label for="registro_departamento" class="form-label fw-semibold">Departamento</label>

@@ -227,6 +227,7 @@ class Panel extends BaseController
             'nombre' => $this->request->getPost('nombre'),
             'telefono' => $this->request->getPost('telefono'),
             'direccion' => $this->request->getPost('direccion'),
+            'ciudad' => $this->request->getPost('ciudad'),
         ];
 
         if ($user['rol'] === 'contratista') {
