@@ -37,7 +37,7 @@ class Mapa extends BaseController
                     $lng = $pro['longitud'];
                 } else {
                     // Cast to int to ensure sin/cos works correctly
-                    $id = (int)$pro['id_contratista'];
+                    $id = (int) $pro['id_contratista'];
                     $latOffset = (sin($id) * 0.05);
                     $lngOffset = (cos($id) * 0.05);
                     $lat = $baseLat + $latOffset;
@@ -61,11 +61,11 @@ class Mapa extends BaseController
 
             // Pass professionals data to view
             return view('mapa', ['professionals' => $professionals]);
-            $data['professionals'] = $professionals;
-
-            return view('mapa', $data);
         } catch (\Throwable $e) {
             // Temporary debugging: Show error directly
+            return $e->getMessage() . "<br><pre>" . $e->getTraceAsString() . "</pre>";
+        }
+    }
 
     public function mapaAirbnb()
     {
@@ -92,7 +92,7 @@ class Mapa extends BaseController
                     $lat = $pro['latitud'];
                     $lng = $pro['longitud'];
                 } else {
-                    $id = (int)$pro['id_contratista'];
+                    $id = (int) $pro['id_contratista'];
                     $latOffset = (sin($id) * 0.05);
                     $lngOffset = (cos($id) * 0.05);
                     $lat = $baseLat + $latOffset;
@@ -116,9 +116,6 @@ class Mapa extends BaseController
             return view('mapa_airbnb', ['professionals' => $professionals]);
         } catch (\Throwable $e) {
             return view('mapa_airbnb', ['professionals' => []]);
-        }
-    }
-            return $e->getMessage() . "<br><pre>" . $e->getTraceAsString() . "</pre>";
         }
     }
 }
