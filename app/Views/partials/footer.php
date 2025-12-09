@@ -2,10 +2,10 @@
 <script src="/js/footer.js"></script>
 
 <script>
-</script>
-window.brixoUser = <?= json_encode(session()->get('user') ?? null) ?>;
+    window.brixoUser = <?= json_encode(session()->get('user') ?? null) ?>;
 </script>
 
+<?= view('partials/modals') ?>
 <script src="/js/navbar.js"></script>
 
 <style>
