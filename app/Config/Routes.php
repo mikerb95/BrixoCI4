@@ -18,6 +18,8 @@ $routes->post('/register', 'Register::register');
 $routes->get('/mapa', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');
 $routes->get('/perfil', 'Panel::index');
+// Subida de imagen de perfil (contratistas)
+$routes->post('/perfil/subir-imagen', 'Panel::subirImagen');
 $routes->get('/solicitudes', 'Solicitudes::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');

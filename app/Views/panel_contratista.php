@@ -195,6 +195,23 @@
                     </div>
                 </div>
             </div>
+                <!-- Perfil Rápido y Subir Imagen -->
+                <div class="card mt-4">
+                    <div class="card-body text-center">
+                        <?php $fotoUrl = !empty($user['foto_perfil']) ? '/images/profiles/' . $user['foto_perfil'] : 'https://ui-avatars.com/api/?name=' . urlencode($user['nombre']) . '&background=random'; ?>
+                        <img src="<?= esc($fotoUrl) ?>" class="rounded-circle mb-3" width="120" height="120" alt="Avatar">
+                        <h5 class="fw-bold mb-1"><?= esc($user['nombre']) ?></h5>
+                        <p class="text-muted small mb-3">Panel Profesional</p>
+
+                        <form action="/perfil/subir-imagen" method="post" enctype="multipart/form-data">
+                            <?= csrf_field() ?>
+                            <div class="mb-3">
+                                <input class="form-control form-control-sm" type="file" name="imagen" accept="image/*">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm rounded-pill px-3">Subir imagen</button>
+                        </form>
+                    </div>
+                </div>
         </div>
     </main>
 

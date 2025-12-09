@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\HTTP\RedirectResponse;
+use App\Models\ContratistaModel;
 
 class Panel extends BaseController
 {
@@ -53,6 +54,15 @@ class Panel extends BaseController
         }
 
         // Contratista
+        // Si es contratista, recuperar datos completos (incluyendo foto_perfil)
+        if ($user['rol'] === 'contratista') {
+            $contratistaModel = new ContratistaModel();
+            $full = $contratistaModel->find($user['id']);
+            if (! empty($full)) {
+                // mezclar datos para que la vista pueda usar $user['foto_perfil'] etc
+                $user = array_merge($user, $full);
+            }
+        }
         $contracts = $db->query(
             "SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
                     'Servicio contratado' as detalle,
@@ -93,5 +103,72 @@ class Panel extends BaseController
             'solicitudesDisponibles' => $solicitudesDisponibles,
             'message' => $message,
         ]);
+    }
+
+    public function subirImagen()
+    {
+        helper(['form', 'url']);
+        $session = session();
+        $user = $session->get('user');
+
+        if (empty($user) || $user['rol'] !== 'contratista') {
+            return redirect()->to('/')->with('error', 'Acceso no autorizado.');
+        }
+
+        $validationRules = [
+            'imagen' => [
+                'rules' => 'uploaded[imagen]|is_image[imagen]|max_size[imagen,5120]|mime_in[imagen,image/png,image/jpg,image/jpeg,image/webp]',
+                'errors' => [
+                    'uploaded' => 'Selecciona una imagen.',
+                    'is_image' => 'El archivo debe ser una imagen.',
+                    'max_size' => 'La imagen no puede superar 5MB.',
+                    'mime_in' => 'Tipos permitidos: png, jpg, jpeg, webp.',
+                ],
+            ],
+        ];
+
+        if (! $this->validate($validationRules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $img = $this->request->getFile('imagen');
+        if ($img && $img->isValid() && ! $img->hasMoved()) {
+            $newName = $img->getRandomName();
+            // Guardar en public/images/profiles/
+            $targetDir = FCPATH . 'images/profiles/';
+            if (! is_dir($targetDir)) {
+                mkdir($targetDir, 0755, true);
+            }
+
+            $img->move($targetDir, $newName);
+
+            // Redimensionar y generar versiones
+            try {
+                $imgService = \Config\Services::image();
+                $imgService->withFile($targetDir . $newName)->fit(300, 300, 'center')->save($targetDir . 'profile_' . $newName);
+                $imgService->withFile($targetDir . $newName)->fit(64, 64, 'center')->save($targetDir . 'thumb_' . $newName);
+            } catch (\Exception $e) {
+                // Si falla el redimensionado, seguimos con el archivo original renombrado
+                copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
+                copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
+            }
+
+            @unlink($targetDir . $newName);
+
+            // Actualizar DB (campo foto_perfil en CONTRATISTA)
+            $contratistaModel = new ContratistaModel();
+            // Borrar imagen antigua si existe
+            $old = $contratistaModel->find($user['id']);
+            if (! empty($old['foto_perfil'])) {
+                @unlink($targetDir . $old['foto_perfil']);
+                @unlink($targetDir . 'thumb_' . preg_replace('/^profile_/', '', $old['foto_perfil']));
+            }
+
+            $contratistaModel->update($user['id'], ['foto_perfil' => 'profile_' . $newName]);
+
+            return redirect()->to('/panel')->with('message', 'Imagen de perfil actualizada.');
+        }
+
+        return redirect()->back()->with('error', 'Error al subir la imagen.');
     }
 }
