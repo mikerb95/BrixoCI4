@@ -14,7 +14,7 @@ class AuthTest extends CIUnitTestCase
     protected $migrate = false;
     protected $migrateOnce = false;
     protected $refresh = false;
-    protected $seed = false;
+    protected $seed = [];
     protected $baseURI = 'http://localhost:8080';
 
     // For this test, we might want to migrate/seed if the DB is empty, 

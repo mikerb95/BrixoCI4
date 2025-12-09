@@ -135,11 +135,29 @@
             </div>
         </main>
 
+        <!-- Modal for QR Code -->
+        <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="qrModalLabel">Código QR del Perfil</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div id="qrcode"></div>
+                        <p class="mt-3">Escanea este código QR para ver el perfil profesional.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <?= view('partials/footer') ?>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-o9N1j7kTn3vP3bZ7xkG7kNHxQ+3o5m5s1lca0gZr3oM=" crossorigin=""></script>
+    <!-- QRCode.js for generating QR codes -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script>
         // JavaScript: render map, markers and interactive listing (100% JS as requested)
         (function () {
@@ -173,17 +191,27 @@
                             <div class="listing-info">
                                 <div class="title">${p.nombre}</div>
                                 <div class="meta">${p.profesion} · ${p.ubicacion} · ${p.rating}★ (${p.reviews})</div>
+                                <button class="btn btn-sm btn-outline-primary mt-2 qr-btn" data-url="${window.location.origin}/perfil/ver/${p.id}">Ver QR</button>
                             </div>
                         </div>
                     `);
 
-                    node.addEventListener('click', () => {
+                    node.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('qr-btn')) return; // Don't trigger map click for QR button
                         // center map on marker and open popup
                         const m = markers[p.id];
                         if (m) {
                             map.setView(m.getLatLng(), 15, { animate: true });
                             m.openPopup();
                         }
+                    });
+
+                    // Handle QR button click
+                    const qrBtn = node.querySelector('.qr-btn');
+                    qrBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const url = e.target.dataset.url;
+                        generateQR(url);
                     });
 
                     panel.appendChild(node);
@@ -231,6 +259,21 @@
             document.getElementById('searchBox').addEventListener('input', filterAndRender);
             document.getElementById('minRating').addEventListener('change', filterAndRender);
             document.getElementById('sortBy').addEventListener('change', filterAndRender);
+
+            // Function to generate and show QR code
+            function generateQR(url) {
+                const qrcodeDiv = document.getElementById('qrcode');
+                qrcodeDiv.innerHTML = ''; // Clear previous QR
+
+                QRCode.toCanvas(url, { width: 256, margin: 2 }, function (error, canvas) {
+                    if (error) console.error(error);
+                    qrcodeDiv.appendChild(canvas);
+                });
+
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById('qrModal'));
+                modal.show();
+            }
 
         })();
     </script>

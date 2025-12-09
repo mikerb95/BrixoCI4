@@ -43,7 +43,7 @@ try {
         try {
             $pdo->exec("ALTER TABLE CLIENTE ADD COLUMN direccion VARCHAR(255) AFTER ciudad");
         } catch (Exception $e) {
-             $pdo->exec("ALTER TABLE CLIENTE ADD COLUMN direccion VARCHAR(255)");
+            $pdo->exec("ALTER TABLE CLIENTE ADD COLUMN direccion VARCHAR(255)");
         }
         echo "<span style='color:green'>OK</span><br>";
     } else {

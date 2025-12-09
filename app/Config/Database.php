@@ -225,5 +225,33 @@ class Database extends Config
         $this->tests = $this->default;
         // Forzamos el grupo de pruebas para evitar prefijos extraños si no se desean
         $this->tests['DBPrefix'] = '';
+
+        // Override for testing: use SQLite in memory
+        $this->tests = [
+            'DSN' => '',
+            'hostname' => ':memory:',
+            'username' => '',
+            'password' => '',
+            'database' => ':memory:',
+            'DBDriver' => 'SQLite3',
+            'DBPrefix' => '',
+            'pConnect' => false,
+            'DBDebug' => true,
+            'charset' => 'utf8',
+            'DBCollat' => 'utf8_general_ci',
+            'swapPre' => '',
+            'encrypt' => false,
+            'compress' => false,
+            'strictOn' => false,
+            'failover' => [],
+            'port' => 3306,
+            'numberNative' => false,
+            'foundRows' => false,
+            'dateFormat' => [
+                'date' => 'Y-m-d',
+                'datetime' => 'Y-m-d H:i:s',
+                'time' => 'H:i:s',
+            ],
+        ];
     }
 }
