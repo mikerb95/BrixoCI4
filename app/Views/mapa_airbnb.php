@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="/css/brixo.css">
     <style>
         /* Full-screen map layout */
-        html, body, #mapApp {
+        html,
+        body,
+        #mapApp {
             height: 100%;
             margin: 0;
             padding: 0;
@@ -26,68 +28,88 @@
         main.content {
             flex: 1 1 auto;
             display: flex;
-            gap: 20px;
+            gap: 0;
             padding: 0;
+        }
+
+        /* Sidebar on the left for filters and results */
+        .left-sidebar {
+            width: 400px;
+            padding: 16px;
+            background: #fff;
+            border-right: 1px solid #eef2f7;
+            height: calc(100vh - 140px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Map area */
         #map {
-            flex: 1 1 70%;
+            flex: 1 1 auto;
             height: calc(100vh - 140px);
-        }
-
-        /* Floating list inside map */
-        .list-panel {
-            position: absolute;
-            top: 80px;
-            right: 24px;
-            width: 420px;
-            max-height: calc(100vh - 160px);
-            overflow-y: auto;
-            background: rgba(255,255,255,0.95);
-            border-radius: 12px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-            padding: 12px;
-            z-index: 1000;
         }
 
         .listing-item {
             display: flex;
             gap: 12px;
-            padding: 10px;
+            padding: 12px;
             border-radius: 10px;
             align-items: center;
             cursor: pointer;
             transition: background .12s ease;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 8px;
         }
 
-        .listing-item:hover { background: #f7f9fb; }
+        .listing-item:hover {
+            background: #f7f9fb;
+            border-color: #0b5ed7;
+        }
 
         .listing-img {
-            width: 72px;
-            height: 72px;
+            width: 80px;
+            height: 80px;
             border-radius: 8px;
             object-fit: cover;
             flex-shrink: 0;
         }
 
-        .listing-info .title { font-weight: 700; }
-        .listing-info .meta { font-size: 0.9rem; color: #667085; }
+        .listing-info .title {
+            font-weight: 700;
+            font-size: 1rem;
+        }
 
-        /* Sidebar on the left for filters / extra list */
-        .left-sidebar {
-            width: 360px;
-            padding: 16px;
-            background: #fff;
-            border-left: 1px solid #eef2f7;
-            height: calc(100vh - 140px);
+        .listing-info .meta {
+            font-size: 0.85rem;
+            color: #667085;
+            margin-top: 4px;
+        }
+
+        .filters-section {
+            margin-bottom: 20px;
+        }
+
+        .results-section {
+            flex: 1;
             overflow-y: auto;
         }
 
         @media (max-width: 992px) {
-            .left-sidebar { display: none; }
-            .list-panel { width: 92%; right: 8px; left: 8px; }
-            #map { height: calc(100vh - 200px); }
+            .left-sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #eef2f7;
+            }
+
+            #map {
+                height: calc(100vh - 300px);
+            }
+
+            main.content {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -97,9 +119,7 @@
 
     <div id="mapApp">
         <main class="content">
-            <div id="map"></div>
-
-            <aside class="left-sidebar d-none d-lg-block">
+            <aside class="left-sidebar">
                 <h5 class="fw-bold">Filtros</h5>
                 <p class="text-muted">Filtra por categoría, calificación o precio (demo).</p>
                 <hr>
@@ -130,9 +150,7 @@
                 <div id="resultsList"></div>
             </aside>
 
-            <div class="list-panel" id="floatingList">
-                <!-- JS will populate -->
-            </div>
+            <div id="map"></div>
         </main>
 
         <!-- Modal for QR Code -->
@@ -182,7 +200,7 @@
             }
 
             function renderList(items) {
-                const panel = document.getElementById('floatingList');
+                const panel = document.getElementById('resultsList');
                 panel.innerHTML = '';
                 items.forEach(p => {
                     const node = el(`
@@ -230,7 +248,7 @@
                 });
 
                 if (sortBy === 'rating') {
-                    items.sort((a,b) => parseFloat(b.rating) - parseFloat(a.rating));
+                    items.sort((a, b)  => parseFloat(b.rating) - parseFloat(a.rating));
                 }
 
                 renderList(items);
@@ -242,13 +260,6 @@
                 const m = L.marker([p.lat, p.lng]).addTo(map);
                 m.bindPopup(`<strong>${p.nombre}</strong><br>${p.profesion}<br>${p.ubicacion}<br>${p.rating}★ (${p.reviews})`);
                 markers[p.id] = m;
-            });
-
-            // Populate left sidebar results too
-            const resultsList = document.getElementById('resultsList');
-            professionals.forEach(p => {
-                const row = el(`<div class="mb-2">${p.nombre} — ${p.profesion} — ${p.rating}★</div>`);
-                resultsList.appendChild(row);
             });
 
             // Initial render

@@ -267,14 +267,22 @@ class Panel extends BaseController
                 $img->move($targetDir, $newName);
 
                 // Resize logic
-                try {
-                    $imgService = \Config\Services::image();
-                    $imgService->withFile($targetDir . $newName)->fit(300, 300, 'center')->save($targetDir . 'profile_' . $newName);
-                    $imgService->withFile($targetDir . $newName)->fit(64, 64, 'center')->save($targetDir . 'thumb_' . $newName);
-                } catch (\Exception $e) {
+                if (extension_loaded('gd')) {
+                    try {
+                        $imgService = \Config\Services::image();
+                        $imgService->withFile($targetDir . $newName)->fit(300, 300, 'center')->save($targetDir . 'profile_' . $newName);
+                        $imgService->withFile($targetDir . $newName)->fit(64, 64, 'center')->save($targetDir . 'thumb_' . $newName);
+                    } catch (\Throwable $e) {
+                        // If resizing fails, just copy the original
+                        copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
+                        copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
+                    }
+                } else {
+                    // GD not loaded, just copy
                     copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
                     copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
                 }
+
                 @unlink($targetDir . $newName);
 
                 $data['foto_perfil'] = 'profile_' . $newName;
