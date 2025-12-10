@@ -176,6 +176,8 @@
         integrity="sha256-o9N1j7kTn3vP3bZ7xkG7kNHxQ+3o5m5s1lca0gZr3oM=" crossorigin=""></script>
     <!-- QRCode.js for generating QR codes -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // JavaScript: render map, markers and interactive listing (100% JS as requested)
         (function () {
@@ -248,7 +250,7 @@
                 });
 
                 if (sortBy === 'rating') {
-                    items.sort((a, b)  => parseFloat(b.rating) - parseFloat(a.rating));
+                    items.sort((a,  b)  => parseFloat(b.rating) - parseFloat(a.rating));
                 }
 
                 renderList(items);

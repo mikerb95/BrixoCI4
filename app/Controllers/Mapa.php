@@ -31,10 +31,15 @@ class Mapa extends BaseController
                 }
                 $avgRating = count($reviews) > 0 ? $ratingSum / count($reviews) : 0;
 
-                // Use real coordinates if available, otherwise simulate
-                if (!empty($pro['latitud']) && !empty($pro['longitud'])) {
-                    $lat = $pro['latitud'];
-                    $lng = $pro['longitud'];
+                // Use real coordinates from ubicacion_mapa if available, otherwise simulate
+                $lat = $baseLat;
+                $lng = $baseLng;
+                if (!empty($pro['ubicacion_mapa'])) {
+                    $coords = explode(',', $pro['ubicacion_mapa']);
+                    if (count($coords) === 2) {
+                        $lat = floatval(trim($coords[0]));
+                        $lng = floatval(trim($coords[1]));
+                    }
                 } else {
                     // Cast to int to ensure sin/cos works correctly
                     $id = (int) $pro['id_contratista'];
@@ -88,9 +93,15 @@ class Mapa extends BaseController
                 }
                 $avgRating = count($reviews) > 0 ? $ratingSum / count($reviews) : 0;
 
-                if (!empty($pro['latitud']) && !empty($pro['longitud'])) {
-                    $lat = $pro['latitud'];
-                    $lng = $pro['longitud'];
+                // Use real coordinates from ubicacion_mapa if available, otherwise simulate
+                $lat = $baseLat;
+                $lng = $baseLng;
+                if (!empty($pro['ubicacion_mapa'])) {
+                    $coords = explode(',', $pro['ubicacion_mapa']);
+                    if (count($coords) === 2) {
+                        $lat = floatval(trim($coords[0]));
+                        $lng = floatval(trim($coords[1]));
+                    }
                 } else {
                     $id = (int) $pro['id_contratista'];
                     $latOffset = (sin($id) * 0.05);

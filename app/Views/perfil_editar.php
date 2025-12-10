@@ -153,17 +153,67 @@
                 initColombiaSelects('registro_departamento', 'registro_ciudad', oldCity);
             }
 
-            // Preview de imagen
+            // Preview y Compresión de imagen (Client-side)
             const fileInput = document.getElementById('foto_perfil');
             const imgPreview = document.querySelector('.rounded-circle');
 
             fileInput.addEventListener('change', function (e) {
                 if (this.files && this.files[0]) {
+                    const file = this.files[0];
+
+                    // 1. Preview inmediato
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         imgPreview.src = e.target.result;
                     }
-                    reader.readAsDataURL(this.files[0]);
+                    reader.readAsDataURL(file);
+
+                    // 2. Compresión
+                    const maxWidth = 800; // Max width for profile
+                    const maxHeight = 800;
+                    const quality = 0.7; // JPEG quality
+
+                    const img = new Image();
+                    img.src = URL.createObjectURL(file);
+                    img.onload = function () {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        // Calculate new dimensions
+                        if (width > height) {
+                            if (width > maxWidth) {
+                                height *= maxWidth / width;
+                                width = maxWidth;
+                            }
+                        } else {
+                            if (height > maxHeight) {
+                                width *= maxHeight / height;
+                                height = maxHeight;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Convert to Blob (JPEG for compression)
+                        canvas.toBlob(function (blob) {
+                            // Create new File object
+                            const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                                type: "image/jpeg",
+                                lastModified: Date.now()
+                            });
+
+                            // Replace input file with compressed one
+                            const dataTransfer = new DataTransfer();
+                            dataTransfer.items.add(newFile);
+                            fileInput.files = dataTransfer.files;
+
+                            console.log(`Imagen comprimida: ${(blob.size / 1024).toFixed(2)} KB (Original: ${(file.size / 1024).toFixed(2)} KB)`);
+                        }, 'image/jpeg', quality);
+                    }
                 }
             });
 

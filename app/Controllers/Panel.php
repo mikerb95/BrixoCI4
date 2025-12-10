@@ -266,19 +266,21 @@ class Panel extends BaseController
 
                 $img->move($targetDir, $newName);
 
-                // Resize logic
-                if (extension_loaded('gd')) {
+                // Intentar redimensionar si el formato es soportado por el servidor (PNG/GIF)
+                $mime = $img->getMimeType();
+                $canResize = extension_loaded('gd') && ($mime === 'image/png' || $mime === 'image/gif');
+
+                if ($canResize) {
                     try {
                         $imgService = \Config\Services::image();
                         $imgService->withFile($targetDir . $newName)->fit(300, 300, 'center')->save($targetDir . 'profile_' . $newName);
                         $imgService->withFile($targetDir . $newName)->fit(64, 64, 'center')->save($targetDir . 'thumb_' . $newName);
                     } catch (\Throwable $e) {
-                        // If resizing fails, just copy the original
                         copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
                         copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
                     }
                 } else {
-                    // GD not loaded, just copy
+                    // Si no es soportado (JPEG/WebP en este servidor), usar original
                     copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
                     copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
                 }
