@@ -30,7 +30,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 4;
+        const totalSlides = <?= $totalSlides ?>;
 
         function updateDisplay() {
             document.getElementById('current-slide').textContent = currentSlide;

@@ -14,48 +14,33 @@
 
         .slide {
             display: none;
+            text-align: center;
         }
 
         .slide.active {
             display: block;
         }
 
-        .slide h1 {
-            font-size: 3rem;
-            text-align: center;
-            margin-top: 20%;
-        }
-
-        .slide p {
-            font-size: 1.5rem;
-            text-align: center;
+        .slide img {
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: contain;
         }
     </style>
 </head>
 
 <body>
     <div id="slides">
-        <div class="slide active" data-slide="1">
-            <h1>Bienvenido a Brixo</h1>
-            <p>Plataforma de conexión entre clientes y contratistas</p>
-        </div>
-        <div class="slide" data-slide="2">
-            <h1>¿Qué es Brixo?</h1>
-            <p>Una aplicación web para encontrar servicios profesionales cerca de ti</p>
-        </div>
-        <div class="slide" data-slide="3">
-            <h1>Características</h1>
-            <p>Mapa interactivo, perfiles verificados, sistema de reseñas</p>
-        </div>
-        <div class="slide" data-slide="4">
-            <h1>¡Gracias!</h1>
-            <p>¿Preguntas?</p>
-        </div>
+        <?php for ($i = 1; $i <= $totalSlides; $i++): ?>
+            <div class="slide <?= $i === 1 ? 'active' : '' ?>" data-slide="<?= $i ?>">
+                <img src="/slides/slide<?= $i ?>.png" alt="Slide <?= $i ?>" onerror="this.src='/slides/slide<?= $i ?>.jpg'">
+            </div>
+        <?php endfor; ?>
     </div>
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 4;
+        const totalSlides = <?= $totalSlides ?>;
 
         function updateSlide() {
             fetch('/api/slide')
