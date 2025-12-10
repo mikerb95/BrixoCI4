@@ -260,8 +260,12 @@ class Panel extends BaseController
                 $tempPath = $targetDir . $newName;
 
                 // Upload to S3
-                $filesystem = new \Config\Filesystem();
-                $s3Url = $filesystem->uploadImage($tempPath, 'profiles/' . $newName);
+                try {
+                    $filesystem = new \Config\Filesystem();
+                    $s3Url = $filesystem->uploadImage($tempPath, 'profiles/' . $newName);
+                } catch (\Exception $e) {
+                    return redirect()->back()->withInput()->with('error', 'Error subiendo a S3: ' . $e->getMessage());
+                }
 
                 // Clean up temp file
                 @unlink($tempPath);

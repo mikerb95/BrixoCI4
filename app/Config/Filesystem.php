@@ -10,13 +10,21 @@ class Filesystem
 {
     public function __construct()
     {
+        $key = getenv('AWS_ACCESS_KEY_ID');
+        $secret = getenv('AWS_SECRET_ACCESS_KEY');
+        $region = getenv('AWS_REGION') ?: 'us-east-1';
+
+        if (!$key || !$secret) {
+            throw new \Exception('AWS credentials not set. Please configure AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY.');
+        }
+
         // Configuración de AWS S3
         $this->s3Client = new S3Client([
-            'region' => getenv('AWS_REGION') ?: 'us-east-1',
+            'region' => $region,
             'version' => 'latest',
             'credentials' => [
-                'key' => getenv('AWS_ACCESS_KEY_ID'),
-                'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+                'key' => $key,
+                'secret' => $secret,
             ],
         ]);
 
