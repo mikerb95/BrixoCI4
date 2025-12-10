@@ -97,6 +97,20 @@
             transform: scale(1.2);
         }
 
+        .fullscreen-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
         @media (max-width: 576px) {
             .control-btn {
                 width: 100px;
@@ -128,6 +142,7 @@
 </head>
 
 <body>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Pantalla Completa">⛶</button>
     <div class="remote-container">
         <h1 class="mb-4">🎛️ Control Remoto</h1>
         <div class="slide-counter">
@@ -200,6 +215,16 @@
                 });
         }, 1000);
 
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
         // Soporte para gestos táctiles (swipe)
         let startX = 0;
         document.addEventListener('touchstart', (e) => {
@@ -215,8 +240,8 @@
                 } else {
                     changeSlide(-1); // Swipe right -> prev
                 }
-        }
- });
+            }
+        });
     </script>
 </body>
 
