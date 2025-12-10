@@ -9,24 +9,43 @@
             <li><a href="/map" class="float-link">Mapa</a></li>
             <?php $floatUser = session()->get('user'); ?>
             <?php if (!empty($floatUser)): ?>
-                <?php $role = $floatUser['rol'] ?? ''; ?>
-                <?php if ($role === 'admin'): ?>
-                    <li><a href="/admin" class="float-link">Mi Panel</a></li>
-                <?php else: ?>
-                    <li><a href="/panel" class="float-link">Mi Panel</a></li>
-                <?php endif; ?>
-                <?php if (!empty($floatUser['foto_perfil'])): ?>
-                    <li><img src="<?= strpos($floatUser['foto_perfil'], 'http') === 0 ? esc($floatUser['foto_perfil']) : '/images/profiles/' . esc($floatUser['foto_perfil']) ?>"
-                            alt="Foto de perfil" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
-                    </li>
-                <?php endif; ?>
-                <li>
-                    <form action="/logout" method="post" style="display: inline;">
-                        <?= csrf_field() ?>
-                        <button type="submit" class="float-link btn btn-link p-0 border-0 bg-transparent">Cerrar
-                            Sesión</button>
-                    </form>
+                <li class="dropdown position-relative">
+                    <a href="#" class="float-link dropdown-toggle d-flex align-items-center gap-2 text-decoration-none"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php if (!empty($floatUser['foto_perfil'])): ?>
+                            <img src="<?= strpos($floatUser['foto_perfil'], 'http') === 0 ? esc($floatUser['foto_perfil']) : '/images/profiles/' . esc($floatUser['foto_perfil']) ?>"
+                                alt="Foto" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                        <?php else: ?>
+                            <i class="fas fa-user-circle fs-4"></i>
+                        <?php endif; ?>
+                        <span>Mi Cuenta</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                        <li>
+                            <h6 class="dropdown-header"><?= esc($floatUser['nombre']) ?></h6>
+                        </li>
+                        <li>
+                            <?php $role = $floatUser['rol'] ?? ''; ?>
+                            <a href="<?= $role === 'admin' ? '/admin' : '/panel' ?>" class="dropdown-item">Mi Panel</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form action="/logout" method="post">
+                                <?= csrf_field() ?>
+                                <button type="submit" class="dropdown-item text-danger">Cerrar Sesión</button>
+                            </form>
+                        </li>
+                    </ul>
                 </li>
+                <style>
+                    @media (min-width: 992px) {
+                        .floating-navbar .dropdown:hover .dropdown-menu {
+                            display: block;
+                        }
+                    }
+                </style>
             <?php else: ?>
                 <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
                 <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>

@@ -78,8 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Menu Items
     const menuItems = [
         { text: 'Mapa', href: '/map' },
-        { text: 'Especialidades', href: '#' }, // Defined as # for now
-        { text: 'Mi cuenta', href: '/panel' }
+        { text: 'Especialidades', href: '#' } // Defined as # for now
     ];
 
     menuItems.forEach(item => {
@@ -98,18 +97,53 @@ document.addEventListener('DOMContentLoaded', function() {
     userLi.className = 'nav-item';
 
     if (window.brixoUser) {
-        // Logged in
-        const userSpan = document.createElement('span');
-        userSpan.className = 'user-greeting';
-        userSpan.textContent = `Hola, ${window.brixoUser.nombre}`;
-        userLi.appendChild(userSpan);
+        // Logged in - Dropdown Menu
+        userLi.className = 'nav-item dropdown';
         
-        // Logout Form
+        // Toggle Link
+        const toggleLink = document.createElement('a');
+        toggleLink.className = 'nav-link dropdown-toggle';
+        toggleLink.href = '#';
+        toggleLink.id = 'navbarDropdown';
+        toggleLink.role = 'button';
+        toggleLink.setAttribute('data-bs-toggle', 'dropdown');
+        toggleLink.setAttribute('aria-expanded', 'false');
+        toggleLink.textContent = 'Mi Cuenta';
+        userLi.appendChild(toggleLink);
+
+        // Dropdown Menu
+        const dropdownMenu = document.createElement('ul');
+        dropdownMenu.className = 'dropdown-menu dropdown-menu-end';
+        dropdownMenu.setAttribute('aria-labelledby', 'navbarDropdown');
+
+        // Profile Name Header
+        const nameItem = document.createElement('li');
+        const nameHeader = document.createElement('h6');
+        nameHeader.className = 'dropdown-header';
+        nameHeader.textContent = window.brixoUser.nombre;
+        nameItem.appendChild(nameHeader);
+        dropdownMenu.appendChild(nameItem);
+
+        // Mi Panel Link
+        const panelItem = document.createElement('li');
+        const panelLink = document.createElement('a');
+        panelLink.className = 'dropdown-item';
+        panelLink.href = window.brixoUser.rol === 'admin' ? '/admin' : '/panel';
+        panelLink.textContent = 'Mi Panel';
+        panelItem.appendChild(panelLink);
+        dropdownMenu.appendChild(panelItem);
+
+        // Divider
+        const dividerItem = document.createElement('li');
+        dividerItem.innerHTML = '<hr class="dropdown-divider">';
+        dropdownMenu.appendChild(dividerItem);
+
+        // Logout
+        const logoutItem = document.createElement('li');
         const logoutForm = document.createElement('form');
         logoutForm.action = '/logout';
         logoutForm.method = 'post';
-        logoutForm.style.display = 'inline-block';
-        logoutForm.style.marginLeft = '10px';
+        logoutForm.className = 'd-block w-100';
 
         if (window.csrfTokenName && window.csrfHash) {
             const csrfInput = document.createElement('input');
@@ -121,16 +155,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const logoutBtn = document.createElement('button');
         logoutBtn.type = 'submit';
-        logoutBtn.className = 'nav-link btn btn-link';
-        logoutBtn.style.display = 'inline';
-        logoutBtn.style.padding = '0';
-        logoutBtn.style.border = 'none';
-        logoutBtn.style.background = 'none';
-        logoutBtn.style.marginLeft = '10px';
+        logoutBtn.className = 'dropdown-item';
         logoutBtn.textContent = 'Cerrar Sesión';
         
         logoutForm.appendChild(logoutBtn);
-        userLi.appendChild(logoutForm);
+        logoutItem.appendChild(logoutForm);
+        dropdownMenu.appendChild(logoutItem);
+
+        userLi.appendChild(dropdownMenu);
+
+        // Hover functionality
+        userLi.addEventListener('mouseenter', function() {
+            if (window.innerWidth >= 992) {
+                toggleLink.classList.add('show');
+                toggleLink.setAttribute('aria-expanded', 'true');
+                dropdownMenu.classList.add('show');
+            }
+        });
+        userLi.addEventListener('mouseleave', function() {
+            if (window.innerWidth >= 992) {
+                toggleLink.classList.remove('show');
+                toggleLink.setAttribute('aria-expanded', 'false');
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
     } else {
         // Not logged in
         const loginBtn = document.createElement('a');
