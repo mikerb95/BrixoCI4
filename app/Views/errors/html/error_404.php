@@ -42,8 +42,6 @@
     <!-- Footer Partial -->
     <?= view('partials/footer') ?>
 
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Asegurar que la navbar flotante esté visible en 404 y no interfiera con layout
         (function () {
@@ -129,8 +127,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/nav-floating.js"></script>
 </body>
 
