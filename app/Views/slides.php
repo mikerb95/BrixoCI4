@@ -7,18 +7,24 @@
     <title>Presentación - Brixo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
+        html, body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
             background: #000;
             color: #fff;
         }
 
         .slide {
             display: none;
-            text-align: center;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
         }
 
         .slide.active {
-            display: block;
+            display: flex;
         }
 
         .slide img {
@@ -26,10 +32,25 @@
             max-height: 100vh;
             object-fit: contain;
         }
+
+        .fullscreen-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
     </style>
 </head>
 
 <body>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Pantalla Completa">⛶</button>
     <div id="slides">
         <?php for ($i = 1; $i <= $totalSlides; $i++): ?>
             <div class="slide <?= $i === 1 ? 'active' : '' ?>" data-slide="<?= $i ?>">
@@ -54,6 +75,16 @@
                         currentSlide = newSlide;
                     }
                 });
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
         }
 
         setInterval(updateSlide, 1000); // Polling cada segundo
