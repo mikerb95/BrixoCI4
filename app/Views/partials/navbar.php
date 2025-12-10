@@ -27,7 +27,8 @@
                     <li class="nav-item">
                         <form action="/logout" method="post" class="d-inline">
                             <?= csrf_field() ?>
-                            <button type="submit" class="nav-link btn btn-link border-0 bg-transparent">Cerrar Sesión</button>
+                            <button type="submit" class="nav-link btn btn-link border-0 bg-transparent">Cerrar
+                                Sesión</button>
                         </form>
                     </li>
                 <?php else: ?>
