@@ -241,29 +241,12 @@ class Panel extends BaseController
                 }
             }
 
-            // Handle Image Upload
+            // Handle Image Upload (Simplified to avoid server issues)
             $img = $this->request->getFile('foto_perfil');
             if ($img && $img->isValid() && !$img->hasMoved()) {
-
-                // Manual Validation to avoid finfo_file crash on this server
+                // Basic size check
                 if ($img->getSize() > 5242880) { // 5MB
                     return redirect()->back()->withInput()->with('error', 'La imagen es demasiado grande (Máx 5MB).');
-                }
-
-                // Safe MIME check
-                $allowedMimes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
-                $mime = $img->getClientMimeType(); // Fallback to client mime
-                try {
-                    // Try to get real mime, but ignore if it crashes
-                    $realMime = @$img->getMimeType();
-                    if ($realMime)
-                        $mime = $realMime;
-                } catch (\Throwable $e) {
-                    // Ignore finfo error
-                }
-
-                if (!in_array($mime, $allowedMimes)) {
-                    return redirect()->back()->withInput()->with('error', 'Tipo de archivo no permitido (JPG, PNG, WebP).');
                 }
 
                 $newName = $img->getRandomName();
@@ -272,28 +255,30 @@ class Panel extends BaseController
                     mkdir($targetDir, 0755, true);
                 }
 
+                // Move file directly
                 $img->move($targetDir, $newName);
 
-                // Resize logic (Simplified)
-                // We trust the client-side compression we added earlier.
-                // We just copy the file to create the 'profile_' and 'thumb_' versions.
-                copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
-                copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
+                // Create profile and thumb versions (just copy, no resize)
+                $profilePath = $targetDir . 'profile_' . $newName;
+                $thumbPath = $targetDir . 'thumb_' . $newName;
+                if (copy($targetDir . $newName, $profilePath) && copy($targetDir . $newName, $thumbPath)) {
+                    @unlink($targetDir . $newName);
+                    $data['foto_perfil'] = 'profile_' . $newName;
 
-                @unlink($targetDir . $newName);
-
-                $data['foto_perfil'] = 'profile_' . $newName;
-
-                // Delete old image
-                if ($user['rol'] === 'cliente') {
-                    $model = new ClienteModel();
+                    // Delete old image
+                    if ($user['rol'] === 'cliente') {
+                        $model = new ClienteModel();
+                    } else {
+                        $model = new ContratistaModel();
+                    }
+                    $oldUser = $model->find($user['id']);
+                    if (!empty($oldUser['foto_perfil'])) {
+                        @unlink($targetDir . $oldUser['foto_perfil']);
+                        @unlink($targetDir . 'thumb_' . str_replace('profile_', '', $oldUser['foto_perfil']));
+                    }
                 } else {
-                    $model = new ContratistaModel();
-                }
-                $oldUser = $model->find($user['id']);
-                if (!empty($oldUser['foto_perfil'])) {
-                    @unlink($targetDir . $oldUser['foto_perfil']);
-                    @unlink($targetDir . 'thumb_' . preg_replace('/^profile_/', '', $oldUser['foto_perfil']));
+                    // If copy fails, keep original
+                    $data['foto_perfil'] = $newName;
                 }
             }
 
