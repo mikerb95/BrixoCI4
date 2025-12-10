@@ -23,9 +23,21 @@
 
             <!-- Dashboard Header -->
             <div class="dashboard-header d-flex justify-content-between align-items-center shadow-sm">
-                <div class="position-relative z-1">
-                    <h1 class="h2 fw-bold mb-1">Hola, <?= esc($user['nombre']) ?> 🛠️</h1>
-                    <p class="mb-0 opacity-75">Bienvenido a tu panel de profesional</p>
+                <div class="position-relative z-1 d-flex align-items-center gap-3">
+                    <?php if (!empty($user['foto_perfil'])): ?>
+                        <img src="<?= strpos($user['foto_perfil'], 'http') === 0 ? esc($user['foto_perfil']) : '/images/profiles/' . esc($user['foto_perfil']) ?>"
+                            alt="Perfil" class="rounded-circle shadow-sm border border-2 border-white"
+                            style="width: 64px; height: 64px; object-fit: cover;">
+                    <?php else: ?>
+                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center shadow-sm border border-2 border-white"
+                            style="width: 64px; height: 64px;">
+                            <i class="fas fa-user fa-2x text-secondary"></i>
+                        </div>
+                    <?php endif; ?>
+                    <div>
+                        <h1 class="h2 fw-bold mb-1">Hola, <?= esc($user['nombre']) ?> 🛠️</h1>
+                        <p class="mb-0 opacity-75">Bienvenido a tu panel de profesional</p>
+                    </div>
                 </div>
                 <div class="position-relative z-1 d-none d-md-block">
                     <a href="/perfil/editar"
