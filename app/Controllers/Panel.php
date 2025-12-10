@@ -18,6 +18,13 @@ class Panel extends BaseController
 
         $db = db_connect();
         if ($user['rol'] === 'cliente') {
+            // Recuperar datos completos del cliente (incluyendo foto_perfil)
+            $clienteModel = new ClienteModel();
+            $full = $clienteModel->find($user['id']);
+            if (!empty($full)) {
+                $user = array_merge($user, $full);
+            }
+
             $contracts = $db->query(
                 "SELECT ct.id_contrato, ct.estado, ct.fecha_inicio, ct.fecha_fin, ct.costo_total,
                         'Servicio contratado' as detalle,

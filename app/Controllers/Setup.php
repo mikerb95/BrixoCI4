@@ -62,6 +62,50 @@ class Setup extends BaseController
         }
     }
 
+    public function update_fotos()
+    {
+        $db = db_connect();
+        try {
+            // Check CLIENTE
+            $fields = $db->getFieldData('CLIENTE');
+            $exists = false;
+            foreach ($fields as $field) {
+                if ($field->name === 'foto_perfil') {
+                    $exists = true;
+                    break;
+                }
+            }
+            if (!$exists) {
+                $db->query("ALTER TABLE CLIENTE ADD COLUMN foto_perfil VARCHAR(255) DEFAULT NULL");
+                echo "<h1>✅ Columna 'foto_perfil' agregada a CLIENTE.</h1>";
+            } else {
+                echo "<h1>ℹ️ Columna 'foto_perfil' ya existe en CLIENTE.</h1>";
+            }
+
+            // Check CONTRATISTA
+            $fields = $db->getFieldData('CONTRATISTA');
+            $exists = false;
+            foreach ($fields as $field) {
+                if ($field->name === 'foto_perfil') {
+                    $exists = true;
+                    break;
+                }
+            }
+            if (!$exists) {
+                $db->query("ALTER TABLE CONTRATISTA ADD COLUMN foto_perfil VARCHAR(255) DEFAULT NULL");
+                echo "<h1>✅ Columna 'foto_perfil' agregada a CONTRATISTA.</h1>";
+            } else {
+                echo "<h1>ℹ️ Columna 'foto_perfil' ya existe en CONTRATISTA.</h1>";
+            }
+
+            echo "<p><a href='/panel'>Volver al Panel</a></p>";
+
+        } catch (\Throwable $e) {
+            echo "<h1>❌ Error:</h1>";
+            echo "<pre>" . $e->getMessage() . "</pre>";
+        }
+    }
+
     public function mensajes()
     {
         $db = db_connect();

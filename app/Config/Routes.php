@@ -31,6 +31,7 @@ $routes->get('reportes/solicitudes-xlsx', 'Reportes::solicitudesXlsx');
 $routes->get('/debug-auth', 'DebugAuth::index');
 $routes->get('/setup/solicitudes', 'Setup::solicitudes'); // Ruta de instalación
 $routes->get('/setup/update-cliente', 'Setup::update_cliente'); // Ruta de actualización DB
+$routes->get('/setup/update-fotos', 'Setup::update_fotos'); // Ruta de actualización DB Fotos
 $routes->get('/setup/mensajes', 'Setup::mensajes'); // Ruta de instalación Mensajes
 
 // Mensajes
