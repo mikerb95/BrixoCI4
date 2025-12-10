@@ -3,6 +3,8 @@
 
 <script>
     window.brixoUser = <?= json_encode(session()->get('user') ?? null) ?>;
+    window.csrfTokenName = '<?= csrf_token() ?>';
+    window.csrfHash = '<?= csrf_hash() ?>';
 </script>
 
 <?= view('partials/modals') ?>

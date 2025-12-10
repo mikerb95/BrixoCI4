@@ -24,7 +24,12 @@
                     <?php else: ?>
                         <li class="nav-item"><a class="nav-link" href="/panel">Mi Panel</a></li>
                     <?php endif; ?>
-                    <li class="nav-item"><a class="nav-link" href="/logout">Cerrar Sesión</a></li>
+                    <li class="nav-item">
+                        <form action="/logout" method="post" class="d-inline">
+                            <?= csrf_field() ?>
+                            <button type="submit" class="nav-link btn btn-link border-0 bg-transparent">Cerrar Sesión</button>
+                        </form>
+                    </li>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
                             data-bs-target="#loginModal">Ingresar</a></li>

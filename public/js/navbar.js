@@ -104,11 +104,33 @@ document.addEventListener('DOMContentLoaded', function() {
         userSpan.textContent = `Hola, ${window.brixoUser.nombre}`;
         userLi.appendChild(userSpan);
         
-        // Optional: Add logout link or dropdown? 
-        // For now, just the greeting as requested, but usually a logout is needed.
-        // Adding a small logout link for usability if not explicitly forbidden.
-        // User asked: "Hola, $Usuario". I will stick to that strictly.
-        // But wait, "Mi cuenta" is already there.
+        // Logout Form
+        const logoutForm = document.createElement('form');
+        logoutForm.action = '/logout';
+        logoutForm.method = 'post';
+        logoutForm.style.display = 'inline-block';
+        logoutForm.style.marginLeft = '10px';
+
+        if (window.csrfTokenName && window.csrfHash) {
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = window.csrfTokenName;
+            csrfInput.value = window.csrfHash;
+            logoutForm.appendChild(csrfInput);
+        }
+
+        const logoutBtn = document.createElement('button');
+        logoutBtn.type = 'submit';
+        logoutBtn.className = 'nav-link btn btn-link';
+        logoutBtn.style.display = 'inline';
+        logoutBtn.style.padding = '0';
+        logoutBtn.style.border = 'none';
+        logoutBtn.style.background = 'none';
+        logoutBtn.style.marginLeft = '10px';
+        logoutBtn.textContent = 'Cerrar Sesión';
+        
+        logoutForm.appendChild(logoutBtn);
+        userLi.appendChild(logoutForm);
     } else {
         // Not logged in
         const loginBtn = document.createElement('a');
