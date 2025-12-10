@@ -29,9 +29,9 @@
         }
 
         .slide img {
-            max-width: 100%;
-            max-height: 100vh;
-            object-fit: contain;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
         }
 
         .fullscreen-btn {
