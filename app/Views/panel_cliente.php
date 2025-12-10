@@ -40,6 +40,9 @@
                     </div>
                 </div>
                 <div class="position-relative z-1 d-none d-md-block">
+                    <a href="/mensajes" class="btn btn-light text-primary fw-bold rounded-pill px-4 shadow-sm me-2">
+                        <i class="fas fa-envelope me-2"></i>Mensajes
+                    </a>
                     <a href="/perfil/editar"
                         class="btn btn-light text-primary fw-bold rounded-pill px-4 shadow-sm me-2">
                         <i class="fas fa-user-edit me-2"></i>Editar Perfil

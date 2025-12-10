@@ -61,4 +61,32 @@ class Setup extends BaseController
             echo "<pre>" . $e->getMessage() . "</pre>";
         }
     }
+
+    public function mensajes()
+    {
+        $db = db_connect();
+
+        $sql = "
+        CREATE TABLE IF NOT EXISTS MENSAJE (
+            id_mensaje INT AUTO_INCREMENT PRIMARY KEY,
+            remitente_id INT NOT NULL,
+            remitente_rol ENUM('cliente', 'contratista') NOT NULL,
+            destinatario_id INT NOT NULL,
+            destinatario_rol ENUM('cliente', 'contratista') NOT NULL,
+            contenido TEXT NOT NULL,
+            leido TINYINT(1) DEFAULT 0,
+            creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ";
+
+        try {
+            $db->query($sql);
+            echo "<h1>✅ Tabla MENSAJE creada correctamente.</h1>";
+            echo "<p>Sistema de mensajería listo para usar.</p>";
+            echo "<p><a href='/mensajes'>Ir a Mensajes</a></p>";
+        } catch (\Throwable $e) {
+            echo "<h1>❌ Error al crear la tabla:</h1>";
+            echo "<pre>" . $e->getMessage() . "</pre>";
+        }
+    }
 }

@@ -31,6 +31,13 @@ $routes->get('reportes/solicitudes-xlsx', 'Reportes::solicitudesXlsx');
 $routes->get('/debug-auth', 'DebugAuth::index');
 $routes->get('/setup/solicitudes', 'Setup::solicitudes'); // Ruta de instalación
 $routes->get('/setup/update-cliente', 'Setup::update_cliente'); // Ruta de actualización DB
+$routes->get('/setup/mensajes', 'Setup::mensajes'); // Ruta de instalación Mensajes
+
+// Mensajes
+$routes->get('/mensajes', 'Mensajes::index');
+$routes->get('/mensajes/chat/(:num)/(:segment)', 'Mensajes::chat/$1/$2'); // id_otro_usuario, rol_otro_usuario
+$routes->post('/mensajes/enviar', 'Mensajes::enviar');
+$routes->get('/mensajes/nuevos/(:num)/(:segment)', 'Mensajes::nuevos/$1/$2'); // AJAX polling
 
 // Solicitudes
 $routes->get('/solicitud/nueva', 'Solicitud::nueva');
