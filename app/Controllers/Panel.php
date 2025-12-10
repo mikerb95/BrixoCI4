@@ -257,9 +257,37 @@ class Panel extends BaseController
                     // Move to temp
                     $img->move($targetDir, $newName);
 
-                    // Upload to S3
-                    $filesystem = new \Config\Filesystem();
-                    $s3Url = $filesystem->uploadImage($tempPath, 'profiles/' . $newName);
+                    // Upload to S3 inline
+                    if (!class_exists('\Aws\S3\S3Client')) {
+                        throw new \Exception('AWS SDK not loaded. Run composer install.');
+                    }
+
+                    $key = getenv('AWS_ACCESS_KEY_ID');
+                    $secret = getenv('AWS_SECRET_ACCESS_KEY');
+                    $region = getenv('AWS_REGION') ?: 'us-east-1';
+                    $bucket = getenv('AWS_S3_BUCKET') ?: 'brixo-images';
+
+                    if (!$key || !$secret) {
+                        throw new \Exception('AWS credentials not set');
+                    }
+
+                    $s3Client = new \Aws\S3\S3Client([
+                        'region' => $region,
+                        'version' => 'latest',
+                        'credentials' => [
+                            'key' => $key,
+                            'secret' => $secret,
+                        ],
+                    ]);
+
+                    $result = $s3Client->putObject([
+                        'Bucket' => $bucket,
+                        'Key' => 'profiles/' . $newName,
+                        'SourceFile' => $tempPath,
+                        'ACL' => 'public-read',
+                    ]);
+
+                    $s3Url = $result['ObjectURL'];
 
                     // Clean up temp file
                     @unlink($tempPath);

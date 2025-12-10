@@ -8,11 +8,11 @@ class Presentation extends Controller
 {
     private function getTotalSlides()
     {
-        $slidesDir = FCPATH . 'slides';
+        $slidesDir = FCPATH . 'presentation';
         if (!is_dir($slidesDir)) {
             return 4; // Fallback
         }
-        $files = glob($slidesDir . '/slide*.{png,jpg,jpeg,gif}', GLOB_BRACE);
+        $files = glob($slidesDir . '/Slide*.{png,PNG,jpg,jpeg,gif}', GLOB_BRACE);
         return max(1, count($files));
     }
 
