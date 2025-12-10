@@ -172,12 +172,8 @@
         <?= view('partials/footer') ?>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-o9N1j7kTn3vP3bZ7xkG7kNHxQ+3o5m5s1lca0gZr3oM=" crossorigin=""></script>
     <!-- QRCode.js for generating QR codes -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         // JavaScript: render map, markers and interactive listing (100% JS as requested)
         (function () {
@@ -291,13 +287,11 @@
                 const qrcodeDiv = document.getElementById('qrcode');
                 qrcodeDiv.innerHTML = ''; // Clear previous QR
 
-                // Create canvas element explicitly
-                const canvas = document.createElement('canvas');
-                qrcodeDiv.appendChild(canvas);
-
                 if (typeof QRCode !== 'undefined') {
-                    QRCode.toCanvas(canvas, url, { width: 256, margin: 2 }, function (error) {
-                        if (error) console.error(error);
+                    new QRCode(qrcodeDiv, {
+                        text: url,
+                        width: 256,
+                        height: 256
                     });
                 } else {
                     console.error('QRCode library not loaded');
