@@ -52,3 +52,8 @@ $routes->get('carreras', 'Info::carreras');
 $routes->get('prensa', 'Info::prensa');
 $routes->get('blog', 'Info::blog');
 
+// Presentation routes
+$routes->get('/slides', 'Presentation::slides');
+$routes->get('/remote', 'Presentation::remote');
+$routes->match(['get', 'post'], '/api/slide', 'Presentation::apiSlide');
+
