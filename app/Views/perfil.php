@@ -249,6 +249,15 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- QR Code Card -->
+                        <div class="card border shadow-sm rounded-4 mt-4">
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold mb-3">Compartir Perfil</h5>
+                                <div id="qrcode" class="d-flex justify-content-center mb-3"></div>
+                                <small class="text-muted d-block">Escanea para ver en móvil</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -257,6 +266,24 @@
 
     <!-- Footer -->
     <?= view('partials/footer') ?>
+
+    <!-- QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const qrcodeDiv = document.getElementById('qrcode');
+            if (typeof QRCode !== 'undefined' && qrcodeDiv) {
+                new QRCode(qrcodeDiv, {
+                    text: window.location.href,
+                    width: 150,
+                    height: 150,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
