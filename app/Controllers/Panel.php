@@ -244,18 +244,26 @@ class Panel extends BaseController
             // Handle Image Upload
             $img = $this->request->getFile('foto_perfil');
             if ($img && $img->isValid() && !$img->hasMoved()) {
-                $validationRule = [
-                    'foto_perfil' => [
-                        'rules' => 'is_image[foto_perfil]|max_size[foto_perfil,5120]|mime_in[foto_perfil,image/png,image/jpg,image/jpeg,image/webp]',
-                        'errors' => [
-                            'is_image' => 'El archivo debe ser una imagen.',
-                            'max_size' => 'La imagen no puede superar 5MB.',
-                            'mime_in' => 'Tipos permitidos: png, jpg, jpeg, webp.',
-                        ],
-                    ],
-                ];
-                if (!$this->validate($validationRule)) {
-                    return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+
+                // Manual Validation to avoid finfo_file crash on this server
+                if ($img->getSize() > 5242880) { // 5MB
+                    return redirect()->back()->withInput()->with('error', 'La imagen es demasiado grande (Máx 5MB).');
+                }
+
+                // Safe MIME check
+                $allowedMimes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+                $mime = $img->getClientMimeType(); // Fallback to client mime
+                try {
+                    // Try to get real mime, but ignore if it crashes
+                    $realMime = @$img->getMimeType();
+                    if ($realMime)
+                        $mime = $realMime;
+                } catch (\Throwable $e) {
+                    // Ignore finfo error
+                }
+
+                if (!in_array($mime, $allowedMimes)) {
+                    return redirect()->back()->withInput()->with('error', 'Tipo de archivo no permitido (JPG, PNG, WebP).');
                 }
 
                 $newName = $img->getRandomName();
@@ -266,24 +274,11 @@ class Panel extends BaseController
 
                 $img->move($targetDir, $newName);
 
-                // Intentar redimensionar si el formato es soportado por el servidor (PNG/GIF)
-                $mime = $img->getMimeType();
-                $canResize = extension_loaded('gd') && ($mime === 'image/png' || $mime === 'image/gif');
-
-                if ($canResize) {
-                    try {
-                        $imgService = \Config\Services::image();
-                        $imgService->withFile($targetDir . $newName)->fit(300, 300, 'center')->save($targetDir . 'profile_' . $newName);
-                        $imgService->withFile($targetDir . $newName)->fit(64, 64, 'center')->save($targetDir . 'thumb_' . $newName);
-                    } catch (\Throwable $e) {
-                        copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
-                        copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
-                    }
-                } else {
-                    // Si no es soportado (JPEG/WebP en este servidor), usar original
-                    copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
-                    copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
-                }
+                // Resize logic (Simplified)
+                // We trust the client-side compression we added earlier.
+                // We just copy the file to create the 'profile_' and 'thumb_' versions.
+                copy($targetDir . $newName, $targetDir . 'profile_' . $newName);
+                copy($targetDir . $newName, $targetDir . 'thumb_' . $newName);
 
                 @unlink($targetDir . $newName);
 

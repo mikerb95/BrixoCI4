@@ -28,6 +28,7 @@ $routes->get('/perfil/ver/(:num)', 'Perfil::ver/$1');
 $routes->get('/solicitudes', 'Solicitudes::index');
 
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
+
 $routes->get('reportes/solicitudes-xlsx', 'Reportes::solicitudesXlsx');
 $routes->get('/debug-auth', 'DebugAuth::index');
 $routes->get('/setup/solicitudes', 'Setup::solicitudes'); // Ruta de instalación

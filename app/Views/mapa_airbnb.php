@@ -253,7 +253,7 @@
                 });
 
                 if (sortBy === 'rating') {
-                    items.sort((a,  b)  => parseFloat(b.rating) - parseFloat(a.rating));
+                    items.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
                 }
 
                 renderList(items);
