@@ -30,10 +30,15 @@ class Perfil extends BaseController
         // Get services
         $services = []; // TODO: load services for this contractor
 
+        // Prepare data for view
+        $pro['imagen'] = !empty($pro['foto_perfil']) ? '/images/profiles/' . $pro['foto_perfil'] : 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random';
+        $pro['profesion'] = $pro['experiencia'] ?? 'Profesional'; // Fallback
+        $pro['rating'] = number_format($avgRating, 1);
+        $pro['reviews_count'] = count($reviews);
+        $pro['ubicacion'] = $pro['ciudad'] ?? 'Bogotá';
+
         return view('perfil', [
             'pro' => $pro,
-            'rating' => number_format($avgRating, 1),
-            'reviews_count' => count($reviews),
             'reviews' => $reviews,
             'services' => $services,
         ]);

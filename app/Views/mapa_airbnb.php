@@ -211,13 +211,16 @@
                             <div class="listing-info">
                                 <div class="title">${p.nombre}</div>
                                 <div class="meta">${p.profesion} · ${p.ubicacion} · ${p.rating}★ (${p.reviews})</div>
-                                <button class="btn btn-sm btn-outline-primary mt-2 qr-btn" data-url="${window.location.origin}/perfil/ver/${p.id}">Ver QR</button>
+                                <div class="mt-2">
+                                    <a href="/perfil/ver/${p.id}" class="btn btn-sm btn-primary me-1">Ver Perfil</a>
+                                    <button class="btn btn-sm btn-outline-primary qr-btn" data-url="${window.location.origin}/perfil/ver/${p.id}">Ver QR</button>
+                                </div>
                             </div>
                         </div>
                     `);
 
                     node.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('qr-btn')) return; // Don't trigger map click for QR button
+                        if (e.target.tagName === 'A' || e.target.classList.contains('qr-btn')) return; // Don't trigger map click for buttons
                         // center map on marker and open popup
                         const m = markers[p.id];
                         if (m) {
@@ -260,7 +263,15 @@
             // Add markers
             professionals.forEach(p => {
                 const m = L.marker([p.lat, p.lng]).addTo(map);
-                m.bindPopup(`<strong>${p.nombre}</strong><br>${p.profesion}<br>${p.ubicacion}<br>${p.rating}★ (${p.reviews})`);
+                m.bindPopup(`
+                    <div class="text-center">
+                        <strong>${p.nombre}</strong><br>
+                        ${p.profesion}<br>
+                        ${p.ubicacion}<br>
+                        ${p.rating}★ (${p.reviews})<br>
+                        <a href="/perfil/ver/${p.id}" class="btn btn-sm btn-primary mt-2 text-white">Ver Perfil</a>
+                    </div>
+                `);
                 markers[p.id] = m;
             });
 

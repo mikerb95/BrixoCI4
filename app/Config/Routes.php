@@ -10,7 +10,7 @@ $routes->match(['get', 'post', 'head'], '/', 'Home::index');
 // Auth (basic educational handlers)
 $routes->get('/login', 'Auth::showLogin');
 $routes->post('/login', 'Auth::login');
-$routes->get('/logout', 'Auth::logout');
+$routes->post('/logout', 'Auth::logout');
 
 // Registration
 $routes->post('/register', 'Register::register');
@@ -20,6 +20,7 @@ $routes->get('/panel', 'Panel::index');
 $routes->get('/perfil', 'Panel::index');
 $routes->get('/perfil/editar', 'Panel::editarPerfil');
 $routes->post('/perfil/actualizar', 'Panel::actualizarPerfil');
+$routes->get('/perfil/ver/(:num)', 'Perfil::ver/$1');
 // New Airbnb-style map
 $routes->get('/map', 'Mapa::mapaAirbnb');
 // Profile viewing

@@ -15,7 +15,10 @@
                 <?php else: ?>
                     <li><a href="/panel" class="float-link">Mi Panel</a></li>
                 <?php endif; ?>
-                <li><a href="/logout" class="float-link">Salir</a></li>
+                <li><form action="/logout" method="post" style="display: inline;">
+                        <?= csrf_field() ?>
+                        <button type="submit" class="float-link btn btn-link p-0 border-0 bg-transparent">Salir</button>
+                    </form></li>
             <?php else: ?>
                 <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
                 <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
