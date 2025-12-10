@@ -244,43 +244,40 @@ class Panel extends BaseController
             // Handle Image Upload (to AWS S3)
             $img = $this->request->getFile('foto_perfil');
             if ($img && $img->isValid() && !$img->hasMoved()) {
-                // Basic size check
-                if ($img->getSize() > 5242880) { // 5MB
-                    return redirect()->back()->withInput()->with('error', 'La imagen es demasiado grande (Máx 5MB).');
-                }
-
-                $newName = $img->getRandomName();
-                $targetDir = FCPATH . 'images/temp/'; // Temporary local storage
-                if (!is_dir($targetDir)) {
-                    mkdir($targetDir, 0755, true);
-                }
-
-                // Move to temp
-                $img->move($targetDir, $newName);
-                $tempPath = $targetDir . $newName;
-
-                // Upload to S3
                 try {
+                    // Basic size check
+                    if ($img->getSize() > 5242880) {
+                        return redirect()->back()->withInput()->with('error', 'La imagen es demasiado grande (Máx 5MB).');
+                    }
+
+                    $newName = $img->getRandomName();
+                    $targetDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
+                    $tempPath = $targetDir . $newName;
+
+                    // Move to temp
+                    $img->move($targetDir, $newName);
+
+                    // Upload to S3
                     $filesystem = new \Config\Filesystem();
                     $s3Url = $filesystem->uploadImage($tempPath, 'profiles/' . $newName);
-                } catch (\Exception $e) {
-                    return redirect()->back()->withInput()->with('error', 'Error subiendo a S3: ' . $e->getMessage());
-                }
 
-                // Clean up temp file
-                @unlink($tempPath);
+                    // Clean up temp file
+                    @unlink($tempPath);
 
-                $data['foto_perfil'] = $s3Url;
+                    $data['foto_perfil'] = $s3Url;
 
-                // Delete old image from S3 (if it's an S3 URL)
-                if ($user['rol'] === 'cliente') {
-                    $model = new ClienteModel();
-                } else {
-                    $model = new ContratistaModel();
-                }
-                $oldUser = $model->find($user['id']);
-                if (!empty($oldUser['foto_perfil']) && strpos($oldUser['foto_perfil'], 's3.amazonaws.com') !== false) {
-                    // TODO: Delete from S3 if needed
+                    // Delete old image from S3 (if it's an S3 URL)
+                    if ($user['rol'] === 'cliente') {
+                        $model = new ClienteModel();
+                    } else {
+                        $model = new ContratistaModel();
+                    }
+                    $oldUser = $model->find($user['id']);
+                    if (!empty($oldUser['foto_perfil']) && strpos($oldUser['foto_perfil'], 's3.amazonaws.com') !== false) {
+                        // TODO: Delete from S3 if needed
+                    }
+                } catch (\Throwable $e) {
+                    return redirect()->back()->withInput()->with('error', 'Error procesando imagen: ' . $e->getMessage());
                 }
             }
 
