@@ -8,7 +8,7 @@
 </script>
 
 <?= view('partials/modals') ?>
-<script src="/js/navbar.js"></script>
+<script src="/js/navbar.js?v=<?= time() ?>"></script>
 
 <style>
     .hover-text-white:hover {

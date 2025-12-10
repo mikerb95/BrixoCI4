@@ -38,7 +38,7 @@
             padding: 16px;
             background: #fff;
             border-right: 1px solid #eef2f7;
-            height: calc(100vh - 140px);
+            height: calc(100vh - 250px);
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -47,7 +47,7 @@
         /* Map area */
         #map {
             flex: 1 1 auto;
-            height: calc(100vh - 140px);
+            height: calc(100vh - 250px);
         }
 
         .listing-item {
