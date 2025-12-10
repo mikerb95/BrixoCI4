@@ -186,23 +186,24 @@ class Panel extends BaseController
             return redirect()->to('/');
         }
 
-    $data = [];
-    $idKey = 'id_' . $user['rol'];
-    $id = $user[$idKey];
+        $data = [];
+        $idKey = 'id_' . $user['rol'];
+        $id = $user[$idKey];
 
-    if ($user['rol'] === 'cliente') {
-        $model = new ClienteModel();
-        $data['user'] = $model->find($id);
-        $data['user']['rol'] = 'cliente';
-    } else {
-        $model = new ContratistaModel();
-        $data['user'] = $model->find($id);
-        $data['user']['rol'] = 'contratista';
-    }
+        if ($user['rol'] === 'cliente') {
+            $model = new ClienteModel();
+            $data['user'] = $model->find($id);
+            $data['user']['rol'] = 'cliente';
+        } else {
+            $model = new ContratistaModel();
+            $data['user'] = $model->find($id);
+            $data['user']['rol'] = 'contratista';
+        }
 
-    if (!$data['user']) {
-        return redirect()->to('/')->with('error', 'Usuario no encontrado en la base de datos');
-    }        return view('perfil_editar', $data);
+        if (!$data['user']) {
+            return redirect()->to('/')->with('error', 'Usuario no encontrado en la base de datos');
+        }
+        return view('perfil_editar', $data);
     }
 
     public function actualizarPerfil()
