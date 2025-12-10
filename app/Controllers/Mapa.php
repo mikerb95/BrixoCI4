@@ -110,6 +110,17 @@ class Mapa extends BaseController
                     $lng = $baseLng + $lngOffset;
                 }
 
+                $fotoPerfil = $pro['foto_perfil'];
+                if (!empty($fotoPerfil)) {
+                    if (strpos($fotoPerfil, 'http') === 0) {
+                        $imagen = $fotoPerfil; // S3 URL
+                    } else {
+                        $imagen = '/images/profiles/' . $fotoPerfil; // Local
+                    }
+                } else {
+                    $imagen = 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random';
+                }
+
                 $professionals[] = [
                     'id' => $pro['id_contratista'],
                     'nombre' => $pro['nombre'],
@@ -119,7 +130,7 @@ class Mapa extends BaseController
                     'precio' => 50000,
                     'lat' => $lat,
                     'lng' => $lng,
-                    'imagen' => !empty($pro['foto_perfil']) ? '/images/profiles/' . $pro['foto_perfil'] : 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random',
+                    'imagen' => $imagen,
                     'ubicacion' => $pro['ciudad'] ?? 'Bogotá'
                 ];
             }

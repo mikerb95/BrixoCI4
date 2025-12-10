@@ -241,7 +241,7 @@ class Panel extends BaseController
                 }
             }
 
-            // Handle Image Upload (Simplified to avoid server issues)
+            // Handle Image Upload (to AWS S3)
             $img = $this->request->getFile('foto_perfil');
             if ($img && $img->isValid() && !$img->hasMoved()) {
                 // Basic size check
@@ -250,35 +250,33 @@ class Panel extends BaseController
                 }
 
                 $newName = $img->getRandomName();
-                $targetDir = FCPATH . 'images/profiles/';
+                $targetDir = FCPATH . 'images/temp/'; // Temporary local storage
                 if (!is_dir($targetDir)) {
                     mkdir($targetDir, 0755, true);
                 }
 
-                // Move file directly
+                // Move to temp
                 $img->move($targetDir, $newName);
+                $tempPath = $targetDir . $newName;
 
-                // Create profile and thumb versions (just copy, no resize)
-                $profilePath = $targetDir . 'profile_' . $newName;
-                $thumbPath = $targetDir . 'thumb_' . $newName;
-                if (copy($targetDir . $newName, $profilePath) && copy($targetDir . $newName, $thumbPath)) {
-                    @unlink($targetDir . $newName);
-                    $data['foto_perfil'] = 'profile_' . $newName;
+                // Upload to S3
+                $filesystem = new \Config\Filesystem();
+                $s3Url = $filesystem->uploadImage($tempPath, 'profiles/' . $newName);
 
-                    // Delete old image
-                    if ($user['rol'] === 'cliente') {
-                        $model = new ClienteModel();
-                    } else {
-                        $model = new ContratistaModel();
-                    }
-                    $oldUser = $model->find($user['id']);
-                    if (!empty($oldUser['foto_perfil'])) {
-                        @unlink($targetDir . $oldUser['foto_perfil']);
-                        @unlink($targetDir . 'thumb_' . str_replace('profile_', '', $oldUser['foto_perfil']));
-                    }
+                // Clean up temp file
+                @unlink($tempPath);
+
+                $data['foto_perfil'] = $s3Url;
+
+                // Delete old image from S3 (if it's an S3 URL)
+                if ($user['rol'] === 'cliente') {
+                    $model = new ClienteModel();
                 } else {
-                    // If copy fails, keep original
-                    $data['foto_perfil'] = $newName;
+                    $model = new ContratistaModel();
+                }
+                $oldUser = $model->find($user['id']);
+                if (!empty($oldUser['foto_perfil']) && strpos($oldUser['foto_perfil'], 's3.amazonaws.com') !== false) {
+                    // TODO: Delete from S3 if needed
                 }
             }
 

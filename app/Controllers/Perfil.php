@@ -34,7 +34,16 @@ class Perfil extends BaseController
         $certifications = []; // TODO: load certifications for this contractor
 
         // Prepare data for view
-        $pro['imagen'] = !empty($pro['foto_perfil']) ? '/images/profiles/' . $pro['foto_perfil'] : 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random';
+        $fotoPerfil = $pro['foto_perfil'];
+        if (!empty($fotoPerfil)) {
+            if (strpos($fotoPerfil, 'http') === 0) {
+                $pro['imagen'] = $fotoPerfil; // S3 URL
+            } else {
+                $pro['imagen'] = '/images/profiles/' . $fotoPerfil; // Local
+            }
+        } else {
+            $pro['imagen'] = 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random';
+        }
         $pro['profesion'] = $pro['experiencia'] ?? 'Profesional'; // Fallback
         $pro['rating'] = number_format($avgRating, 1);
         $pro['reviews_count'] = count($reviews);

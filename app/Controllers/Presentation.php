@@ -36,7 +36,7 @@ class Presentation extends Controller
         if ($this->request->getMethod() === 'POST') {
             $data = $this->request->getJSON(true);
             $slide = $data['slide'] ?? 1;
-            $slide = max(1, min($totalSlides, (int)$slide));
+            $slide = max(1, min($totalSlides, (int) $slide));
             $cache->save('current_slide', $slide, 3600);
             return $this->response->setJSON(['slide' => $slide]);
         } else {

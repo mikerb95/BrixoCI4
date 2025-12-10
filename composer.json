@@ -13,6 +13,7 @@
         "php": "^8.1",
         "codeigniter4/framework": "^4.0",
         "endroid/qr-code": "^6.0",
+        "league/flysystem-aws-s3-v3": "^3.30",
         "shuchkin/simplexlsxgen": "^1.5"
     },
     "require-dev": {
