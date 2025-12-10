@@ -54,7 +54,7 @@
                         <div class="text-center mb-4">
                             <?php
                             $fotoUrl = !empty($user['foto_perfil'])
-                                ? '/images/profiles/' . $user['foto_perfil']
+                                ? (strpos($user['foto_perfil'], 'http') === 0 ? $user['foto_perfil'] : '/images/profiles/' . $user['foto_perfil'])
                                 : 'https://ui-avatars.com/api/?name=' . urlencode($user['nombre']) . '&background=random';
                             ?>
                             <img src="<?= esc($fotoUrl) ?>" class="rounded-circle mb-3 object-fit-cover" width="120"
