@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h5 class="text-uppercase fw-bold text-primary mb-3">Enlaces Rápidos</h5>
                         <ul class="list-unstyled">
                             <li class="mb-2"><a href="/" class="text-decoration-none text-white-50 hover-text-white">Inicio</a></li>
-                            <li class="mb-2"><a href="/mapa" class="text-decoration-none text-white-50 hover-text-white">Mapa de Servicios</a></li>
+                            <li class="mb-2"><a href="/map" class="text-decoration-none text-white-50 hover-text-white">Mapa de Servicios</a></li>
                             <li class="mb-2"><a href="/panel" class="text-decoration-none text-white-50 hover-text-white">Mi Panel</a></li>
                             <li class="mb-2"><a href="/sobre-nosotros" class="text-decoration-none text-white-50 hover-text-white">Sobre Nosotros</a></li>
                             <li class="mb-2"><a href="/como-funciona" class="text-decoration-none text-white-50 hover-text-white">Cómo funciona</a></li>

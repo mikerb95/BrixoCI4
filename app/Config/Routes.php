@@ -15,14 +15,13 @@ $routes->post('/logout', 'Auth::logout');
 // Registration
 $routes->post('/register', 'Register::register');
 
-$routes->get('/mapa', 'Mapa::index');
+$routes->get('/map', 'Mapa::index');
 $routes->get('/panel', 'Panel::index');
 $routes->get('/perfil', 'Panel::index');
 $routes->get('/perfil/editar', 'Panel::editarPerfil');
 $routes->post('/perfil/actualizar', 'Panel::actualizarPerfil');
 $routes->get('/perfil/ver/(:num)', 'Perfil::ver/$1');
 // New Airbnb-style map
-$routes->get('/map', 'Mapa::mapaAirbnb');
 // Profile viewing
 $routes->get('/perfil/ver/(:num)', 'Perfil::ver/$1');
 $routes->get('/solicitudes', 'Solicitudes::index');

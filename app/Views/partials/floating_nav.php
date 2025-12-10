@@ -4,7 +4,7 @@
                 <img src="/images/brixo-logo.png" alt="Brixo" onerror="this.style.display='none'">
             </a>
         <ul class="d-flex list-unstyled mb-0 align-items-center gap-3 ms-3">
-            <li><a href="/mapa" class="float-link">Mapa</a></li>
+            <li><a href="/map" class="float-link">Mapa</a></li>
             <?php $floatUser = session()->get('user'); ?>
             <?php if (!empty($floatUser)): ?>
                 <?php $role = $floatUser['rol'] ?? ''; ?>

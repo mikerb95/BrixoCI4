@@ -44,7 +44,7 @@
                     <p class="fs-5 mb-4 fw-light" style="max-width: 600px;">Reserva por horas a expertos en obra,
                         carpintería, plomería y más. Publica tu necesidad o reserva de inmediato.</p>
                     <div class="d-flex flex-wrap gap-3 align-items-center">
-                        <a href="/mapa" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold">Explorar Mapa</a>
+                        <a href="/map" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold">Explorar Mapa</a>
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -53,37 +53,37 @@
                         <h5 class="fw-bold mb-4">Categorías populares</h5>
                         <div class="row g-3">
                             <div class="col-6">
-                                <a href="/mapa"
+                                <a href="/map"
                                     class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Obra</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa"
+                                <a href="/map"
                                     class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Carpintería</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa"
+                                <a href="/map"
                                     class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Plomería</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa"
+                                <a href="/map"
                                     class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Electricidad</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa"
+                                <a href="/map"
                                     class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Pintura</span>
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="/mapa"
+                                <a href="/map"
                                     class="btn btn-outline-light w-100 text-start py-2 px-3 rounded-3 d-flex justify-content-between align-items-center">
                                     <span>Otros</span>
                                 </a>
@@ -107,7 +107,7 @@
                         Explora el mapa interactivo para ver contratistas verificados, reseñas y precios
                         estimados en tu zona.
                     </p>
-                    <a href="/mapa" class="btn btn-primary btn-lg rounded-pill px-4">Ver mapa interactivo</a>
+                    <a href="/map" class="btn btn-primary btn-lg rounded-pill px-4">Ver mapa interactivo</a>
                 </div>
                 <div class="col-lg-5">
                     <div class="border rounded-4 overflow-hidden shadow-sm">
@@ -132,7 +132,7 @@
                         <p class="mb-4">Alquila taladros, sierras, andamios y más por día u horas, sin comprar. Ideal
                             para proyectos rápidos y profesionales en movimiento.</p>
                         <div class="d-flex flex-wrap gap-3">
-                            <a href="/mapa" class="btn btn-primary btn-lg px-4">Ver disponibilidad</a>
+                            <a href="/map" class="btn btn-primary btn-lg px-4">Ver disponibilidad</a>
                             <a href="/solicitud/nueva" class="btn btn-outline-light btn-lg px-4">Publicar necesidad</a>
                         </div>
                     </div>
@@ -284,7 +284,7 @@
                                         una cotización.</p>
                                 <?php endif; ?>
                                 <div class="d-flex justify-content-end">
-                                    <a href="/mapa" class="btn btn-sm btn-primary rounded-3">Explorar
+                                    <a href="/map" class="btn btn-sm btn-primary rounded-3">Explorar
                                         profesionales</a>
                                 </div>
                             </div>

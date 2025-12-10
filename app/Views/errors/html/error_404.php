@@ -30,7 +30,7 @@
                         <a href="/" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold">
                             <i class="fas fa-home me-2"></i>Volver al Inicio
                         </a>
-                        <a href="/mapa" class="btn btn-outline-dark btn-lg rounded-pill px-4 fw-bold">
+                        <a href="/map" class="btn btn-outline-dark btn-lg rounded-pill px-4 fw-bold">
                             <i class="fas fa-map-marked-alt me-2"></i>Ver Mapa
                         </a>
                     </div>

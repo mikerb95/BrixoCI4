@@ -49,67 +49,6 @@ class Mapa extends BaseController
                     $lng = $baseLng + $lngOffset;
                 }
 
-                $professionals[] = [
-                    'id' => $pro['id_contratista'],
-                    'nombre' => $pro['nombre'],
-                    'profesion' => $pro['experiencia'] ?: 'Profesional', // Fallback if empty
-                    'rating' => number_format($avgRating, 1),
-                    'reviews' => count($reviews),
-                    'precio' => 50000, // Placeholder as price is per service, not per contractor
-                    'lat' => $lat,
-                    'lng' => $lng,
-                    'imagen' => !empty($pro['foto_perfil']) ? $pro['foto_perfil'] : 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random',
-                    'ubicacion' => $pro['ciudad'] ?? 'Bogotá'
-                ];
-            }
-
-
-            // Pass professionals data to view
-            return view('mapa', ['professionals' => $professionals]);
-        } catch (\Throwable $e) {
-            // Temporary debugging: Show error directly
-            return $e->getMessage() . "<br><pre>" . $e->getTraceAsString() . "</pre>";
-        }
-    }
-
-    public function mapaAirbnb()
-    {
-        // Reuse logic from index to get professionals
-        try {
-            $contratistaModel = new ContratistaModel();
-            $resenaModel = new ResenaModel();
-
-            $rawProfessionals = $contratistaModel->getWithLocation();
-            $professionals = [];
-
-            $baseLat = 4.6097;
-            $baseLng = -74.0817;
-
-            foreach ($rawProfessionals as $pro) {
-                $reviews = $resenaModel->getByContratista($pro['id_contratista']);
-                $ratingSum = 0;
-                foreach ($reviews as $r) {
-                    $ratingSum += $r['calificacion'];
-                }
-                $avgRating = count($reviews) > 0 ? $ratingSum / count($reviews) : 0;
-
-                // Use real coordinates from ubicacion_mapa if available, otherwise simulate
-                $lat = $baseLat;
-                $lng = $baseLng;
-                if (!empty($pro['ubicacion_mapa'])) {
-                    $coords = explode(',', $pro['ubicacion_mapa']);
-                    if (count($coords) === 2) {
-                        $lat = floatval(trim($coords[0]));
-                        $lng = floatval(trim($coords[1]));
-                    }
-                } else {
-                    $id = (int) $pro['id_contratista'];
-                    $latOffset = (sin($id) * 0.05);
-                    $lngOffset = (cos($id) * 0.05);
-                    $lat = $baseLat + $latOffset;
-                    $lng = $baseLng + $lngOffset;
-                }
-
                 $fotoPerfil = $pro['foto_perfil'];
                 if (!empty($fotoPerfil)) {
                     if (strpos($fotoPerfil, 'http') === 0) {
@@ -124,10 +63,10 @@ class Mapa extends BaseController
                 $professionals[] = [
                     'id' => $pro['id_contratista'],
                     'nombre' => $pro['nombre'],
-                    'profesion' => $pro['experiencia'] ?: 'Profesional',
+                    'profesion' => $pro['experiencia'] ?: 'Profesional', // Fallback if empty
                     'rating' => number_format($avgRating, 1),
                     'reviews' => count($reviews),
-                    'precio' => 50000,
+                    'precio' => 50000, // Placeholder as price is per service, not per contractor
                     'lat' => $lat,
                     'lng' => $lng,
                     'imagen' => $imagen,
@@ -135,9 +74,14 @@ class Mapa extends BaseController
                 ];
             }
 
+
+            // Pass professionals data to view
             return view('map', ['professionals' => $professionals]);
         } catch (\Throwable $e) {
-            return view('map', ['professionals' => []]);
+            // Temporary debugging: Show error directly
+            return $e->getMessage() . "<br><pre>" . $e->getTraceAsString() . "</pre>";
         }
     }
+
+
 }

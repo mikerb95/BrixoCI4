@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Menu Items
     const menuItems = [
-        { text: 'Mapa', href: '/mapa' },
+        { text: 'Mapa', href: '/map' },
         { text: 'Especialidades', href: '#' }, // Defined as # for now
         { text: 'Mi cuenta', href: '/panel' }
     ];
