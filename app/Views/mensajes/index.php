@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,15 +12,18 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
+
         .conversation-item:hover {
             background-color: #f8f9fa;
         }
+
         .unread {
             font-weight: bold;
             background-color: #eef2ff;
         }
     </style>
 </head>
+
 <body class="bg-light">
 
     <!-- Navbar (Simplificado para mantener consistencia) -->
@@ -32,7 +36,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="<?= base_url('/panel') ?>">Panel</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('/auth/logout') ?>">Cerrar Sesión</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url('/auth/logout') ?>">Cerrar Sesión</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -53,8 +58,8 @@
                                 </div>
                             <?php else: ?>
                                 <?php foreach ($conversaciones as $conv): ?>
-                                    <a href="<?= base_url('/mensajes/chat/' . $conv['id'] . '/' . $conv['rol']) ?>" 
-                                       class="list-group-item list-group-item-action conversation-item p-3 <?= !$conv['leido'] ? 'unread' : '' ?>">
+                                    <a href="<?= base_url('/mensajes/chat/' . $conv['id'] . '/' . $conv['rol']) ?>"
+                                        class="list-group-item list-group-item-action conversation-item p-3 <?= !$conv['leido'] ? 'unread' : '' ?>">
                                         <div class="d-flex w-100 justify-content-between align-items-center">
                                             <h5 class="mb-1 text-dark"><?= esc($conv['nombre']) ?></h5>
                                             <small class="text-muted"><?= date('d/m H:i', strtotime($conv['fecha'])) ?></small>
@@ -75,4 +80,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

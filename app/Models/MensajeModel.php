@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class MensajeModel extends Model
 {
-    protected $table            = 'MENSAJE';
-    protected $primaryKey       = 'id_mensaje';
+    protected $table = 'MENSAJE';
+    protected $primaryKey = 'id_mensaje';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = [
+    protected $returnType = 'array';
+    protected $useSoftDeletes = false;
+    protected $protectFields = true;
+    protected $allowedFields = [
         'remitente_id',
         'remitente_rol',
         'destinatario_id',
@@ -23,9 +23,9 @@ class MensajeModel extends Model
     ];
 
     protected $useTimestamps = false; // Lo manejamos manual o con default current_timestamp en DB
-    protected $createdField  = 'creado_en';
-    protected $updatedField  = '';
-    protected $deletedField  = '';
+    protected $createdField = 'creado_en';
+    protected $updatedField = '';
+    protected $deletedField = '';
 
     // Obtener conversaciones (último mensaje por usuario)
     public function getConversaciones($userId, $userRol)
@@ -56,34 +56,34 @@ class MensajeModel extends Model
 
     public function getMensajesChat($userId, $userRol, $otroId, $otroRol)
     {
-        return $this->where(function($builder) use ($userId, $userRol, $otroId, $otroRol) {
+        return $this->where(function ($builder) use ($userId, $userRol, $otroId, $otroRol) {
+            $builder->groupStart()
+                ->where('remitente_id', $userId)
+                ->where('remitente_rol', $userRol)
+                ->where('destinatario_id', $otroId)
+                ->where('destinatario_rol', $otroRol)
+                ->groupEnd();
+        })
+            ->orWhere(function ($builder) use ($userId, $userRol, $otroId, $otroRol) {
                 $builder->groupStart()
-                        ->where('remitente_id', $userId)
-                        ->where('remitente_rol', $userRol)
-                        ->where('destinatario_id', $otroId)
-                        ->where('destinatario_rol', $otroRol)
-                        ->groupEnd();
-            })
-            ->orWhere(function($builder) use ($userId, $userRol, $otroId, $otroRol) {
-                $builder->groupStart()
-                        ->where('remitente_id', $otroId)
-                        ->where('remitente_rol', $otroRol)
-                        ->where('destinatario_id', $userId)
-                        ->where('destinatario_rol', $userRol)
-                        ->groupEnd();
+                    ->where('remitente_id', $otroId)
+                    ->where('remitente_rol', $otroRol)
+                    ->where('destinatario_id', $userId)
+                    ->where('destinatario_rol', $userRol)
+                    ->groupEnd();
             })
             ->orderBy('creado_en', 'ASC')
             ->findAll();
     }
-    
+
     public function marcarComoLeidos($userId, $userRol, $otroId, $otroRol)
     {
         return $this->where('remitente_id', $otroId)
-                    ->where('remitente_rol', $otroRol)
-                    ->where('destinatario_id', $userId)
-                    ->where('destinatario_rol', $userRol)
-                    ->where('leido', 0)
-                    ->set(['leido' => 1])
-                    ->update();
+            ->where('remitente_rol', $otroRol)
+            ->where('destinatario_id', $userId)
+            ->where('destinatario_rol', $userRol)
+            ->where('leido', 0)
+            ->set(['leido' => 1])
+            ->update();
     }
 }

@@ -46,7 +46,7 @@ class Mensajes extends BaseController
         }
 
         $conversacionesRaw = $this->mensajeModel->getConversaciones($usuario['id'], $usuario['rol']);
-        
+
         $conversaciones = [];
         foreach ($conversacionesRaw as $conv) {
             $nombre = 'Usuario Desconocido';
@@ -68,16 +68,16 @@ class Mensajes extends BaseController
 
             // Obtener el último mensaje para mostrar preview
             // Esto podría optimizarse en la query principal, pero por ahora lo hacemos simple
-            $ultimoMensaje = $this->mensajeModel->where(function($builder) use ($usuario, $conv) {
+            $ultimoMensaje = $this->mensajeModel->where(function ($builder) use ($usuario, $conv) {
                 $builder->groupStart()
-                        ->where('remitente_id', $usuario['id'])->where('remitente_rol', $usuario['rol'])
-                        ->where('destinatario_id', $conv['otro_usuario_id'])->where('destinatario_rol', $conv['otro_usuario_rol'])
-                        ->groupEnd();
-            })->orWhere(function($builder) use ($usuario, $conv) {
+                    ->where('remitente_id', $usuario['id'])->where('remitente_rol', $usuario['rol'])
+                    ->where('destinatario_id', $conv['otro_usuario_id'])->where('destinatario_rol', $conv['otro_usuario_rol'])
+                    ->groupEnd();
+            })->orWhere(function ($builder) use ($usuario, $conv) {
                 $builder->groupStart()
-                        ->where('remitente_id', $conv['otro_usuario_id'])->where('remitente_rol', $conv['otro_usuario_rol'])
-                        ->where('destinatario_id', $usuario['id'])->where('destinatario_rol', $usuario['rol'])
-                        ->groupEnd();
+                    ->where('remitente_id', $conv['otro_usuario_id'])->where('remitente_rol', $conv['otro_usuario_rol'])
+                    ->where('destinatario_id', $usuario['id'])->where('destinatario_rol', $usuario['rol'])
+                    ->groupEnd();
             })->orderBy('creado_en', 'DESC')->first();
 
 
@@ -110,10 +110,12 @@ class Mensajes extends BaseController
         $nombreOtro = 'Usuario';
         if ($otroRol == 'cliente') {
             $c = $this->clienteModel->find($otroId);
-            if ($c) $nombreOtro = $c['nombre'] . ' ' . $c['apellido'];
+            if ($c)
+                $nombreOtro = $c['nombre'] . ' ' . $c['apellido'];
         } else {
             $c = $this->contratistaModel->find($otroId);
-            if ($c) $nombreOtro = $c['nombre'] . ' ' . $c['apellido'];
+            if ($c)
+                $nombreOtro = $c['nombre'] . ' ' . $c['apellido'];
         }
 
         return view('mensajes/chat', [
@@ -158,16 +160,17 @@ class Mensajes extends BaseController
     public function nuevos($otroId, $otroRol)
     {
         $usuario = $this->getUsuarioActual();
-        if (!$usuario) return $this->response->setJSON([]);
+        if (!$usuario)
+            return $this->response->setJSON([]);
 
         // Buscar mensajes no leídos de este usuario específico
         $nuevos = $this->mensajeModel->where('remitente_id', $otroId)
-                                     ->where('remitente_rol', $otroRol)
-                                     ->where('destinatario_id', $usuario['id'])
-                                     ->where('destinatario_rol', $usuario['rol'])
-                                     ->where('leido', 0)
-                                     ->findAll();
-        
+            ->where('remitente_rol', $otroRol)
+            ->where('destinatario_id', $usuario['id'])
+            ->where('destinatario_rol', $usuario['rol'])
+            ->where('leido', 0)
+            ->findAll();
+
         if (!empty($nuevos)) {
             $this->mensajeModel->marcarComoLeidos($usuario['id'], $usuario['rol'], $otroId, $otroRol);
         }
