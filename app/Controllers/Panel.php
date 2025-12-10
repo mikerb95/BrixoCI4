@@ -258,11 +258,11 @@ class Panel extends BaseController
 
             if ($user['rol'] === 'contratista') {
                 $data['experiencia'] = $this->request->getPost('experiencia');
-                $lat = $this->request->getPost('latitud');
-                $lng = $this->request->getPost('longitud');
-                if (!empty($lat) && !empty($lng)) {
-                    $data['latitud'] = $lat;
-                    $data['longitud'] = $lng;
+                $data['descripcion_perfil'] = $this->request->getPost('descripcion_perfil');
+
+                $ubicacionMapa = $this->request->getPost('ubicacion_mapa');
+                if (!empty($ubicacionMapa)) {
+                    $data['ubicacion_mapa'] = $ubicacionMapa;
                 }
             }
 

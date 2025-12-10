@@ -119,3 +119,13 @@ CREATE TABLE RESENA (
   CONSTRAINT fk_resena_contrato FOREIGN KEY (id_contrato) REFERENCES CONTRATO(id_contrato),
   CONSTRAINT fk_resena_cliente FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 10. Tabla CERTIFICACION
+CREATE TABLE CERTIFICACION (
+  id_certificado INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
+  entidad_emisora VARCHAR(255),
+  fecha_obtenida DATE,
+  id_contratista INT NOT NULL,
+  CONSTRAINT fk_cert_contratista FOREIGN KEY (id_contratista) REFERENCES CONTRATISTA(id_contratista) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

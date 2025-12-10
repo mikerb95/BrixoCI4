@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\ContratistaModel;
 use App\Models\ResenaModel;
+use App\Models\ContratistaServicioModel;
+use App\Models\CertificacionModel;
 
 class Perfil extends BaseController
 {
@@ -28,10 +30,16 @@ class Perfil extends BaseController
         $avgRating = count($reviews) > 0 ? $ratingSum / count($reviews) : 0;
 
         // Get services
-        $services = []; // TODO: load services for this contractor
+        $contratistaServicioModel = new ContratistaServicioModel();
+        $services = $contratistaServicioModel->getServicesByContratista($id);
 
         // Get certifications
-        $certifications = []; // TODO: load certifications for this contractor
+        $certificacionModel = new CertificacionModel();
+        try {
+            $certifications = $certificacionModel->where('id_contratista', $id)->findAll();
+        } catch (\Exception $e) {
+            $certifications = [];
+        }
 
         // Prepare data for view
         $fotoPerfil = $pro['foto_perfil'];

@@ -13,7 +13,8 @@ class ContratistaModel extends Model
 
     public function getWithLocation()
     {
-        return $this->select('CONTRATISTA.*, UBICACION.ciudad, UBICACION.departamento, UBICACION.direccion, UBICACION.latitud, UBICACION.longitud')
+        // Alias UBICACION columns to avoid overwriting CONTRATISTA columns (like ciudad, direccion)
+        return $this->select('CONTRATISTA.*, UBICACION.ciudad as u_ciudad, UBICACION.departamento, UBICACION.direccion as u_direccion, UBICACION.latitud, UBICACION.longitud')
             ->join('CONTRATISTA_UBICACION', 'CONTRATISTA_UBICACION.id_contratista = CONTRATISTA.id_contratista', 'left')
             ->join('UBICACION', 'UBICACION.id_ubicacion = CONTRATISTA_UBICACION.id_ubicacion', 'left')
             ->findAll();
