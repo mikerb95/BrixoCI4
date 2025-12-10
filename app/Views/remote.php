@@ -129,13 +129,21 @@
 
         @media (max-width: 767px) {
             .control-btn {
-                width: 40vh;
-                height: 40vh;
-                font-size: 4rem;
+                width: 30vh;
+                height: 30vh;
+                font-size: 3rem;
             }
 
             .btn-row {
-                gap: 2vh;
+                gap: 3vh;
+            }
+
+            .remote-container {
+                padding: 1rem;
+            }
+
+            .slide-counter {
+                margin-bottom: 1rem;
             }
         }
     </style>
