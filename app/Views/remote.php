@@ -68,6 +68,13 @@
             align-items: center;
             gap: 2rem;
             margin-top: 2rem;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .btn-row {
+                flex-direction: row;
+            }
         }
 
         .slide-indicators {
@@ -103,6 +110,18 @@
 
             .slide-counter {
                 font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .control-btn {
+                width: 40vh;
+                height: 40vh;
+                font-size: 4rem;
+            }
+
+            .btn-row {
+                gap: 2vh;
             }
         }
     </style>
@@ -196,8 +215,8 @@
                 } else {
                     changeSlide(-1); // Swipe right -> prev
                 }
-            }
-        });
+        }
+ });
     </script>
 </body>
 

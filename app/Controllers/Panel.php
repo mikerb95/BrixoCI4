@@ -284,7 +284,6 @@ class Panel extends BaseController
                         'Bucket' => $bucket,
                         'Key' => 'profiles/' . $newName,
                         'SourceFile' => $tempPath,
-                        'ACL' => 'public-read',
                     ]);
 
                     $s3Url = $result['ObjectURL'];
