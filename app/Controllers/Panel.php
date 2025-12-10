@@ -187,8 +187,16 @@ class Panel extends BaseController
         }
 
         $data = [];
-        $idKey = 'id_' . $user['rol'];
-        $id = $user[$idKey];
+        if (isset($user['id'])) {
+            $id = $user['id'];
+        } else {
+            $idKey = 'id_' . $user['rol'];
+            $id = $user[$idKey] ?? null;
+        }
+
+        if (!$id) {
+            return redirect()->to('/')->with('error', 'ID de usuario no encontrado');
+        }
 
         if ($user['rol'] === 'cliente') {
             $model = new ClienteModel();
@@ -214,6 +222,17 @@ class Panel extends BaseController
 
             if (empty($user)) {
                 return redirect()->to('/');
+            }
+
+            if (isset($user['id'])) {
+                $id = $user['id'];
+            } else {
+                $idKey = 'id_' . $user['rol'];
+                $id = $user[$idKey] ?? null;
+            }
+
+            if (!$id) {
+                return redirect()->back()->withInput()->with('error', 'ID de usuario no encontrado');
             }
 
             $rules = [
@@ -315,8 +334,6 @@ class Panel extends BaseController
             }
 
             // Update DB
-            $idKey = 'id_' . $user['rol'];
-            $id = $user[$idKey];
             if ($user['rol'] === 'cliente') {
                 $model = new ClienteModel();
                 $model->update($id, $data);
