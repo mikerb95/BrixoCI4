@@ -33,7 +33,8 @@
     <div id="slides">
         <?php for ($i = 1; $i <= $totalSlides; $i++): ?>
             <div class="slide <?= $i === 1 ? 'active' : '' ?>" data-slide="<?= $i ?>">
-                <img src="/presentation/Slide<?= $i ?>.PNG" alt="Slide <?= $i ?>" onerror="this.src='/presentation/Slide<?= $i ?>.png'; this.onerror=null;">
+                <img src="/presentation/Slide<?= $i ?>.PNG" alt="Slide <?= $i ?>"
+                    onerror="this.src='/presentation/Slide<?= $i ?>.png'; this.onerror=null;">
             </div>
         <?php endfor; ?>
     </div>
