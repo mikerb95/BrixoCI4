@@ -7,17 +7,18 @@
             <li><a href="/mapa" class="float-link">Mapa</a></li>
             <?php $floatUser = session()->get('user'); ?>
             <?php if (!empty($floatUser)): ?>
-                <li class="d-none d-md-inline"><span class="float-link disabled">Hola,
-                        <?= esc($floatUser['nombre'] ?? 'Usuario') ?></span></li>
                 <?php $role = $floatUser['rol'] ?? ''; ?>
                 <?php if ($role === 'admin'): ?>
                     <li><a href="/admin" class="float-link">Mi Panel</a></li>
                 <?php else: ?>
                     <li><a href="/panel" class="float-link">Mi Panel</a></li>
                 <?php endif; ?>
+                <?php if (!empty($floatUser['foto_perfil'])): ?>
+                    <li><img src="/images/profiles/<?= esc($floatUser['foto_perfil']) ?>" alt="Foto de perfil" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;"></li>
+                <?php endif; ?>
                 <li><form action="/logout" method="post" style="display: inline;">
                         <?= csrf_field() ?>
-                        <button type="submit" class="float-link btn btn-link p-0 border-0 bg-transparent">Salir</button>
+                        <button type="submit" class="float-link btn btn-link p-0 border-0 bg-transparent">Cerrar Sesión</button>
                     </form></li>
             <?php else: ?>
                 <li><a href="#" class="float-link" data-bs-toggle="modal" data-bs-target="#loginModal">Ingresar</a></li>
