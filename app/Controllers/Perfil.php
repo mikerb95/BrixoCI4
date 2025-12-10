@@ -30,17 +30,22 @@ class Perfil extends BaseController
         // Get services
         $services = []; // TODO: load services for this contractor
 
+        // Get certifications
+        $certifications = []; // TODO: load certifications for this contractor
+
         // Prepare data for view
         $pro['imagen'] = !empty($pro['foto_perfil']) ? '/images/profiles/' . $pro['foto_perfil'] : 'https://ui-avatars.com/api/?name=' . urlencode($pro['nombre']) . '&background=random';
         $pro['profesion'] = $pro['experiencia'] ?? 'Profesional'; // Fallback
         $pro['rating'] = number_format($avgRating, 1);
         $pro['reviews_count'] = count($reviews);
         $pro['ubicacion'] = $pro['ciudad'] ?? 'Bogotá';
+        $pro['descripcion'] = $pro['descripcion_perfil'] ?? 'Sin descripción disponible.';
 
         return view('perfil', [
             'pro' => $pro,
-            'reviews' => $reviews,
-            'services' => $services,
+            'resenas' => $reviews,
+            'servicios' => $services,
+            'certificaciones' => $certifications,
         ]);
     }
 }
