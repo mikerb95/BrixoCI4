@@ -285,18 +285,31 @@
             document.getElementById('sortBy').addEventListener('change', filterAndRender);
 
             // Function to generate and show QR code
+            let qrModalInstance = null;
+
             function generateQR(url) {
                 const qrcodeDiv = document.getElementById('qrcode');
                 qrcodeDiv.innerHTML = ''; // Clear previous QR
 
-                QRCode.toCanvas(url, { width: 256, margin: 2 }, function (error, canvas) {
-                    if (error) console.error(error);
-                    qrcodeDiv.appendChild(canvas);
-                });
+                // Create canvas element explicitly
+                const canvas = document.createElement('canvas');
+                qrcodeDiv.appendChild(canvas);
 
-                // Show modal
-                const modal = new bootstrap.Modal(document.getElementById('qrModal'));
-                modal.show();
+                if (typeof QRCode !== 'undefined') {
+                    QRCode.toCanvas(canvas, url, { width: 256, margin: 2 }, function (error) {
+                        if (error) console.error(error);
+                    });
+                } else {
+                    console.error('QRCode library not loaded');
+                    qrcodeDiv.innerHTML = '<p class="text-danger">Error: Librería QR no disponible.</p>';
+                }
+
+                // Show modal (reuse instance)
+                const modalEl = document.getElementById('qrModal');
+                if (!qrModalInstance) {
+                    qrModalInstance = new bootstrap.Modal(modalEl);
+                }
+                qrModalInstance.show();
             }
 
         })();

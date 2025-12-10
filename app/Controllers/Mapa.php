@@ -124,9 +124,9 @@ class Mapa extends BaseController
                 ];
             }
 
-            return view('mapa_airbnb', ['professionals' => $professionals]);
+            return view('map', ['professionals' => $professionals]);
         } catch (\Throwable $e) {
-            return view('mapa_airbnb', ['professionals' => []]);
+            return view('map', ['professionals' => []]);
         }
     }
 }
