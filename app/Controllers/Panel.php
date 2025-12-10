@@ -187,13 +187,16 @@ class Panel extends BaseController
         }
 
     $data = [];
+    $idKey = 'id_' . $user['rol'];
+    $id = $user[$idKey];
+
     if ($user['rol'] === 'cliente') {
         $model = new ClienteModel();
-        $data['user'] = $model->find($user['id']);
+        $data['user'] = $model->find($id);
         $data['user']['rol'] = 'cliente';
     } else {
         $model = new ContratistaModel();
-        $data['user'] = $model->find($user['id']);
+        $data['user'] = $model->find($id);
         $data['user']['rol'] = 'contratista';
     }
 
@@ -301,7 +304,7 @@ class Panel extends BaseController
                     } else {
                         $model = new ContratistaModel();
                     }
-                    $oldUser = $model->find($user['id']);
+                    $oldUser = $model->find($id);
                     if (!empty($oldUser['foto_perfil']) && strpos($oldUser['foto_perfil'], 's3.amazonaws.com') !== false) {
                         // TODO: Delete from S3 if needed
                     }
@@ -311,18 +314,21 @@ class Panel extends BaseController
             }
 
             // Update DB
+            $idKey = 'id_' . $user['rol'];
+            $id = $user[$idKey];
             if ($user['rol'] === 'cliente') {
                 $model = new ClienteModel();
-                $model->update($user['id'], $data);
+                $model->update($id, $data);
             } else {
                 $model = new ContratistaModel();
-                $model->update($user['id'], $data);
+                $model->update($id, $data);
             }
 
             // Update Session
-            $updatedUser = $model->find($user['id']);
+            $updatedUser = $model->find($id);
             if ($updatedUser) {
                 $updatedUser['rol'] = $user['rol'];
+                $updatedUser['id'] = $id; // Ensure id is set
                 $session->set('user', $updatedUser);
             }
 
