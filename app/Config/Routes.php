@@ -21,7 +21,6 @@ $routes->get('/perfil', 'Panel::index');
 $routes->get('/perfil/editar', 'Panel::editarPerfil');
 $routes->post('/perfil/actualizar', 'Panel::actualizarPerfil');
 $routes->get('/perfil/ver/(:num)', 'Perfil::ver/$1');
-// New Airbnb-style map
 // Profile viewing
 $routes->get('/perfil/ver/(:num)', 'Perfil::ver/$1');
 $routes->get('/solicitudes', 'Solicitudes::index');
