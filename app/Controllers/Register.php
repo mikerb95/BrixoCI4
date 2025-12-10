@@ -90,23 +90,81 @@ class Register extends BaseController
 
         $hash = password_hash($contrasena, PASSWORD_DEFAULT);
 
+        // Handle Image Upload
+        $fotoPerfil = null;
+        $img = $this->request->getFile('foto_perfil');
+        if ($img && $img->isValid() && !$img->hasMoved()) {
+            try {
+                // Basic size check (5MB)
+                if ($img->getSize() <= 5242880) {
+                    $newName = $img->getRandomName();
+                    
+                    // Check if AWS S3 is configured
+                    $key = getenv('AWS_ACCESS_KEY_ID');
+                    $secret = getenv('AWS_SECRET_ACCESS_KEY');
+                    
+                    if ($key && $secret && class_exists('\Aws\S3\S3Client')) {
+                        // Upload to S3
+                        $targetDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
+                        $tempPath = $targetDir . $newName;
+                        $img->move($targetDir, $newName);
+                        
+                        $region = getenv('AWS_REGION') ?: 'us-east-1';
+                        $bucket = getenv('AWS_S3_BUCKET') ?: 'brixo-images';
+                        
+                        $s3Client = new \Aws\S3\S3Client([
+                            'region' => $region,
+                            'version' => 'latest',
+                            'credentials' => [
+                                'key' => $key,
+                                'secret' => $secret,
+                            ],
+                        ]);
+
+                        $result = $s3Client->putObject([
+                            'Bucket' => $bucket,
+                            'Key' => 'profiles/' . $newName,
+                            'SourceFile' => $tempPath,
+                        ]);
+
+                        $fotoPerfil = $result['ObjectURL'];
+                        @unlink($tempPath);
+                    } else {
+                        // Local upload
+                        $img->move(FCPATH . 'images/profiles', $newName);
+                        $fotoPerfil = $newName;
+                    }
+                }
+            } catch (\Throwable $e) {
+                log_message('error', 'Error uploading profile photo: ' . $e->getMessage());
+            }
+        }
+
         if ($rol === 'cliente') {
-            $db->table('CLIENTE')->insert([
+            $data = [
                 'nombre' => $nombre,
                 'correo' => $correo,
                 'telefono' => $telefono,
                 'contrasena' => $hash,
                 'ciudad' => $ciudad,
-            ]);
+            ];
+            if ($fotoPerfil) {
+                $data['foto_perfil'] = $fotoPerfil;
+            }
+            $db->table('CLIENTE')->insert($data);
         } else {
-            $db->table('CONTRATISTA')->insert([
+            $data = [
                 'nombre' => $nombre,
                 'correo' => $correo,
                 'telefono' => $telefono,
                 'contrasena' => $hash,
                 'ciudad' => $ciudad,
                 'ubicacion_mapa' => $ubicacionMapa,
-            ]);
+            ];
+            if ($fotoPerfil) {
+                $data['foto_perfil'] = $fotoPerfil;
+            }
+            $db->table('CONTRATISTA')->insert($data);
         }
 
         $session->setFlashdata('message', 'Cuenta creada correctamente. Ya puedes iniciar sesión.');

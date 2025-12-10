@@ -49,13 +49,17 @@
                 <?php if (!empty($register_error)): ?>
                     <div class="alert alert-danger mb-4"><?= esc($register_error) ?></div>
                 <?php endif; ?>
-                <form method="post" action="/register" id="registerForm">
+                <form method="post" action="/register" id="registerForm" enctype="multipart/form-data">
                     <?= csrf_field() ?>
                     <input type="hidden" name="action" value="register">
                     <div class="mb-3">
                         <label for="registro_nombre" class="form-label fw-semibold">Nombre</label>
                         <input id="registro_nombre" name="nombre" type="text" class="form-control p-3 rounded-3"
                             placeholder="Tu nombre" value="<?= esc($registerOld['nombre'] ?? '') ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registro_foto" class="form-label fw-semibold">Foto de Perfil (Opcional)</label>
+                        <input id="registro_foto" name="foto_perfil" type="file" class="form-control p-3 rounded-3" accept="image/*">
                     </div>
                     <div class="mb-3">
                         <label for="registro_correo" class="form-label fw-semibold">Correo electrónico</label>

@@ -94,7 +94,7 @@
             <div class="row g-4">
                 <div class="col-lg-8">
                     <!-- Solicitudes Section -->
-                    <div class="card card-dashboard mb-4">
+                    <div class="card card-dashboard mb-4" style="overflow: visible;">
                         <div
                             class="card-header bg-white border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
                             <h2 class="h5 fw-bold mb-0 text-dark">Mis Solicitudes</h2>
