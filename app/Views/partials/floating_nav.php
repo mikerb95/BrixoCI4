@@ -1,7 +1,7 @@
 <nav id="floating-nav" class="floating-navbar">
     <div class="floating-inner d-flex justify-content-between align-items-center w-100">
             <a href="/" class="brand fw-bold d-flex align-items-center">
-                <img src="/images/brixo-logo.png" alt="Brixo" onerror="this.style.display='none'">
+                <img src="/images/brixo-logo.png" alt="Brixo" onerror="this.style.display='none'" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
             </a>
         <ul class="d-flex list-unstyled mb-0 align-items-center gap-3 ms-3">
             <li><a href="/map" class="float-link">Mapa</a></li>
