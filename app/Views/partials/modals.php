@@ -59,7 +59,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="registro_foto" class="form-label fw-semibold">Foto de Perfil (Opcional)</label>
-                        <input id="registro_foto" name="foto_perfil" type="file" class="form-control p-3 rounded-3" accept="image/*">
+                        <input id="registro_foto" name="foto_perfil" type="file" class="form-control p-3 rounded-3"
+                            accept="image/*">
                     </div>
                     <div class="mb-3">
                         <label for="registro_correo" class="form-label fw-semibold">Correo electrónico</label>

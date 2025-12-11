@@ -98,20 +98,20 @@ class Register extends BaseController
                 // Basic size check (5MB)
                 if ($img->getSize() <= 5242880) {
                     $newName = $img->getRandomName();
-                    
+
                     // Check if AWS S3 is configured
                     $key = getenv('AWS_ACCESS_KEY_ID');
                     $secret = getenv('AWS_SECRET_ACCESS_KEY');
-                    
+
                     if ($key && $secret && class_exists('\Aws\S3\S3Client')) {
                         // Upload to S3
                         $targetDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR;
                         $tempPath = $targetDir . $newName;
                         $img->move($targetDir, $newName);
-                        
+
                         $region = getenv('AWS_REGION') ?: 'us-east-1';
                         $bucket = getenv('AWS_S3_BUCKET') ?: 'brixo-images';
-                        
+
                         $s3Client = new \Aws\S3\S3Client([
                             'region' => $region,
                             'version' => 'latest',
