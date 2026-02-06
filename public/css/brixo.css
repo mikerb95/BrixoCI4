@@ -3,14 +3,11 @@
    API: https://fonts.googleapis.com/css2?family=Kedebideri:wght@400;600;700&display=swap */
 @import url('https://fonts.googleapis.com/css2?family=Kedebideri:wght@400;600;700&display=swap');
 
+/* Importar sistema de diseño */
+@import url('./design-system.css');
+
 :root {
     font-family: 'Kedebideri', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --primary-color: #009fd9; /* Thumbtack-ish blue */
-    --secondary-color: #f2f2f2;
-    --text-color: #2f3033;
-    --border-color: #e2e2e2;
-    /* Espacio interno que debe quedar bajo la navbar fija antes del contenido */
-    --navbar-offset: 84px;
 }
 
 body {
@@ -25,7 +22,7 @@ body.floating-offset main,
 body.floating-offset .container,
 body.floating-offset .container-fluid,
 body.floating-offset .main-container {
-    padding-top: calc(var(--navbar-offset) + 12px);
+    padding-top: calc(var(--navbar-offset) + var(--spacing-lg));
 }
 @media (max-width: 768px) {
     body.floating-offset main,

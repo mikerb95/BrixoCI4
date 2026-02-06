@@ -5,25 +5,25 @@
 /* Tarjetas del Dashboard */
 .card-dashboard {
     border: none;
-    border-radius: 16px;
+    border-radius: var(--radius-xl);
     background: #ffffff;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
     overflow: hidden;
 }
 
 .card-dashboard:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-lg);
 }
 
 /* Header del Panel con degradado sutil */
 .dashboard-header {
     background: linear-gradient(135deg, var(--primary-color) 0%, #0077a3 100%);
     color: white;
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 2rem;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
     position: relative;
     overflow: hidden;
 }
@@ -42,11 +42,11 @@
 /* Estadísticas Rápidas (Stat Cards) */
 .stat-card {
     background: white;
-    border-radius: 12px;
-    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--spacing-md);
     border: 1px solid #f0f0f0;
     transition: all 0.2s;
 }
