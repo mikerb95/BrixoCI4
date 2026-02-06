@@ -12,21 +12,19 @@ document.addEventListener('DOMContentLoaded', function() {
             padding-top: 0; /* La nav-standard es relative, no necesita padding */
         }
         .navbar-custom {
+            position: relative !important;
+            display: block !important;
             height: auto;
             min-height: 64px;
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-            z-index: 1030;
-            padding: 0.5rem 1.25rem;
-            margin: 12px auto 0;
-            width: 94%;
-            max-width: 1400px;
-            left: 50%;
-            transform: translateX(-50%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 0;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            z-index: 1050;
+            padding: 0.65rem 1.25rem;
+            width: 100%;
             transition: background 0.3s ease, box-shadow 0.3s ease;
         }
         .navbar-custom:hover {
