@@ -36,7 +36,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="<?= base_url('/panel') ?>">Panel</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('/auth/logout') ?>">Cerrar Sesión</a>
+                    <li class="nav-item">
+                        <form action="<?= base_url('/logout') ?>" method="post" class="d-inline">
+                            <?= csrf_field() ?>
+                            <button type="submit" class="nav-link btn btn-link border-0 bg-transparent p-0">Cerrar Sesión</button>
+                        </form>
                     </li>
                 </ul>
             </div>
