@@ -380,11 +380,6 @@ body.map-page {
     overflow: hidden;
 }
 
-/* Hide any legacy JS-injected navbar on /map */
-body.map-page .navbar-custom {
-    display: none !important;
-}
-
 body.map-page #mapApp {
     height: 100vh;
 }
