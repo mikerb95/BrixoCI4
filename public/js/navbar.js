@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
             transition: background 0.3s ease, box-shadow 0.3s ease;
         }
         .navbar-custom:hover {
-            background: rgba(255, 255, 255, 0.72);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
         }
         .navbar-brand img {
             height: 34px;
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 2. Create Navbar HTML Structure
     const navbar = document.createElement('nav');
-    navbar.className = 'navbar navbar-expand-lg fixed-top navbar-custom';
+    navbar.className = 'navbar navbar-expand-lg navbar-custom nav-standard';
     
     const container = document.createElement('div');
     container.className = 'container'; // This ensures alignment with page content
