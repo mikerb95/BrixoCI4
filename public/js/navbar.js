@@ -1,44 +1,95 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Inject Styles
+    // 1. Inject Styles — Glassmorphism theme with Inter font
     const style = document.createElement('style');
     style.textContent = `
         body {
-            padding-top: 80px; /* Adjust based on navbar height */
+            padding-top: 90px; /* Adjust for floating glassmorphism navbar */
         }
         .navbar-custom {
-            height: 80px;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: auto;
+            min-height: 64px;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
             z-index: 1030;
+            padding: 0.5rem 1.25rem;
+            margin: 12px auto 0;
+            width: 94%;
+            max-width: 1400px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .navbar-custom:hover {
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
         }
         .navbar-brand img {
-            height: 40px;
+            height: 34px;
             width: auto;
         }
         .nav-link {
-            color: #333;
+            color: #1f2937;
+            font-family: 'Inter', system-ui, sans-serif;
             font-weight: 500;
-            margin-left: 20px;
+            font-size: 0.9rem;
+            letter-spacing: -0.01em;
+            margin-left: 4px;
+            padding: 0.45rem 0.85rem;
+            border-radius: 10px;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: background 0.25s ease, color 0.25s ease, transform 0.15s ease;
         }
         .nav-link:hover {
-            color: #007bff;
+            background: rgba(0, 159, 217, 0.08);
+            color: #009fd9;
+            transform: translateY(-1px);
         }
         .nav-btn-login {
-            background-color: #007bff;
+            background: linear-gradient(135deg, #009fd9 0%, #0077B6 100%);
             color: white !important;
-            padding: 8px 20px;
-            border-radius: 50px;
-            transition: background-color 0.2s;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 0.5rem 1.25rem;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 159, 217, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .nav-btn-login:hover {
-            background-color: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0, 159, 217, 0.35);
         }
         .user-greeting {
+            font-family: 'Inter', system-ui, sans-serif;
             font-weight: 600;
-            color: #333;
-            margin-left: 20px;
+            color: #1f2937;
+            margin-left: 8px;
+        }
+        .dropdown-menu {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.92) !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
+            overflow: hidden;
+        }
+        .dropdown-item {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 8px;
+            margin: 2px 8px;
+            padding: 0.45rem 0.75rem;
+            transition: background 0.2s ease;
+        }
+        .dropdown-item:hover {
+            background: rgba(0, 159, 217, 0.08);
         }
     `;
     document.head.appendChild(style);
