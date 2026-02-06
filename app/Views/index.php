@@ -89,6 +89,11 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="mt-3">
+                            <a href="/especialidades" class="btn btn-light w-100 fw-semibold">
+                                <i class="fas fa-th-large me-2"></i>Ver todas las especialidades
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
