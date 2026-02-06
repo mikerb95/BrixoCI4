@@ -293,32 +293,7 @@ body.home-page {
     }
 }
 
-/* Usar padding interno del primer bloque en lugar de margen externo gris */
-.brixo-navbar + main > :first-child,
-.brixo-navbar + .container > :first-child,
-.brixo-navbar + .container-fluid > :first-child,
-.brixo-navbar + .container-xl > :first-child,
-.brixo-navbar + section > :first-child,
-.brixo-navbar + header > :first-child {
-    padding-top: var(--navbar-offset);
-}
-
-/* Si el primer bloque es un hero, sumamos su propio padding adicional */
-.brixo-navbar + main > .hero:first-child {
-    padding-top: calc(var(--navbar-offset) + 50px);
-}
-
-.brixo-navbar .navbar-brand {
-    padding: 0;
-    margin-right: 1.25rem;
-}
-
-.brixo-navbar .brixo-logo {
-    /* Logo escalado ~20% para mantener proporción con la navbar */
-    height: 34px;
-    width: auto;
-    display: block;
-}
+/* (old brixo-navbar link styles removed — see .brixo-nav__links above) */
 
 .brixo-navbar .nav-link {
     color: #1f2937;
