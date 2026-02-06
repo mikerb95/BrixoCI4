@@ -53,6 +53,7 @@ class Auth extends BaseController
                 'nombre' => $usuario['nombre'],
                 'correo' => $usuario['correo'],
                 'rol' => 'cliente',
+                'foto_perfil' => $usuario['foto_perfil'] ?? null,
             ]);
         } else {
             $session->set('user', [
@@ -60,6 +61,7 @@ class Auth extends BaseController
                 'nombre' => $usuario['nombre'],
                 'correo' => $usuario['correo'],
                 'rol' => 'contratista',
+                'foto_perfil' => $usuario['foto_perfil'] ?? null,
             ]);
         }
 
