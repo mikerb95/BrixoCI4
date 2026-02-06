@@ -199,3 +199,36 @@
 .gap-lg { gap: var(--spacing-lg) !important; }
 .gap-xl { gap: var(--spacing-xl) !important; }
 .gap-2xl { gap: var(--spacing-2xl) !important; }
+
+/* ===== CLASES UTILITARIAS DE COLORES ===== */
+/* Colores de texto */
+.text-primary { color: var(--primary-color) !important; }
+.text-primary-hover { color: var(--primary-hover) !important; }
+.text-primary-dark { color: var(--primary-dark) !important; }
+.text-success { color: var(--success-color) !important; }
+.text-warning { color: var(--warning-color) !important; }
+.text-error { color: var(--error-color) !important; }
+.text-neutral-50 { color: var(--neutral-50) !important; }
+.text-neutral-100 { color: var(--neutral-100) !important; }
+.text-neutral-900 { color: var(--neutral-900) !important; }
+
+/* Colores de fondo */
+.bg-primary { background-color: var(--primary-color) !important; }
+.bg-primary-hover { background-color: var(--primary-hover) !important; }
+.bg-primary-dark { background-color: var(--primary-dark) !important; }
+.bg-success { background-color: var(--success-color) !important; }
+.bg-warning { background-color: var(--warning-color) !important; }
+.bg-error { background-color: var(--error-color) !important; }
+.bg-neutral-50 { background-color: var(--neutral-50) !important; }
+.bg-neutral-100 { background-color: var(--neutral-100) !important; }
+.bg-neutral-900 { background-color: var(--neutral-900) !important; }
+
+/* Colores de borde */
+.border-primary { border-color: var(--primary-color) !important; }
+.border-primary-hover { border-color: var(--primary-hover) !important; }
+.border-primary-dark { border-color: var(--primary-dark) !important; }
+.border-success { border-color: var(--success-color) !important; }
+.border-warning { border-color: var(--warning-color) !important; }
+.border-error { border-color: var(--error-color) !important; }
+.border-neutral-100 { border-color: var(--neutral-100) !important; }
+.border-neutral-900 { border-color: var(--neutral-900) !important; }
