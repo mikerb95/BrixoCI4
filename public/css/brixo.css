@@ -295,43 +295,7 @@ body.home-page {
 
 /* (old brixo-navbar link styles removed — see .brixo-nav__links above) */
 
-.brixo-navbar .nav-link {
-    color: #1f2937;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    padding: 0.45rem 0.85rem;
-    border-radius: 10px;
-    transition: background 0.25s ease, color 0.25s ease, transform 0.15s ease;
-    position: relative;
-}
-
-.brixo-navbar .nav-link:hover,
-.brixo-navbar .nav-link:focus {
-    background: rgba(0, 159, 217, 0.08);
-    color: var(--primary-color);
-    transform: translateY(-1px);
-}
-
-.brixo-navbar .nav-link:active {
-    transform: translateY(0);
-}
-
-.brixo-toggler {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 0.4rem 0.6rem;
-    transition: background 0.2s ease;
-}
-
-.brixo-toggler:hover {
-    background: rgba(0, 0, 0, 0.04);
-}
-
-.brixo-toggler:focus {
-    box-shadow: 0 0 0 3px rgba(0, 159, 217, 0.15);
-}
+/* (old brixo-navbar nav-link/toggler styles removed — see .brixo-nav above) */
 .hover-underline:hover {
     text-decoration: underline !important;
 }
