@@ -1,4 +1,4 @@
-<!-- Floating Brixo-style Navbar (no external text) -->
+<!-- Glassmorphism Brixo Navbar -->
 <nav class="navbar navbar-expand-lg brixo-navbar">
     <div class="container-xl d-flex align-items-center justify-content-between">
         <!-- Brand alineado como la navbar flotante -->
@@ -14,9 +14,9 @@
 
         <!-- Links alineados horizontalmente como en la navbar flotante -->
         <div class="collapse navbar-collapse justify-content-end" id="brixoNav">
-            <ul class="navbar-nav align-items-center gap-3 ms-3">
-                <li class="nav-item"><a class="nav-link" href="/especialidades">Especialidades</a></li>
-                <li class="nav-item"><a class="nav-link" href="/map">Mapa</a></li>
+            <ul class="navbar-nav align-items-center gap-2 ms-3">
+                <li class="nav-item"><a class="nav-link fw-medium" href="/especialidades">Especialidades</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium" href="/map">Mapa</a></li>
                 <?php $navUser = session()->get('user'); ?>
                 <?php if (!empty($navUser)): ?>
                     <?php $role = $navUser['rol'] ?? ''; ?>
