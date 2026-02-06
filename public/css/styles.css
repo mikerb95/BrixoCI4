@@ -1,11 +1,10 @@
 /* Styles for the login card layout */
-/* Fuente principal desde Google Fonts: Kedebideri
-   API: https://fonts.googleapis.com/css2?family=Kedebideri:wght@400;600;700&display=swap */
+/* Fuente principal: Inter (Google Fonts) */
 @import url('./design-system.css');
-@import url('https://fonts.googleapis.com/css2?family=Kedebideri:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    font-family: 'Kedebideri', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: #111;
     background: #f2f2f2;
 }
