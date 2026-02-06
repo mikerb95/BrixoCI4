@@ -1,46 +1,62 @@
-<?php $is_map = (strpos($_SERVER['REQUEST_URI'], '/map') !== false); ?>
-<!-- Brixo Navbar — condicional: overlay en /map, standard en el resto -->
-<nav class="navbar navbar-expand-lg brixo-navbar <?= $is_map ? 'nav-overlay' : 'nav-standard' ?>">
-    <div class="container-xl d-flex align-items-center justify-content-between">
-        <!-- Brand alineado como la navbar flotante -->
-        <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="/images/brixo-logo.png" alt="Brixo" class="brixo-logo" onerror="this.style.display='none'">
+<?php
+/**
+ * ── Brixo Unified Navbar ──
+ * Componente único de navegación para todo el sitio.
+ * Detecta la ruta actual para aplicar position: absolute (mapa) o relative (resto).
+ */
+$_brixo_uri = $_SERVER['REQUEST_URI'] ?? '';
+$_brixo_is_map = (strpos($_brixo_uri, '/map') === 0 || $_brixo_uri === '/map');
+$_brixo_nav_class = $_brixo_is_map ? 'brixo-nav--overlay' : 'brixo-nav--standard';
+$_brixo_user = session()->get('user');
+?>
+<nav class="brixo-nav <?= $_brixo_nav_class ?>" id="brixoUnifiedNav">
+    <div class="brixo-nav__inner">
+        <!-- Brand -->
+        <a class="brixo-nav__brand" href="/">
+            <img src="/images/brixo-logo.png" alt="Brixo" onerror="this.style.display='none'">
         </a>
 
-        <!-- Toggle para mobile -->
-        <button class="navbar-toggler brixo-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#brixoNav"
-            aria-controls="brixoNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fas fa-bars"></span>
+        <!-- Mobile toggle -->
+        <button class="brixo-nav__toggle" type="button" data-bs-toggle="collapse"
+            data-bs-target="#brixoNavCollapse" aria-controls="brixoNavCollapse"
+            aria-expanded="false" aria-label="Menú">
+            <i class="fas fa-bars"></i>
         </button>
 
-        <!-- Links alineados horizontalmente como en la navbar flotante -->
-        <div class="collapse navbar-collapse justify-content-end" id="brixoNav">
-            <ul class="navbar-nav align-items-center gap-2 ms-3">
-                <li class="nav-item"><a class="nav-link fw-medium" href="/especialidades">Especialidades</a></li>
-                <li class="nav-item"><a class="nav-link fw-medium" href="/map">Mapa</a></li>
-                <?php $navUser = session()->get('user'); ?>
-                <?php if (!empty($navUser)): ?>
-                    <?php $role = $navUser['rol'] ?? ''; ?>
-                    <?php if ($role === 'admin'): ?>
-                        <li class="nav-item"><a class="nav-link" href="/admin">Mi Panel</a></li>
-                    <?php else: ?>
-                        <li class="nav-item"><a class="nav-link" href="/panel">Mi Panel</a></li>
-                    <?php endif; ?>
-                    <li class="nav-item">
-                        <form action="/logout" method="post" class="d-inline">
-                            <?= csrf_field() ?>
-                            <button type="submit" class="nav-link btn btn-link border-0 bg-transparent">Cerrar
-                                Sesión</button>
-                        </form>
+        <!-- Nav links -->
+        <div class="collapse navbar-collapse" id="brixoNavCollapse">
+            <ul class="brixo-nav__links">
+                <li><a href="/especialidades">Especialidades</a></li>
+                <li><a href="/map">Mapa</a></li>
+                <?php if (!empty($_brixo_user)): ?>
+                    <!-- Logged-in: dropdown -->
+                    <li class="brixo-nav__dropdown">
+                        <a href="#" class="brixo-nav__dropdown-toggle"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                            <span><?= esc($_brixo_user['nombre'] ?? 'Mi Cuenta') ?></span>
+                            <i class="fas fa-chevron-down fa-xs"></i>
+                        </a>
+                        <ul class="brixo-nav__dropdown-menu">
+                            <li class="brixo-nav__dropdown-header"><?= esc($_brixo_user['correo'] ?? '') ?></li>
+                            <li><a href="/panel"><i class="fas fa-th-large"></i> Mi Panel</a></li>
+                            <li><a href="/mensajes"><i class="fas fa-comments"></i> Mensajes</a></li>
+                            <li><a href="/perfil/editar"><i class="fas fa-user-edit"></i> Editar Perfil</a></li>
+                            <li class="brixo-nav__dropdown-divider"></li>
+                            <li>
+                                <form action="/logout" method="post">
+                                    <?= csrf_field() ?>
+                                    <button type="submit"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                 <?php else: ?>
-                    <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
-                            data-bs-target="#loginModal">Ingresar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
-                            data-bs-target="#registerModal">Registrarse</a></li>
+                    <!-- Guest -->
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="brixo-nav__btn-login">Ingresar</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a></li>
                 <?php endif; ?>
             </ul>
         </div>
     </div>
 </nav>
-<?= view('partials/modals') ?>
