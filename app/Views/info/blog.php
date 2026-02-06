@@ -30,7 +30,7 @@
                                 <div class="col-md-6">
                                     <img src="https://images.unsplash.com/photo-1581578731117-104f8a746956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                                         class="img-fluid h-100 object-fit-cover" alt="Renovación"
-                                        style="min-height: 300px;">
+                                        style="min-height: 300px;" loading="lazy">
                                 </div>
                                 <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
                                     <div class="mb-2 text-primary fw-bold text-uppercase small">Hogar</div>
@@ -48,7 +48,7 @@
                     <div class="col-md-4">
                         <div class="card h-100 border-0 shadow-sm">
                             <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                                class="card-img-top" alt="Electricidad">
+                                class="card-img-top" alt="Electricidad" loading="lazy">
                             <div class="card-body">
                                 <div class="mb-2 text-primary fw-bold text-uppercase small">Seguridad</div>
                                 <h5 class="card-title fw-bold">5 señales de que tu instalación eléctrica necesita
@@ -64,7 +64,7 @@
                     <div class="col-md-4">
                         <div class="card h-100 border-0 shadow-sm">
                             <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                                class="card-img-top" alt="Plomería">
+                                class="card-img-top" alt="Plomería" loading="lazy">
                             <div class="card-body">
                                 <div class="mb-2 text-primary fw-bold text-uppercase small">Mantenimiento</div>
                                 <h5 class="card-title fw-bold">Cómo solucionar fugas de agua comunes tú mismo</h5>
@@ -79,7 +79,7 @@
                     <div class="col-md-4">
                         <div class="card h-100 border-0 shadow-sm">
                             <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                                class="card-img-top" alt="Negocios">
+                                class="card-img-top" alt="Negocios" loading="lazy">
                             <div class="card-body">
                                 <div class="mb-2 text-primary fw-bold text-uppercase small">Para Profesionales</div>
                                 <h5 class="card-title fw-bold">Tips para conseguir más clientes en Brixo</h5>
