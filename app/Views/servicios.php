@@ -170,7 +170,7 @@
                                 <div class="card h-100 service-card rounded-3 overflow-hidden">
                                     <div class="position-relative">
                                         <img src="<?= $service['imagen'] ?>" class="card-img-top service-img"
-                                            alt="<?= $service['titulo'] ?>">
+                                            alt="<?= $service['titulo'] ?>" loading="lazy">
                                         <span
                                             class="position-absolute top-0 end-0 m-2 badge bg-dark bg-opacity-75 rounded-pill">
                                             <?= $service['categoria'] ?>

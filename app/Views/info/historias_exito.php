@@ -25,7 +25,7 @@
                 <div class="row g-5 mb-5 align-items-center">
                     <div class="col-md-6">
                         <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Carlos, Carpintero" class="img-fluid rounded-4 shadow-sm">
+                            alt="Carlos, Carpintero" class="img-fluid rounded-4 shadow-sm" loading="lazy">
                     </div>
                     <div class="col-md-6">
                         <div class="ps-md-4">
@@ -43,7 +43,7 @@
                 <div class="row g-5 align-items-center flex-md-row-reverse">
                     <div class="col-md-6">
                         <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Ana, Cliente" class="img-fluid rounded-4 shadow-sm">
+                            alt="Ana, Cliente" class="img-fluid rounded-4 shadow-sm" loading="lazy">
                     </div>
                     <div class="col-md-6">
                         <div class="pe-md-4">
