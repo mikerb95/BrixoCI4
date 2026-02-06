@@ -457,7 +457,7 @@ body.map-page {
     overflow: hidden;
 }
 
-/* Ocultar la navbar JS-injected en /map (usamos la PHP en su lugar) */
+/* Hide any legacy JS-injected navbar on /map */
 body.map-page .navbar-custom {
     display: none !important;
 }
