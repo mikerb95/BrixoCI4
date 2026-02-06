@@ -72,3 +72,7 @@ $routes->match(['get', 'post'], '/api/slide', 'Presentation::apiSlide');
 // Showcase
 $routes->get('/showcase', 'Showcase::index');
 
+// Cotizador inteligente (IA)
+$routes->get('/cotizador', 'Cotizador::index');
+$routes->post('/cotizador/generar', 'Cotizador::generar');
+
