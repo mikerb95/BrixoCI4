@@ -69,3 +69,6 @@ $routes->get('/slides', 'Presentation::slides');
 $routes->get('/remote', 'Presentation::remote');
 $routes->match(['get', 'post'], '/api/slide', 'Presentation::apiSlide');
 
+// Showcase
+$routes->get('/showcase', 'Showcase::index');
+
