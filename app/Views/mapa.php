@@ -120,6 +120,7 @@
 </head>
 
 <body class="">
+    <?= view('partials/navbar') ?>
 
     <div class="main-container">
         <!-- List Column -->

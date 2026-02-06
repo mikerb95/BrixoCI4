@@ -26,6 +26,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <?= view('partials/navbar') ?>
 
     <main class="flex-grow-1">
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">

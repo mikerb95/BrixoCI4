@@ -33,6 +33,7 @@
 </head>
 
 <body class="bg-light">
+    <?= view('partials/navbar') ?>
 
     <!-- Hero -->
     <section class="cotizador-hero text-white py-5">

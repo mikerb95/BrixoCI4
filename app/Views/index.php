@@ -17,6 +17,7 @@
 </head>
 
 <body class="home-page">
+    <?= view('partials/navbar') ?>
 
     <!-- Hero Section with simple nav -->
     <section class="hero position-relative d-flex align-items-center justify-content-center text-center text-white"

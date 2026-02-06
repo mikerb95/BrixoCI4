@@ -55,6 +55,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <?= view('partials/navbar') ?>
 
     <main class="flex-grow-1">
         <!-- Profile Header -->

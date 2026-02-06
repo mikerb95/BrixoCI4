@@ -18,6 +18,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <?= view('partials/navbar') ?>
 
     <main class="flex-grow-1">
         <div class="container my-5" style="max-width:800px;">

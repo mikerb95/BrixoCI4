@@ -11,6 +11,7 @@
 </head>
 
 <body class="bg-light">
+    <?= view('partials/navbar') ?>
 
     <div class="container py-5">
         <div class="row justify-content-center">
