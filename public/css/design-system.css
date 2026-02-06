@@ -61,8 +61,23 @@
     --line-height-normal: 1.5;
     --line-height-relaxed: 1.75;
     
-    /* ===== SISTEMA DE COLORES (mantener existentes) ===== */
+    /* ===== SISTEMA DE COLORES ===== */
+    /* Colores principales */
     --primary-color: #009fd9;
+    --primary-hover: #0077B6;
+    --primary-dark: #005A8D;
+    
+    /* Colores de retroalimentación (feedback) */
+    --success-color: #22C55E;
+    --warning-color: #F59E0B;
+    --error-color: #EF4444;
+    
+    /* Colores neutrales */
+    --neutral-50: #F9FAFB;
+    --neutral-100: #F3F4F6;
+    --neutral-900: #111827;
+    
+    /* Colores heredados (mantener compatibilidad) */
     --secondary-color: #f2f2f2;
     --text-color: #2f3033;
     --border-color: #e2e2e2;
