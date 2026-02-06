@@ -25,6 +25,10 @@ $routes->get('/perfil/ver/(:num)', 'Perfil::ver/$1');
 $routes->get('/perfil/ver/(:num)', 'Perfil::ver/$1');
 $routes->get('/solicitudes', 'Solicitudes::index');
 
+// Especialidades
+$routes->get('/especialidades', 'Especialidades::index');
+$routes->get('/especialidades/categoria/(:num)', 'Especialidades::categoria/$1');
+
 $routes->get('reportes/contratistas', 'Reportes::contratistas');
 
 $routes->get('reportes/solicitudes-xlsx', 'Reportes::solicitudesXlsx');
