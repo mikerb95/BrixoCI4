@@ -1,9 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Si estamos en /map, no inyectamos la navbar JS (la vista usa partials/navbar.php)
+    if (document.body.classList.contains('map-page')) return;
+
+    // Si ya existe una navbar PHP renderizada (brixo-navbar), no duplicamos
+    if (document.querySelector('.brixo-navbar')) return;
+
     // 1. Inject Styles — Glassmorphism theme with Inter font
     const style = document.createElement('style');
     style.textContent = `
-        body:not(.map-page) {
-            padding-top: 90px; /* Adjust for floating glassmorphism navbar — skip on map page */
+        body {
+            padding-top: 0; /* La nav-standard es relative, no necesita padding */
         }
         .navbar-custom {
             height: auto;

@@ -51,28 +51,44 @@ body.home-page {
 
 /* Custom Overrides for Bootstrap — Glassmorphism Navbar */
 .brixo-navbar {
-    position: fixed;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 94%;
-    max-width: 1400px;
     z-index: 1050;
     /* Glassmorphism */
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border-radius: 18px;
-    /* Spacing & shadow */
-    padding: 0.6rem 1.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    /* Spacing */
+    padding: 0.65rem 1.25rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 .brixo-navbar:hover {
-    background: rgba(255, 255, 255, 0.72);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
-    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Estado STANDARD: navbar fija normal, empuja contenido ── */
+.brixo-navbar.nav-standard {
+    position: relative !important;
+    display: block !important;
+    top: auto;
+    left: auto;
+    width: 100%;
+    transform: none;
+    border-radius: 0;
+}
+
+/* ── Estado OVERLAY: navbar flotante sobre el mapa ── */
+.brixo-navbar.nav-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    display: block !important;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
 /* Usar padding interno del primer bloque en lugar de margen externo gris */
@@ -300,29 +316,9 @@ body.map-page {
     overflow: hidden;
 }
 
+/* Ocultar la navbar JS-injected en /map (usamos la PHP en su lugar) */
 body.map-page .navbar-custom {
-    /* JS-injected navbar becomes transparent overlay on map page */
-    position: absolute;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: none !important;
-    border: none !important;
-    pointer-events: none;
-    opacity: 0;
-}
-
-body.map-page .floating-navbar {
-    /* Floating nav is always the primary navbar on /map */
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-body.map-page .floating-navbar.visible:hover {
-    background: rgba(255, 255, 255, 0.82);
+    display: none !important;
 }
 
 body.map-page #mapApp {

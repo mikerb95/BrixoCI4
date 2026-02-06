@@ -1,5 +1,6 @@
-<!-- Glassmorphism Brixo Navbar -->
-<nav class="navbar navbar-expand-lg brixo-navbar">
+<?php $is_map = (strpos($_SERVER['REQUEST_URI'], '/map') !== false); ?>
+<!-- Brixo Navbar — condicional: overlay en /map, standard en el resto -->
+<nav class="navbar navbar-expand-lg brixo-navbar <?= $is_map ? 'nav-overlay' : 'nav-standard' ?>">
     <div class="container-xl d-flex align-items-center justify-content-between">
         <!-- Brand alineado como la navbar flotante -->
         <a class="navbar-brand d-flex align-items-center" href="/">

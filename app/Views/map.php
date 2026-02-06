@@ -116,8 +116,8 @@
     </style>
 </head>
 
-<body class="map-page always-show-floating-nav">
-    <?= view('partials/floating_nav') ?>
+<body class="map-page">
+    <?= view('partials/navbar') ?>
 
     <div id="mapApp">
         <main class="content">
