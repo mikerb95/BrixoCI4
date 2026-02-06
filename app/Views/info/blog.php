@@ -98,7 +98,6 @@
 
     <?= view('info/partials/footer_static') ?>
 
-    <script src="/js/nav-floating.js"></script>
 </body>
 
 </html>

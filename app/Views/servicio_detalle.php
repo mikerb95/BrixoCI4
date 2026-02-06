@@ -227,7 +227,6 @@
 
     <?= view('partials/footer') ?>
 
-    <script src="/js/nav-floating.js"></script>
     <script>
         function changeImage(src, element) {
             document.getElementById('mainImage').src = src;
