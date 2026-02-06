@@ -24,18 +24,18 @@ class Mensajes extends BaseController
 
     private function getUsuarioActual()
     {
-        if ($this->session->get('is_cliente')) {
-            return [
-                'id' => $this->session->get('id_cliente'),
-                'rol' => 'cliente'
-            ];
-        } elseif ($this->session->get('is_contratista')) {
-            return [
-                'id' => $this->session->get('id_contratista'),
-                'rol' => 'contratista'
-            ];
+        $user = $this->session->get('user');
+        
+        if (!$user) {
+            return null;
         }
-        return null;
+        
+        // Estructura estándar de session()->get('user')
+        // user = ['id' => X, 'rol' => 'cliente'|'contratista', 'nombre' => ..., etc.]
+        return [
+            'id' => $user['id'] ?? null,
+            'rol' => $user['rol'] ?? null
+        ];
     }
 
     public function index()
