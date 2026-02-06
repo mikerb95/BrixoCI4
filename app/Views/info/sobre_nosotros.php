@@ -12,6 +12,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <?= view('partials/navbar') ?>
 
     <main class="flex-grow-1">
         <section class="py-5 bg-light">

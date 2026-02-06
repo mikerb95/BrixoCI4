@@ -14,6 +14,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <?= view('partials/navbar') ?>
 
     <!-- 404 Content -->
     <section class="d-flex align-items-center justify-content-center flex-grow-1 py-5 text-center">
