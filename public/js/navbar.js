@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Menu Items
     const menuItems = [
         { text: 'Mapa', href: '/map' },
-        { text: 'Especialidades', href: '#' } // Defined as # for now
+        { text: 'Especialidades', href: '/especialidades' }
     ];
 
     menuItems.forEach(item => {
