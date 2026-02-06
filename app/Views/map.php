@@ -36,9 +36,10 @@
         .left-sidebar {
             width: 400px;
             padding: 16px;
+            padding-top: 80px; /* Space for floating navbar overlay */
             background: #fff;
             border-right: 1px solid #eef2f7;
-            height: calc(100vh - 250px);
+            height: 100vh;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -47,7 +48,7 @@
         /* Map area */
         #map {
             flex: 1 1 auto;
-            height: calc(100vh - 250px);
+            height: 100vh;
         }
 
         .listing-item {
@@ -99,12 +100,13 @@
             .left-sidebar {
                 width: 100%;
                 height: auto;
+                padding-top: 70px;
                 border-right: none;
                 border-bottom: 1px solid #eef2f7;
             }
 
             #map {
-                height: calc(100vh - 300px);
+                height: 60vh;
             }
 
             main.content {
@@ -114,7 +116,7 @@
     </style>
 </head>
 
-<body>
+<body class="map-page always-show-floating-nav">
     <?= view('partials/floating_nav') ?>
 
     <div id="mapApp">

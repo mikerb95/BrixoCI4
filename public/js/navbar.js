@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 1. Inject Styles — Glassmorphism theme with Inter font
     const style = document.createElement('style');
     style.textContent = `
-        body {
-            padding-top: 90px; /* Adjust for floating glassmorphism navbar */
+        body:not(.map-page) {
+            padding-top: 90px; /* Adjust for floating glassmorphism navbar — skip on map page */
         }
         .navbar-custom {
             height: auto;
