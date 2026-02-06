@@ -92,7 +92,7 @@
                                 <?php foreach ($service['imagenes'] as $index => $img): ?>
                                     <div class="col-3 col-md-2">
                                         <img src="<?= $img ?>" class="gallery-thumb <?= $index === 0 ? 'active' : '' ?>"
-                                            onclick="changeImage(this.src, this)" alt="Thumbnail">
+                                            onclick="changeImage(this.src, this)" alt="Thumbnail" loading="lazy">
                                     </div>
                                 <?php endforeach; ?>
                             </div>

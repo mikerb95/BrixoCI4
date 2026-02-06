@@ -145,7 +145,7 @@
                             data-lng="<?= $pro['lng'] ?>">
                             <div class="d-flex gap-3">
                                 <img src="<?= $pro['imagen'] ?>" alt="<?= $pro['nombre'] ?>"
-                                    class="rounded-3 object-fit-cover" width="120" height="120">
+                                    class="rounded-3 object-fit-cover" width="120" height="120" loading="lazy">
                                 <div class="flex-grow-1">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>

@@ -60,7 +60,7 @@
                     <div class="col-md-6 h-100">
                         <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Profesional trabajando" class="img-fluid h-100 object-fit-cover"
-                            style="min-height: 300px;">
+                            style="min-height: 300px;" loading="lazy">
                     </div>
                 </div>
             </div>
