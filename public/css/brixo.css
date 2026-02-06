@@ -344,10 +344,23 @@ body:not(.home-page) main > section:first-of-type .container {
 .site-footer {
     background-color: #485166;
     color: #f1f5f9; /* texto claro */
+    padding-top: 3rem;
 }
 .site-footer h4, .site-footer .h5 { color: #ffffff; }
 .site-footer a {
     color: #e6eef7;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
-.site-footer a:hover { color: #ffffff; text-decoration: underline; }
+.site-footer a:hover { 
+    color: #ffffff;
+    transform: translateY(-2px);
+    text-decoration: underline;
+}
+
+/* Enhanced hover for footer links */
+.site-footer .hover-text-white:hover {
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+    transform: scale(1.1);
+}

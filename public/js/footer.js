@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentYear = new Date().getFullYear();
         
         const footerHTML = `
-        <footer class="bg-dark text-light py-5 mt-auto">
+        <footer class="site-footer text-light py-5 mt-auto">
             <div class="container">
                 <div class="row">
                     <!-- Brand & About -->
