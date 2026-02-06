@@ -1,3 +1,12 @@
+<?php
+/**
+ * Brixo Unified Footer Partial
+ * 
+ * Includes: footer container, brixoUser globals, modals, navbar.js companion.
+ * NOTE: The unified navbar (partials/navbar.php) must be included at the TOP
+ * of each view's <body>, NOT here. This partial goes at the BOTTOM.
+ */
+?>
 <div id="brixo-footer-container"></div>
 <script src="/js/footer.js"></script>
 
@@ -7,6 +16,10 @@
     window.csrfHash = '<?= csrf_hash() ?>';
 </script>
 
+<?php
+// Only include modals if the navbar partial hasn't already loaded them.
+// The unified navbar no longer includes modals, so we always load them here.
+?>
 <?= view('partials/modals') ?>
 <script src="/js/navbar.js?v=<?= time() ?>"></script>
 
