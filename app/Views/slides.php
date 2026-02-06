@@ -56,7 +56,7 @@
         <?php for ($i = 1; $i <= $totalSlides; $i++): ?>
             <div class="slide <?= $i === 1 ? 'active' : '' ?>" data-slide="<?= $i ?>">
                 <img src="/presentation/Slide<?= $i ?>.PNG" alt="Slide <?= $i ?>"
-                    onerror="this.src='/presentation/Slide<?= $i ?>.png'; this.onerror=null;">
+                    onerror="this.src='/presentation/Slide<?= $i ?>.png'; this.onerror=null;" loading="lazy">
             </div>
         <?php endfor; ?>
     </div>
