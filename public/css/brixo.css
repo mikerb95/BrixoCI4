@@ -1,13 +1,12 @@
 /* Global Styles */
-/* Fuente principal desde Google Fonts: Kedebideri
-   API: https://fonts.googleapis.com/css2?family=Kedebideri:wght@400;600;700&display=swap */
-@import url('https://fonts.googleapis.com/css2?family=Kedebideri:wght@400;600;700&display=swap');
+/* Fuente principal: Inter (Google Fonts) — tipografía moderna y altamente legible */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* Importar sistema de diseño */
 @import url('./design-system.css');
 
 :root {
-    font-family: 'Kedebideri', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 body {
@@ -50,21 +49,30 @@ body.home-page {
     padding-top: 0;
 }
 
-/* Custom Overrides for Bootstrap */
+/* Custom Overrides for Bootstrap — Glassmorphism Navbar */
 .brixo-navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 94%;
+    max-width: 1400px;
     z-index: 1050;
-    background-color: #f5f5f5;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    /* Padding aumentado ~20% para incrementar la altura total */
-    padding-top: 0.76rem;
-    padding-bottom: 0.76rem;
-    box-shadow: none;
-    border-bottom: none;
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 18px;
+    /* Spacing & shadow */
+    padding: 0.6rem 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.brixo-navbar:hover {
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 /* Usar padding interno del primer bloque en lugar de margen externo gris */
@@ -95,27 +103,41 @@ body.home-page {
 }
 
 .brixo-navbar .nav-link {
-    color: #111827;
-    font-size: 0.98rem;
+    color: #1f2937;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
     font-weight: 500;
-    letter-spacing: 0.02em;
-    padding: 0.35rem 0.6rem;
-    border-radius: 30px;
-    transition: background 0.2s ease, color 0.2s ease;
+    letter-spacing: -0.01em;
+    padding: 0.45rem 0.85rem;
+    border-radius: 10px;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.15s ease;
+    position: relative;
 }
 
 .brixo-navbar .nav-link:hover,
 .brixo-navbar .nav-link:focus {
-    background: var(--secondary-color);
+    background: rgba(0, 159, 217, 0.08);
     color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.brixo-navbar .nav-link:active {
+    transform: translateY(0);
 }
 
 .brixo-toggler {
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 0.4rem 0.6rem;
+    transition: background 0.2s ease;
+}
+
+.brixo-toggler:hover {
+    background: rgba(0, 0, 0, 0.04);
 }
 
 .brixo-toggler:focus {
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(0, 159, 217, 0.15);
 }
 .hover-underline:hover {
     text-decoration: underline !important;
@@ -193,66 +215,81 @@ body.home-page {
     .hero-logo img { height: 28px; }
 }
 
-/* Floating navbar new */
+/* Floating navbar — Glassmorphism pill */
 .floating-navbar {
     position: fixed;
-    top: 20px;
+    top: 16px;
     left: 50%;
-    transform: translateX(-50%) translateY(-20px);
-    width: 90%;
+    transform: translateX(-50%) translateY(-24px);
+    width: 92%;
     max-width: 1400px;
-    background: #f5f5f5;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 22px;
-    padding: 20px 36px;
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 18px;
+    padding: 14px 28px;
     display: flex;
     align-items: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .35s ease, transform .35s ease;
+    transition: opacity .4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform .4s cubic-bezier(0.4, 0, 0.2, 1),
+                background .3s ease;
     z-index: 1100;
 }
 .floating-navbar.visible {
-    opacity:1;
-    pointer-events:auto;
+    opacity: 1;
+    pointer-events: auto;
     transform: translateX(-50%) translateY(0);
-    box-shadow: 0 16px 40px -8px rgba(0,0,0,0.28);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.floating-navbar.visible:hover {
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 .floating-navbar .brand {
     color: var(--primary-color);
-    font-size: 1.8rem;
-    letter-spacing: .5px;
-    text-decoration:none;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
 }
 .floating-navbar .brand img {
     display: inline-block;
-    /* mantener consistencia con la navbar principal (aumento ~20%) */
-    height: 34px; /* controla altura del logo dentro de la navbar */
-    width: auto;  /* mantiene proporción */
+    height: 34px;
+    width: auto;
     vertical-align: middle;
     margin-right: 8px;
-    transition: transform .2s ease;
+    transition: transform .25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .floating-navbar .brand img:hover {
-    transform: scale(1.06);
+    transform: scale(1.08);
 }
 .floating-navbar .float-link {
-    color: #2f3033;
-    text-decoration:none;
-    font-weight:600;
-    font-size:1.35rem;
-    padding:6px 14px;
-    border-radius: 30px;
-    transition: background .2s, color .2s;
+    color: #1f2937;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: background .25s ease, color .25s ease, transform 0.15s ease;
 }
 .floating-navbar .float-link:hover {
-    background: var(--secondary-color);
+    background: rgba(0, 159, 217, 0.08);
     color: var(--primary-color);
+    transform: translateY(-1px);
+}
+.floating-navbar .float-link:active {
+    transform: translateY(0);
 }
 @media (max-width: 768px){
-    .floating-navbar { width: 96%; padding: 10px 20px; }
+    .floating-navbar { width: 96%; padding: 10px 18px; border-radius: 14px; }
+    .floating-navbar .float-link { font-size: 0.85rem; padding: 6px 10px; }
 }
 
 /* Glassmorphism / Backdrop Blur */
