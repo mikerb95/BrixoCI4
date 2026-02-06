@@ -35,6 +35,17 @@
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
     --shadow-xl: 0 12px 30px rgba(0, 0, 0, 0.1);
     
+    /* ===== SISTEMA DE TEXT SHADOWS (para accesibilidad) ===== */
+    --text-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --text-shadow-medium: 0 2px 4px rgba(0, 0, 0, 0.5);
+    --text-shadow-strong: 0 2px 8px rgba(0, 0, 0, 0.6);  /* Ratio de contraste 4.5:1 */
+    
+    /* ===== SISTEMA DE OVERLAYS (para accesibilidad) ===== */
+    --overlay-light: rgba(0, 0, 0, 0.3);
+    --overlay-medium: rgba(0, 0, 0, 0.5);
+    --overlay-strong: rgba(0, 0, 0, 0.65);  /* Ratio de contraste 4.5:1 */
+    --overlay-dark: rgba(0, 0, 0, 0.8);
+    
     /* ===== SISTEMA DE TIPOGRAFÍA ===== */
     --font-size-xs: 0.75rem;    /* 12px */
     --font-size-sm: 0.875rem;   /* 14px */
