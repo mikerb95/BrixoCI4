@@ -64,6 +64,11 @@ class Cotizador extends BaseController
         $user    = $session->get('user');
         $cot     = $session->get('ultima_cotizacion');
 
+        // ── Validar que el usuario esté logueado ────────────────
+        if (empty($user)) {
+            return redirect()->to('/login')->with('error', 'Debes iniciar sesión para confirmar una cotización.');
+        }
+
         // ── Validar que haya cotización en sesión ───────────────
         if (empty($cot) || empty($cot['data'])) {
             return redirect()->to('/cotizador')->with('error', 'No hay cotización para confirmar. Genera una primero.');
@@ -78,7 +83,7 @@ class Cotizador extends BaseController
         $data = $cot['data'];
 
         $db->table('COTIZACION_CONFIRMADA')->insert([
-            'id_cliente'         => $user['id'] ?? null,
+            'id_cliente'         => $user['id'],
             'descripcion'        => $cot['descripcion'],
             'servicio_principal' => $data['servicio_principal'],
             'materiales_json'    => json_encode($data['materiales'], JSON_UNESCAPED_UNICODE),

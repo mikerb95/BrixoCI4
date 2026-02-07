@@ -51,11 +51,17 @@
     </div>
     <div class="card-footer bg-white border-top py-3">
         <small class="text-muted d-block text-center mb-3"><i class="fas fa-info-circle me-1"></i>Esta es una estimación generada por IA. Los valores reales pueden variar.</small>
-        <form action="/cotizador/confirmar" method="post">
-            <?= csrf_field() ?>
-            <button type="submit" class="btn btn-success btn-lg rounded-pill w-100 fw-bold">
-                <i class="fas fa-check-circle me-2"></i>Confirmar y Agendar Servicio
-            </button>
-        </form>
+        <?php if (!empty(session()->get('user'))): ?>
+            <form action="/cotizador/confirmar" method="post">
+                <?= csrf_field() ?>
+                <button type="submit" class="btn btn-success btn-lg rounded-pill w-100 fw-bold">
+                    <i class="fas fa-check-circle me-2"></i>Confirmar y Agendar Servicio
+                </button>
+            </form>
+        <?php else: ?>
+            <a href="/login" class="btn btn-outline-primary btn-lg rounded-pill w-100 fw-bold">
+                <i class="fas fa-sign-in-alt me-2"></i>Inicia sesión para confirmar
+            </a>
+        <?php endif; ?>
     </div>
 </div>
