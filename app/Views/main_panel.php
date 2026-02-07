@@ -443,6 +443,55 @@
 
         .fs-btn:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
 
+        .pill-mode {
+            background: rgba(167,139,250,0.08);
+            border-color: rgba(167,139,250,0.2);
+            color: var(--purple);
+            transition: all 0.3s ease;
+        }
+
+        .pill-mode.mode-url {
+            background: rgba(251,191,36,0.08);
+            border-color: rgba(251,191,36,0.2);
+            color: var(--amber);
+        }
+
+        .link-card.active-link {
+            background: rgba(52,211,153,0.08);
+            border-color: rgba(52,211,153,0.25);
+        }
+
+        .link-card.active-link .link-arrow {
+            color: var(--emerald);
+        }
+
+        .back-slides-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            margin: 0.4rem 0.8rem;
+            padding: 0.55rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(96,165,250,0.1));
+            border: 1px solid rgba(167,139,250,0.25);
+            color: var(--purple);
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .back-slides-btn:hover {
+            background: linear-gradient(135deg, rgba(167,139,250,0.25), rgba(96,165,250,0.18));
+            border-color: rgba(167,139,250,0.4);
+        }
+
+        .back-slides-btn.visible {
+            display: flex;
+        }
+
         /* ── Projector overlay ── */
         .projector-badge {
             display: inline-flex;
@@ -471,6 +520,9 @@
             </div>
             <div class="status-pills">
                 <div class="pill pill-live"><span class="blink"></span> En vivo</div>
+                <div class="pill pill-mode" id="mode-pill">
+                    <i class="fas fa-image"></i> <span id="mode-label">Slides</span>
+                </div>
                 <div class="pill pill-timer" id="timer"><i class="fas fa-clock"></i> 00:00</div>
                 <button class="fs-btn" onclick="toggleFullscreen()" title="Pantalla completa">
                     <i class="fas fa-expand"></i>
@@ -523,15 +575,20 @@
         <!-- ═══ RIGHT COLUMN ═══ -->
         <div class="right-col">
             <div class="right-col-header">
-                <h2><i class="fas fa-link"></i> &nbsp;Links para proyectar</h2>
+                <h2><i class="fas fa-tv"></i> &nbsp;Proyectar en /demo</h2>
             </div>
+
+            <!-- Back to slides button -->
+            <button class="back-slides-btn" id="btn-back-slides" onclick="backToSlides()">
+                <i class="fas fa-images"></i> Volver a Diapositivas
+            </button>
 
             <div class="links-scroll">
                 <!-- Demo del proyecto -->
                 <div class="link-group">
                     <div class="link-group-title">🖥️ Demo en vivo</div>
 
-                    <a class="link-card" href="/" target="projector">
+                    <a class="link-card" href="#" data-url="/" onclick="projectUrl('/', this); return false;">
                         <div class="link-icon icon-emerald"><i class="fas fa-home"></i></div>
                         <div class="link-info">
                             <h4>Página Principal</h4>
@@ -540,7 +597,7 @@
                         <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
 
-                    <a class="link-card" href="/map" target="projector">
+                    <a class="link-card" href="#" data-url="/map" onclick="projectUrl('/map', this); return false;">
                         <div class="link-icon icon-blue"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="link-info">
                             <h4>Mapa Interactivo</h4>
@@ -549,7 +606,7 @@
                         <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
 
-                    <a class="link-card" href="/especialidades" target="projector">
+                    <a class="link-card" href="#" data-url="/especialidades" onclick="projectUrl('/especialidades', this); return false;">
                         <div class="link-icon icon-purple"><i class="fas fa-tools"></i></div>
                         <div class="link-info">
                             <h4>Especialidades</h4>
@@ -558,7 +615,7 @@
                         <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
 
-                    <a class="link-card" href="/cotizador" target="projector">
+                    <a class="link-card" href="#" data-url="/cotizador" onclick="projectUrl('/cotizador', this); return false;">
                         <div class="link-icon icon-amber"><i class="fas fa-robot"></i></div>
                         <div class="link-info">
                             <h4>Cotizador IA</h4>
@@ -567,7 +624,7 @@
                         <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
 
-                    <a class="link-card" href="/login" target="projector">
+                    <a class="link-card" href="#" data-url="/login" onclick="projectUrl('/login', this); return false;">
                         <div class="link-icon icon-cyan"><i class="fas fa-sign-in-alt"></i></div>
                         <div class="link-info">
                             <h4>Login / Registro</h4>
@@ -581,7 +638,7 @@
                 <div class="link-group">
                     <div class="link-group-title">👤 Paneles de usuario</div>
 
-                    <a class="link-card" href="/panel" target="projector">
+                    <a class="link-card" href="#" data-url="/panel" onclick="projectUrl('/panel', this); return false;">
                         <div class="link-icon icon-emerald"><i class="fas fa-columns"></i></div>
                         <div class="link-info">
                             <h4>Panel de Control</h4>
@@ -590,7 +647,7 @@
                         <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
 
-                    <a class="link-card" href="/solicitudes" target="projector">
+                    <a class="link-card" href="#" data-url="/solicitudes" onclick="projectUrl('/solicitudes', this); return false;">
                         <div class="link-icon icon-blue"><i class="fas fa-clipboard-list"></i></div>
                         <div class="link-info">
                             <h4>Solicitudes</h4>
@@ -599,7 +656,7 @@
                         <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
 
-                    <a class="link-card" href="/mensajes" target="projector">
+                    <a class="link-card" href="#" data-url="/mensajes" onclick="projectUrl('/mensajes', this); return false;">
                         <div class="link-icon icon-purple"><i class="fas fa-comments"></i></div>
                         <div class="link-info">
                             <h4>Mensajería</h4>
@@ -608,7 +665,7 @@
                         <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
 
-                    <a class="link-card" href="/perfil" target="projector">
+                    <a class="link-card" href="#" data-url="/perfil" onclick="projectUrl('/perfil', this); return false;">
                         <div class="link-icon icon-cyan"><i class="fas fa-user-circle"></i></div>
                         <div class="link-info">
                             <h4>Perfil</h4>
@@ -622,16 +679,7 @@
                 <div class="link-group">
                     <div class="link-group-title">📊 Presentación</div>
 
-                    <a class="link-card" href="/slides" target="projector">
-                        <div class="link-icon icon-red"><i class="fas fa-desktop"></i></div>
-                        <div class="link-info">
-                            <h4>Diapositivas (Pantalla)</h4>
-                            <p>Vista fullscreen para el proyector</p>
-                        </div>
-                        <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
-                    </a>
-
-                    <a class="link-card" href="/showcase" target="projector">
+                    <a class="link-card" href="#" data-url="/showcase" onclick="projectUrl('/showcase', this); return false;">
                         <div class="link-icon icon-amber"><i class="fas fa-star"></i></div>
                         <div class="link-info">
                             <h4>Showcase</h4>
@@ -640,7 +688,7 @@
                         <div class="link-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
 
-                    <a class="link-card" href="/reportes/contratistas" target="projector">
+                    <a class="link-card" href="#" data-url="/reportes/contratistas" onclick="projectUrl('/reportes/contratistas', this); return false;">
                         <div class="link-icon icon-blue"><i class="fas fa-chart-bar"></i></div>
                         <div class="link-info">
                             <h4>Reportes</h4>
@@ -650,11 +698,11 @@
                     </a>
                 </div>
 
-                <!-- Recursos externos -->
+                <!-- Recursos externos (abren en nueva pestaña, no en iframe por seguridad cross-origin) -->
                 <div class="link-group">
                     <div class="link-group-title">🔗 Recursos externos</div>
 
-                    <a class="link-card" href="https://github.com/mikerb95/BrixoCI4" target="projector">
+                    <a class="link-card" href="https://github.com/mikerb95/BrixoCI4" target="_blank" rel="noopener">
                         <div class="link-icon icon-purple"><i class="fab fa-github"></i></div>
                         <div class="link-info">
                             <h4>Repositorio GitHub</h4>
@@ -663,7 +711,7 @@
                         <div class="link-arrow"><i class="fas fa-external-link-alt"></i></div>
                     </a>
 
-                    <a class="link-card" href="https://dashboard.render.com" target="projector">
+                    <a class="link-card" href="https://dashboard.render.com" target="_blank" rel="noopener">
                         <div class="link-icon icon-emerald"><i class="fas fa-cloud"></i></div>
                         <div class="link-info">
                             <h4>Render Dashboard</h4>
@@ -672,7 +720,7 @@
                         <div class="link-arrow"><i class="fas fa-external-link-alt"></i></div>
                     </a>
 
-                    <a class="link-card" href="https://console.aiven.io" target="projector">
+                    <a class="link-card" href="https://console.aiven.io" target="_blank" rel="noopener">
                         <div class="link-icon icon-blue"><i class="fas fa-database"></i></div>
                         <div class="link-info">
                             <h4>Aiven Console</h4>
@@ -684,17 +732,23 @@
             </div>
 
             <!-- Bottom CTA -->
-            <a class="project-btn" href="/" target="projector">
-                <i class="fas fa-rocket"></i> Abrir Brixo en Proyector
+            <a class="project-btn" href="/demo" target="_blank" rel="noopener">
+                <i class="fas fa-tv"></i> Abrir /demo en Proyector
             </a>
         </div>
     </div>
 
     <script>
         let currentSlide = 1;
+        let currentDemoMode = 'slides'; // 'slides' or 'url'
+        let currentProjectedUrl = '';
         const totalSlides = <?= $totalSlides ?>;
         let timerSeconds = 0;
         let timerRunning = false;
+
+        const modePill  = document.getElementById('mode-pill');
+        const modeLabel = document.getElementById('mode-label');
+        const backBtn   = document.getElementById('btn-back-slides');
 
         // ── Timer ──
         function startTimer() {
@@ -710,6 +764,26 @@
 
         document.addEventListener('click', () => startTimer(), { once: true });
         document.addEventListener('touchstart', () => startTimer(), { once: true });
+
+        function updateModeUI() {
+            if (currentDemoMode === 'url') {
+                modePill.classList.add('mode-url');
+                modeLabel.textContent = currentProjectedUrl || 'URL';
+                modePill.querySelector('i').className = 'fas fa-globe';
+                backBtn.classList.add('visible');
+            } else {
+                modePill.classList.remove('mode-url');
+                modeLabel.textContent = `Slide ${currentSlide}`;
+                modePill.querySelector('i').className = 'fas fa-image';
+                backBtn.classList.remove('visible');
+            }
+
+            // Highlight active link
+            document.querySelectorAll('.link-card[data-url]').forEach(card => {
+                card.classList.toggle('active-link',
+                    currentDemoMode === 'url' && card.dataset.url === currentProjectedUrl);
+            });
+        }
 
         function updateUI() {
             // Main image
@@ -732,6 +806,8 @@
             document.getElementById('btn-first').classList.toggle('disabled', currentSlide <= 1);
             document.getElementById('btn-next').classList.toggle('disabled', currentSlide >= totalSlides);
             document.getElementById('btn-last').classList.toggle('disabled', currentSlide >= totalSlides);
+
+            updateModeUI();
         }
 
         function changeSlide(direction) {
@@ -743,6 +819,17 @@
         function goToSlide(num) {
             num = Math.max(1, Math.min(totalSlides, num));
             if (navigator.vibrate) navigator.vibrate(25);
+
+            // If we're in URL mode, switch back to slides first
+            if (currentDemoMode === 'url') {
+                fetch('/api/demo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ mode: 'slides' })
+                });
+                currentDemoMode = 'slides';
+                currentProjectedUrl = '';
+            }
 
             fetch('/api/slide', {
                 method: 'POST',
@@ -756,21 +843,71 @@
             });
         }
 
-        // ── Initial state ──
-        fetch('/api/slide')
+        // ── Project a URL into the /demo iframe ──
+        function projectUrl(url, linkEl) {
+            if (navigator.vibrate) navigator.vibrate(25);
+
+            fetch('/api/demo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mode: 'url', url: url })
+            })
             .then(r => r.json())
-            .then(data => { currentSlide = data.slide; updateUI(); });
+            .then(data => {
+                currentDemoMode = 'url';
+                currentProjectedUrl = url;
+                updateModeUI();
+            });
+        }
+
+        // ── Back to slides ──
+        function backToSlides() {
+            if (navigator.vibrate) navigator.vibrate(25);
+
+            fetch('/api/demo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mode: 'slides' })
+            })
+            .then(r => r.json())
+            .then(() => {
+                currentDemoMode = 'slides';
+                currentProjectedUrl = '';
+                updateUI();
+            });
+        }
+
+        // ── Initial state ──
+        Promise.all([
+            fetch('/api/slide').then(r => r.json()),
+            fetch('/api/demo').then(r => r.json())
+        ]).then(([slideData, demoData]) => {
+            currentSlide = slideData.slide;
+            currentDemoMode = demoData.mode || 'slides';
+            currentProjectedUrl = demoData.url || '';
+            updateUI();
+        });
 
         // ── Poll ──
         setInterval(() => {
-            fetch('/api/slide')
-                .then(r => r.json())
-                .then(data => {
-                    if (data.slide !== currentSlide) {
-                        currentSlide = data.slide;
-                        updateUI();
-                    }
-                });
+            Promise.all([
+                fetch('/api/slide').then(r => r.json()),
+                fetch('/api/demo').then(r => r.json())
+            ]).then(([slideData, demoData]) => {
+                let changed = false;
+                if (slideData.slide !== currentSlide) {
+                    currentSlide = slideData.slide;
+                    changed = true;
+                }
+                const newMode = demoData.mode || 'slides';
+                const newUrl = demoData.url || '';
+                if (newMode !== currentDemoMode || newUrl !== currentProjectedUrl) {
+                    currentDemoMode = newMode;
+                    currentProjectedUrl = newUrl;
+                    changed = true;
+                }
+                if (changed) updateUI();
+            });
         }, 1200);
 
         // ── Keyboard shortcuts ──
@@ -779,6 +916,7 @@
             if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); changeSlide(-1); }
             if (e.key === 'Home') { e.preventDefault(); goToSlide(1); }
             if (e.key === 'End') { e.preventDefault(); goToSlide(totalSlides); }
+            if (e.key === 'Escape' && currentDemoMode === 'url') { e.preventDefault(); backToSlides(); }
         });
 
         function toggleFullscreen() {

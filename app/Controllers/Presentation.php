@@ -40,6 +40,12 @@ class Presentation extends Controller
         return view('main_panel', $data);
     }
 
+    public function demo()
+    {
+        $data['totalSlides'] = $this->getTotalSlides();
+        return view('demo', $data);
+    }
+
     public function apiSlide()
     {
         $cache = \Config\Services::cache();
@@ -54,6 +60,44 @@ class Presentation extends Controller
         } else {
             $slide = $cache->get('current_slide') ?? 1;
             return $this->response->setJSON(['slide' => $slide]);
+        }
+    }
+
+    /**
+     * API para controlar la pantalla /demo (iframe)
+     * Soporta dos modos:
+     *   - slides: muestra la diapositiva actual
+     *   - url: navega a una URL del proyecto dentro del iframe
+     *
+     * POST { mode: "slides" }           → volver a slides
+     * POST { mode: "url", url: "/map" } → mostrar /map en el iframe
+     * GET                                → obtener estado actual
+     */
+    public function apiDemo()
+    {
+        $cache = \Config\Services::cache();
+
+        if ($this->request->getMethod() === 'POST') {
+            $data = $this->request->getJSON(true);
+            $mode = $data['mode'] ?? 'slides';
+
+            if ($mode === 'url' && !empty($data['url'])) {
+                $url = $data['url'];
+                $state = ['mode' => 'url', 'url' => $url];
+            } else {
+                $state = ['mode' => 'slides'];
+            }
+
+            $cache->save('demo_state', json_encode($state), 3600);
+            return $this->response->setJSON($state);
+        } else {
+            $raw = $cache->get('demo_state');
+            $state = $raw ? json_decode($raw, true) : ['mode' => 'slides'];
+            // Si estamos en modo slides, incluir el slide actual
+            if ($state['mode'] === 'slides') {
+                $state['slide'] = $cache->get('current_slide') ?? 1;
+            }
+            return $this->response->setJSON($state);
         }
     }
 }
