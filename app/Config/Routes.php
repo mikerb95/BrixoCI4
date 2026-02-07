@@ -75,4 +75,6 @@ $routes->get('/showcase', 'Showcase::index');
 // Cotizador inteligente (IA)
 $routes->get('/cotizador', 'Cotizador::index');
 $routes->post('/cotizador/generar', 'Cotizador::generar');
+$routes->post('/cotizador/confirmar', 'Cotizador::confirmar');
+$routes->get('/cotizador/exito', 'Cotizador::exito');
 
