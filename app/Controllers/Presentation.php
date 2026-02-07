@@ -28,6 +28,18 @@ class Presentation extends Controller
         return view('remote', $data);
     }
 
+    public function presenter()
+    {
+        $data['totalSlides'] = $this->getTotalSlides();
+        return view('presenter', $data);
+    }
+
+    public function mainPanel()
+    {
+        $data['totalSlides'] = $this->getTotalSlides();
+        return view('main_panel', $data);
+    }
+
     public function apiSlide()
     {
         $cache = \Config\Services::cache();
