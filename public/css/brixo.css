@@ -160,7 +160,7 @@ body.home-page {
     letter-spacing: -0.04em;
     color: var(--bn-text);
 }
-.bn--overlay:not(.bn--scrolled) .bn__brand-text {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__brand-text {
     color: #fff;
 }
 
@@ -201,16 +201,16 @@ body.home-page {
     font-weight: 600;
 }
 
-/* Overlay text colors (white over hero/map) */
-.bn--overlay:not(.bn--scrolled) .bn__link {
+/* Overlay text colors (white over hero) */
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__link {
     color: rgba(255, 255, 255, 0.85);
 }
-.bn--overlay:not(.bn--scrolled) .bn__link:hover,
-.bn--overlay:not(.bn--scrolled) .bn__link:focus-visible {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__link:hover,
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__link:focus-visible {
     color: #fff;
     background: rgba(255, 255, 255, 0.12);
 }
-.bn--overlay:not(.bn--scrolled) .bn__link--active {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__link--active {
     color: #fff;
     background: rgba(255, 255, 255, 0.1);
 }
@@ -245,12 +245,12 @@ body.home-page {
 .bn__btn--block { width: 100%; }
 
 /* Overlay button */
-.bn--overlay:not(.bn--scrolled) .bn__btn {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__btn {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
-.bn--overlay:not(.bn--scrolled) .bn__btn:hover {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__btn:hover {
     background: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -289,12 +289,12 @@ body.home-page {
 }
 
 /* Overlay user toggle */
-.bn--overlay:not(.bn--scrolled) .bn__user-toggle {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__user-toggle {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
     color: #fff;
 }
-.bn--overlay:not(.bn--scrolled) .bn__user-toggle:hover {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__user-toggle:hover {
     background: rgba(255, 255, 255, 0.18);
 }
 
@@ -447,11 +447,11 @@ body.home-page {
                 opacity var(--bn-transition);
 }
 /* Overlay burger */
-.bn--overlay:not(.bn--scrolled) .bn__burger {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__burger {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
 }
-.bn--overlay:not(.bn--scrolled) .bn__burger span {
+.bn--overlay:not(.bn--scrolled):not(.bn--map) .bn__burger span {
     background: #fff;
 }
 /* Open state */
