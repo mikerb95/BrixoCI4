@@ -23,7 +23,7 @@ $_nav_overlay  = $_nav_is_home || $_nav_is_map;
 $_nav_user = session()->get('user');
 ?>
 
-<nav class="bn <?= $_nav_overlay ? 'bn--overlay' : 'bn--solid' ?>" id="brixoNav" role="navigation" aria-label="Navegación principal">
+<nav class="bn <?= $_nav_overlay ? 'bn--overlay' : 'bn--solid' ?><?= $_nav_is_map ? ' bn--map' : '' ?>" id="brixoNav" role="navigation" aria-label="Navegación principal">
     <div class="bn__inner">
 
         <!-- ── Brand ── -->

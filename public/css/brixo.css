@@ -99,6 +99,24 @@ body.home-page {
     border-bottom: 1px solid transparent;
     box-shadow: none;
 }
+/* Map mode: permanent glass (no scroll on map page) */
+.bn--overlay.bn--map {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(var(--bn-blur)) saturate(1.6);
+    -webkit-backdrop-filter: blur(var(--bn-blur)) saturate(1.6);
+    border-bottom-color: var(--bn-glass-border);
+    box-shadow: var(--bn-glass-shadow);
+}
+.bn--overlay.bn--map .bn__link       { color: var(--bn-text); }
+.bn--overlay.bn--map .bn__link:hover  { color: var(--bn-accent); background: rgba(0,0,0,0.05); }
+.bn--overlay.bn--map .bn__link--active { color: var(--bn-accent); background: transparent; }
+.bn--overlay.bn--map .bn__brand-text  { color: var(--bn-text); }
+.bn--overlay.bn--map .bn__btn         { background: var(--bn-accent); border: none; backdrop-filter: none; }
+.bn--overlay.bn--map .bn__btn:hover   { background: var(--primary-hover, #0077B6); }
+.bn--overlay.bn--map .bn__user-toggle { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.06); color: var(--bn-text); }
+.bn--overlay.bn--map .bn__burger      { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.06); }
+.bn--overlay.bn--map .bn__burger span { background: var(--bn-text); }
+
 /* Overlay scrolled: glass kicks in */
 .bn--overlay.bn--scrolled {
     background: var(--bn-glass-bg);
