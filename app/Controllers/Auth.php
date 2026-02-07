@@ -68,6 +68,12 @@ class Auth extends BaseController
         $session->regenerate();
         $session->setFlashdata('message', 'Inicio de sesión correcto. ¡Bienvenido!');
 
+        // Respetar redirect_to si fue enviado (ej: desde modal en /cotizador)
+        $redirectTo = $this->request->getPost('redirect_to');
+        if (!empty($redirectTo) && str_starts_with($redirectTo, '/')) {
+            return redirect()->to($redirectTo);
+        }
+
         return redirect()->to('/panel');
     }
 
