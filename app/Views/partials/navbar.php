@@ -36,6 +36,7 @@ $_nav_user = session()->get('user');
         <ul class="bn__menu" id="bnMenu">
             <li><a href="/especialidades" class="bn__link <?= strpos($_nav_path, '/especialidades') === 0 ? 'bn__link--active' : '' ?>">Especialidades</a></li>
             <li><a href="/map"             class="bn__link <?= $_nav_is_map ? 'bn__link--active' : '' ?>">Mapa</a></li>
+            <li><a href="/cotizador"       class="bn__link <?= strpos($_nav_path, '/cotizador') === 0 ? 'bn__link--active' : '' ?>"><i class="fas fa-calculator me-1"></i>Cotizador</a></li>
         </ul>
 
         <!-- ── Acciones derecha ── -->
@@ -92,6 +93,7 @@ $_nav_user = session()->get('user');
         <ul class="bn__mobile-links">
             <li><a href="/especialidades">Especialidades</a></li>
             <li><a href="/map">Mapa</a></li>
+            <li><a href="/cotizador"><i class="fas fa-calculator me-1"></i>Cotizador</a></li>
         </ul>
         <div class="bn__mobile-divider"></div>
         <?php if (!empty($_nav_user)): ?>
