@@ -49,7 +49,13 @@
             </table>
         </div>
     </div>
-    <div class="card-footer bg-white border-top text-center py-3">
-        <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Esta es una estimación generada por IA. Los valores reales pueden variar.</small>
+    <div class="card-footer bg-white border-top py-3">
+        <small class="text-muted d-block text-center mb-3"><i class="fas fa-info-circle me-1"></i>Esta es una estimación generada por IA. Los valores reales pueden variar.</small>
+        <form action="/cotizador/confirmar" method="post">
+            <?= csrf_field() ?>
+            <button type="submit" class="btn btn-success btn-lg rounded-pill w-100 fw-bold">
+                <i class="fas fa-check-circle me-2"></i>Confirmar y Agendar Servicio
+            </button>
+        </form>
     </div>
 </div>
