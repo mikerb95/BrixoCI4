@@ -121,6 +121,21 @@
         const csrfValue = '<?= csrf_hash() ?>';
         const isLoggedIn = <?= !empty(session()->get('user')) ? 'true' : 'false' ?>;
 
+        // Inyectar redirect_to al modal de login para que vuelva al cotizador
+        const loginModal = document.getElementById('loginModal');
+        if (loginModal) {
+            loginModal.addEventListener('show.bs.modal', function () {
+                const loginForm = loginModal.querySelector('form');
+                if (loginForm && !loginForm.querySelector('input[name="redirect_to"]')) {
+                    const hidden = document.createElement('input');
+                    hidden.type = 'hidden';
+                    hidden.name = 'redirect_to';
+                    hidden.value = '/cotizador';
+                    loginForm.appendChild(hidden);
+                }
+            });
+        }
+
         // Chips de ejemplo
         document.querySelectorAll('.example-chip').forEach(chip => {
             chip.addEventListener('click', () => {
