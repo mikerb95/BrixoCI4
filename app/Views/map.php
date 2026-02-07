@@ -36,7 +36,7 @@
         .left-sidebar {
             width: 400px;
             padding: 16px;
-            padding-top: 80px; /* Space for floating navbar overlay */
+            padding-top: 72px; /* Space for floating navbar overlay */
             background: #fff;
             border-right: 1px solid #eef2f7;
             height: 100vh;
@@ -100,7 +100,7 @@
             .left-sidebar {
                 width: 100%;
                 height: auto;
-                padding-top: 70px;
+                padding-top: 72px;
                 border-right: none;
                 border-bottom: 1px solid #eef2f7;
             }
