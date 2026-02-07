@@ -8,7 +8,7 @@ namespace App\Libraries;
  * Lee las claves desde .env:
  *   LLM_PROVIDER   = anthropic | openai | groq
  *   LLM_API_KEY    = sk-... | gsk_...
- *   LLM_MODEL      = claude-sonnet-4-20250514 | gpt-4o-mini | llama-3.1-70b-versatile  (opcional)
+ *   LLM_MODEL      = claude-sonnet-4-20250514 | gpt-4o-mini | llama-3.3-70b-versatile  (opcional)
  */
 class LlmService
 {
@@ -59,7 +59,7 @@ PROMPT;
 
         $defaultModel = match ($this->provider) {
             'openai'    => 'gpt-4o-mini',
-            'groq'      => 'llama-3.1-70b-versatile',
+            'groq'      => 'llama-3.3-70b-versatile',
             default     => 'claude-sonnet-4-20250514',
         };
         $this->model = env('LLM_MODEL', $defaultModel);
