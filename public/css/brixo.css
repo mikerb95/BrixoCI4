@@ -10,9 +10,11 @@
 }
 
 body {
-    background-color: #f5f5f5;
-    /* Padding-top eliminado para que el contenido comience inmediatamente bajo la navbar fija */
+    background-color: var(--neutral-50);
     padding-top: 0;
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Cuando la navbar flotante está presente (se añade la clase `floating-offset` al body) 
@@ -55,22 +57,18 @@ body.home-page {
 .brixo-nav {
     width: 100%;
     z-index: 1050;
-    /* Glassmorphism */
-    background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(10px) saturate(160%);
-    -webkit-backdrop-filter: blur(10px) saturate(160%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-    /* Subtle rounded feel */
-    border-radius: 0 0 14px 14px;
-    /* Spacing */
-    padding: 0.6rem 1.5rem;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0;
+    padding: 0.75rem 2rem;
+    box-shadow: none;
     transition: background 0.3s ease, box-shadow 0.3s ease;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 .brixo-nav:hover {
-    background: rgba(255, 255, 255, 0.22);
-    box-shadow: 0 6px 32px rgba(0, 0, 0, 0.10);
+    background: rgba(255, 255, 255, 0.20);
 }
 
 /* ── Standard mode: relative, pushes content down ── */
@@ -405,8 +403,8 @@ body.map-page main.content {
     border-color: #fff;
 }
 
-/* Aplicar padding interno superior al contenido del hero en todas las páginas */
-.hero {
+/* Hero base padding (non-home pages only) */
+.hero:not(.brixo-hero) {
     padding-top: 50px;
 }
 
@@ -475,25 +473,23 @@ body:not(.home-page) main > section:first-of-type .container {
 
 /* -------- Footer -------- */
 .site-footer {
-    background-color: #485166;
-    color: #f1f5f9; /* texto claro */
-    padding-top: 3rem;
+    background-color: var(--neutral-900);
+    color: rgba(255,255,255,0.7);
+    padding-top: 3.5rem;
 }
-.site-footer h4, .site-footer .h5 { color: #ffffff; }
+.site-footer h4, .site-footer .h5 {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
 .site-footer a {
-    color: #e6eef7;
+    color: rgba(255,255,255,0.7);
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: color var(--transition-fast);
 }
-.site-footer a:hover { 
-    color: #ffffff;
-    transform: translateY(-2px);
-    text-decoration: underline;
+.site-footer a:hover {
+    color: #fff;
 }
-
-/* Enhanced hover for footer links */
 .site-footer .hover-text-white:hover {
     color: #ffffff !important;
-    transition: all 0.3s ease;
-    transform: scale(1.1);
 }

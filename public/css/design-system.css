@@ -73,15 +73,26 @@
     --warning-color: #F59E0B;
     --error-color: #EF4444;
     
-    /* Colores neutrales */
-    --neutral-50: #F9FAFB;
-    --neutral-100: #F3F4F6;
-    --neutral-900: #111827;
+    /* Colores neutrales - warm tones (estilo IKEA/catálogo) */
+    --neutral-50: #FAFAF8;
+    --neutral-100: #F5F5F0;
+    --neutral-200: #E8E8E0;
+    --neutral-300: #D4D4CC;
+    --neutral-600: #6B6B63;
+    --neutral-900: #111111;
+    
+    /* Colores de acento para bloques editoriales */
+    --accent-warm: #FFC72C;       /* Amarillo cálido - CTAs secundarios */
+    --accent-warm-hover: #E6B200;
+    --accent-sand: #F5F0E6;       /* Arena - fondos alternos cálidos */
+    --accent-terracotta: #C45C3C;  /* Terracota - detalles de énfasis */
+    --accent-sage: #7A9E7E;        /* Verde salvia - badges, éxito */
     
     /* Colores heredados (mantener compatibilidad) */
     --secondary-color: #f2f2f2;
-    --text-color: #2f3033;
-    --border-color: #e2e2e2;
+    --text-color: #111111;
+    --text-secondary: #555550;
+    --border-color: #E8E8E0;
     
     /* ===== OTROS VALORES DEL SISTEMA ===== */
     --navbar-offset: 84px;
