@@ -205,7 +205,7 @@
             transform: scale(1.04);
         }
 
-        /* ── Category pills (estilo IKEA room browsing) ── */
+        /* ── Category pills (estilo navegación editorial moderna) ── */
         .cat-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
