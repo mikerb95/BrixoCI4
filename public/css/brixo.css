@@ -712,3 +712,40 @@ body:not(.home-page) main > section:first-of-type .container {
 .site-footer .hover-text-white:hover {
     color: #ffffff !important;
 }
+
+/* =========================================
+   PASSWORD TOGGLE (Eye Icon)
+   ========================================= */
+.password-field-wrapper {
+    position: relative;
+    display: block;
+}
+
+.password-field-wrapper input[type="password"],
+.password-field-wrapper input[type="text"] {
+    padding-right: 3rem !important;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    font-size: 1.1rem;
+    padding: 0.5rem 0.85rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 5;
+}
+
+.password-toggle-btn:hover {
+    color: var(--primary-color, #009fd9);
+}
+
+.password-toggle-btn:focus {
+    outline: none;
+    color: var(--primary-color, #009fd9);
+}
