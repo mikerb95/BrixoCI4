@@ -3,16 +3,16 @@
 namespace App\Libraries;
 
 /**
- * LlmService – Wrapper para APIs de LLM (Anthropic Claude / OpenAI).
+ * LlmService – Wrapper para APIs de LLM (Anthropic Claude / OpenAI / Groq).
  *
  * Lee las claves desde .env:
- *   LLM_PROVIDER   = anthropic | openai
- *   LLM_API_KEY    = sk-...
- *   LLM_MODEL      = claude-sonnet-4-20250514 | gpt-4o-mini  (opcional)
+ *   LLM_PROVIDER   = anthropic | openai | groq
+ *   LLM_API_KEY    = sk-... | gsk_...
+ *   LLM_MODEL      = claude-sonnet-4-20250514 | gpt-4o-mini | llama-3.1-70b-versatile  (opcional)
  */
 class LlmService
 {
-    /** @var string 'anthropic' | 'openai' */
+    /** @var string 'anthropic' | 'openai' | 'groq' */
     private string $provider;
 
     /** @var string API key */
@@ -54,11 +54,15 @@ PROMPT;
 
     public function __construct()
     {
-        $this->provider = env('LLM_PROVIDER', 'anthropic');
+        $this->provider = env('LLM_PROVIDER', 'groq');
         $this->apiKey   = env('LLM_API_KEY', '');
 
-        $defaultModel = $this->provider === 'openai' ? 'gpt-4o-mini' : 'claude-sonnet-4-20250514';
-        $this->model  = env('LLM_MODEL', $defaultModel);
+        $defaultModel = match ($this->provider) {
+            'openai'    => 'gpt-4o-mini',
+            'groq'      => 'llama-3.1-70b-versatile',
+            default     => 'claude-sonnet-4-20250514',
+        };
+        $this->model = env('LLM_MODEL', $defaultModel);
     }
 
     // ----------------------------------------------------------------
@@ -86,6 +90,7 @@ PROMPT;
         $raw = match ($this->provider) {
             'openai'    => $this->callOpenAI($descripcionUsuario),
             'anthropic' => $this->callAnthropic($descripcionUsuario),
+            'groq'      => $this->callGroq($descripcionUsuario),
             default     => null,
         };
 
@@ -178,6 +183,33 @@ PROMPT;
         return $this->curlPost($url, $payload, $headers);
     }
 
+    /**
+     * Llama a la API de Groq (compatible con formato OpenAI).
+     * Usa response_format json_object para garantizar JSON limpio.
+     */
+    private function callGroq(string $userMessage): ?array
+    {
+        $url = 'https://api.groq.com/openai/v1/chat/completions';
+
+        $payload = [
+            'model'           => $this->model,
+            'max_tokens'      => 1024,
+            'temperature'     => 0.3,
+            'response_format' => ['type' => 'json_object'],
+            'messages'        => [
+                ['role' => 'system',  'content' => self::SYSTEM_PROMPT],
+                ['role' => 'user',    'content' => $userMessage],
+            ],
+        ];
+
+        $headers = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $this->apiKey,
+        ];
+
+        return $this->curlPost($url, $payload, $headers);
+    }
+
     // ----------------------------------------------------------------
     // Utilidades internas
     // ----------------------------------------------------------------
@@ -231,7 +263,7 @@ PROMPT;
             return $response['content'][0]['text'];
         }
 
-        // OpenAI: { choices: [{ message: { content: "..." } }] }
+        // OpenAI / Groq: { choices: [{ message: { content: "..." } }] }
         if (isset($response['choices'][0]['message']['content'])) {
             return $response['choices'][0]['message']['content'];
         }
