@@ -94,39 +94,50 @@
             </div>
         </div>
 
+        <!-- Solicitud creada -->
+        <?php if (!empty($cotizacion['id_solicitud'])): ?>
+        <div class="alert alert-success border-0 shadow-sm rounded-4 d-flex align-items-center mb-4" role="alert">
+            <i class="fas fa-clipboard-check fs-4 me-3"></i>
+            <div>
+                <strong>Solicitud #<?= esc($cotizacion['id_solicitud']) ?> creada automáticamente.</strong>
+                <span class="d-block small text-muted">Puedes verla y editarla desde tu panel en <strong>Mis Solicitudes</strong>.</span>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <!-- Próximos pasos -->
         <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
             <h5 class="fw-bold mb-3"><i class="fas fa-route text-primary me-2"></i>¿Qué sigue?</h5>
             <div class="d-flex align-items-start mb-3">
                 <span class="badge bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0;">1</span>
                 <div>
-                    <strong>Revisamos tu solicitud</strong>
-                    <p class="text-muted mb-0 small">Nuestro equipo verificará los detalles de tu cotización.</p>
+                    <strong>Tu solicitud ya está publicada</strong>
+                    <p class="text-muted mb-0 small">Fue agregada a <strong>Mis Solicitudes</strong> y al tablón de tareas para contratistas.</p>
                 </div>
             </div>
             <div class="d-flex align-items-start mb-3">
                 <span class="badge bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0;">2</span>
                 <div>
-                    <strong>Te conectamos con profesionales</strong>
-                    <p class="text-muted mb-0 small">Recibirás ofertas de contratistas verificados en tu zona.</p>
+                    <strong>Contratistas podrán contactarte</strong>
+                    <p class="text-muted mb-0 small">Profesionales verificados en tu zona verán tu solicitud y te escribirán.</p>
                 </div>
             </div>
             <div class="d-flex align-items-start">
                 <span class="badge bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0;">3</span>
                 <div>
-                    <strong>Agenda y listo</strong>
-                    <p class="text-muted mb-0 small">Elige al profesional que prefieras y coordina la fecha.</p>
+                    <strong>Acepta y agenda</strong>
+                    <p class="text-muted mb-0 small">Cuando elijas un contratista, la solicitud se convertirá en un contrato formal.</p>
                 </div>
             </div>
         </div>
 
         <!-- Acciones -->
-        <div class="d-flex flex-column flex-sm-row gap-3">
+        <div class="d-flex flex-column flex-sm-row gap-3 flex-wrap">
+            <a href="/panel" class="btn btn-success btn-lg rounded-pill flex-fill text-center">
+                <i class="fas fa-clipboard-list me-2"></i>Ver Mis Solicitudes
+            </a>
             <a href="/cotizador" class="btn btn-primary btn-lg rounded-pill flex-fill text-center">
                 <i class="fas fa-plus me-2"></i>Nueva Cotización
-            </a>
-            <a href="/panel" class="btn btn-outline-secondary btn-lg rounded-pill flex-fill text-center">
-                <i class="fas fa-th-large me-2"></i>Ir a Mi Panel
             </a>
             <a href="/map" class="btn btn-outline-dark btn-lg rounded-pill flex-fill text-center">
                 <i class="fas fa-map-marked-alt me-2"></i>Explorar Mapa

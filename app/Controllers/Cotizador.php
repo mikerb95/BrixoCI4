@@ -74,10 +74,8 @@ class Cotizador extends BaseController
             return redirect()->to('/cotizador')->with('error', 'No hay cotización para confirmar. Genera una primero.');
         }
 
-        // ── Guardar en BD ───────────────────────────────────────
+        // ── Guardar cotización confirmada en BD ─────────────────
         $db = db_connect();
-
-        // Crear tabla si no existe (idempotente)
         $this->ensureCotizacionesTable($db);
 
         $data = $cot['data'];
@@ -94,20 +92,20 @@ class Cotizador extends BaseController
             'confirmado_en'      => date('Y-m-d H:i:s'),
         ]);
 
-        $insertId = $db->insertID();
+        // ── Preparar datos para pre-llenar solicitud ─────────────
+        $desglose = $this->buildDesglose($data);
+        $descripcionSolicitud = $cot['descripcion'] . "\n\n--- Desglose estimado (IA) ---\n" . $desglose;
 
-        // ── Limpiar sesión ──────────────────────────────────────
+        $session->set('prefill_solicitud', [
+            'titulo'      => $data['servicio_principal'],
+            'descripcion' => $descripcionSolicitud,
+        ]);
+
+        // ── Limpiar cotización de sesión ─────────────────────────
         $session->remove('ultima_cotizacion');
 
-        // ── Redirigir a vista de éxito ──────────────────────────
-        return redirect()->to('/cotizador/exito')->with('cotizacion_ok', [
-            'id'                 => $insertId,
-            'servicio_principal' => $data['servicio_principal'],
-            'complejidad'        => $data['complejidad'],
-            'materiales'         => $data['materiales'],
-            'personal'           => $data['personal'],
-            'descripcion'        => $cot['descripcion'],
-        ]);
+        // ── Redirigir al formulario de nueva solicitud ──────────
+        return redirect()->to('/solicitud/nueva');
     }
 
     /**
@@ -175,5 +173,51 @@ class Cotizador extends BaseController
             'cotizacion'   => $ok ? $data : null,
             'error'        => $ok ? null : $error,
         ]);
+    }
+
+    /**
+     * Genera un texto resumido del desglose para la descripción de la solicitud.
+     */
+    private function buildDesglose(array $data): string
+    {
+        $lines = [];
+
+        if (!empty($data['materiales'])) {
+            $lines[] = 'Materiales:';
+            foreach ($data['materiales'] as $m) {
+                $lines[] = '  • ' . ($m['nombre'] ?? '') . ' — Cant: ' . ($m['cantidad_estimada'] ?? '');
+            }
+        }
+
+        if (!empty($data['personal'])) {
+            $lines[] = 'Personal:';
+            foreach ($data['personal'] as $p) {
+                $lines[] = '  • ' . ($p['rol'] ?? '') . ' — ' . ($p['horas_estimadas'] ?? '') . ' hrs';
+            }
+        }
+
+        $lines[] = 'Complejidad: ' . ucfirst($data['complejidad'] ?? 'medio');
+
+        return implode("\n", $lines);
+    }
+
+    /**
+     * Crea la tabla SOLICITUD si no existe (idempotente).
+     */
+    private function ensureSolicitudTable($db): void
+    {
+        $db->query("
+            CREATE TABLE IF NOT EXISTS SOLICITUD (
+                id_solicitud INT AUTO_INCREMENT PRIMARY KEY,
+                id_cliente INT NOT NULL,
+                id_contratista INT NULL,
+                titulo VARCHAR(150) NOT NULL,
+                descripcion TEXT NOT NULL,
+                presupuesto DECIMAL(12,2) DEFAULT 0,
+                ubicacion VARCHAR(255) DEFAULT '',
+                estado ENUM('ABIERTA','ASIGNADA','COMPLETADA','CANCELADA') DEFAULT 'ABIERTA',
+                creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+        ");
     }
 }

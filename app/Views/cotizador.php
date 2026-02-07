@@ -258,11 +258,11 @@
                         ? `<form action="/cotizador/confirmar" method="post" id="formConfirmar">
                             <input type="hidden" name="${csrfName}" value="${csrfValue}">
                             <button type="submit" class="btn btn-success btn-lg rounded-pill w-100 fw-bold">
-                                <i class="fas fa-check-circle me-2"></i>Confirmar y Agendar Servicio
+                                <i class="fas fa-clipboard-list me-2"></i>Crear Solicitud de Servicio
                             </button>
                            </form>`
                         : `<a href="#" class="btn btn-outline-primary btn-lg rounded-pill w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#loginModal">
-                            <i class="fas fa-sign-in-alt me-2"></i>Inicia sesión para confirmar
+                            <i class="fas fa-sign-in-alt me-2"></i>Inicia sesión para continuar
                            </a>`
                     }
                 </div>

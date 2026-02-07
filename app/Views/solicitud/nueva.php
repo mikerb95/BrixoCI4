@@ -43,17 +43,28 @@
                                 </div>
                             <?php endif; ?>
 
+                            <?php if (!empty($prefill)): ?>
+                                <div class="alert alert-info d-flex align-items-start border-0 rounded-3 mb-4">
+                                    <i class="fas fa-robot fs-5 me-3 mt-1"></i>
+                                    <div>
+                                        <strong>Datos pre-llenados desde el Cotizador IA</strong>
+                                        <p class="mb-0 small text-muted">El título y la descripción se completaron automáticamente. Puedes editarlos antes de publicar. Completa la ubicación y presupuesto.</p>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
                             <div class="mb-3">
                                 <label for="titulo" class="form-label fw-semibold">Título de la solicitud</label>
                                 <input type="text" class="form-control p-3" id="titulo" name="titulo"
+                                    value="<?= esc($prefill['titulo'] ?? '') ?>"
                                     placeholder="Ej: Reparación de tubería en cocina" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="descripcion" class="form-label fw-semibold">Descripción detallada</label>
-                                <textarea class="form-control p-3" id="descripcion" name="descripcion" rows="5"
+                                <textarea class="form-control p-3" id="descripcion" name="descripcion" rows="<?= !empty($prefill['descripcion']) ? '10' : '5' ?>"
                                     placeholder="Describe el problema, qué necesitas y cualquier detalle relevante..."
-                                    required></textarea>
+                                    required><?= esc($prefill['descripcion'] ?? '') ?></textarea>
                             </div>
 
                             <div class="row">

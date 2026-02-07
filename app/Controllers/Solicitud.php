@@ -28,10 +28,15 @@ class Solicitud extends BaseController
             }
         }
 
+        // Pre-fill desde cotizador (si viene de /cotizador/confirmar)
+        $prefill = $session->get('prefill_solicitud');
+        $session->remove('prefill_solicitud');
+
         return view('solicitud/nueva', [
             'user' => $user,
             'id_contratista' => $idContratista,
-            'nombre_contratista' => $nombreContratista
+            'nombre_contratista' => $nombreContratista,
+            'prefill' => $prefill ?? [],
         ]);
     }
 
