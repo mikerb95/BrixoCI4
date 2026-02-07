@@ -59,7 +59,7 @@
                 </button>
             </form>
         <?php else: ?>
-            <a href="/login" class="btn btn-outline-primary btn-lg rounded-pill w-100 fw-bold">
+            <a href="#" class="btn btn-outline-primary btn-lg rounded-pill w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#loginModal">
                 <i class="fas fa-sign-in-alt me-2"></i>Inicia sesión para confirmar
             </a>
         <?php endif; ?>
