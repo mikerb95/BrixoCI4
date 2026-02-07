@@ -68,12 +68,12 @@
                     </div>
                     <div class="col-md text-center text-md-start mt-3 mt-md-0">
                         <h1 class="fw-bold mb-1">
-                            <?= $pro['nombre'] ?>
-                            <?php if ($pro['verificado']): ?>
+                            <?= esc($pro['nombre']) ?>
+                            <?php if (!empty($pro['verificado'])): ?>
                                 <i class="fas fa-check-circle verified-badge fs-4" title="Identidad Verificada"></i>
                             <?php endif; ?>
                         </h1>
-                        <h4 class="text-muted mb-2"><?= $pro['profesion'] ?></h4>
+                        <h4 class="text-muted mb-2"><?= esc($pro['profesion'] ?? 'Profesional') ?></h4>
                         <div
                             class="d-flex align-items-center justify-content-center justify-content-md-start gap-3 mb-2">
                             <div class="d-flex align-items-center">
@@ -115,7 +115,7 @@
                     <!-- About Section -->
                     <section class="mb-5">
                         <h3 class="fw-bold mb-3">Sobre mí</h3>
-                        <p class="lead fs-6 text-secondary"><?= $pro['descripcion'] ?></p>
+                        <p class="lead fs-6 text-secondary"><?= esc($pro['descripcion'] ?? 'Sin descripción disponible.') ?></p>
                         <div class="row mt-4">
                             <div class="col-md-6 mb-3">
                                 <div class="d-flex align-items-center">
@@ -124,7 +124,7 @@
                                     </div>
                                     <div>
                                         <div class="fw-bold">Experiencia</div>
-                                        <div class="text-muted"><?= $pro['experiencia'] ?> en el sector</div>
+                                        <div class="text-muted"><?= esc($pro['experiencia'] ?? 'Profesional') ?> en el sector</div>
                                     </div>
                                 </div>
                             </div>
@@ -148,22 +148,29 @@
                     <section class="mb-5">
                         <h3 class="fw-bold mb-4">Servicios Ofrecidos</h3>
                         <div class="row g-3">
-                            <?php foreach ($servicios as $servicio): ?>
-                                <div class="col-md-6">
-                                    <div class="card h-100 border shadow-sm service-card">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                                <h5 class="card-title fw-bold mb-0"><?= $servicio['nombre'] ?></h5>
-                                                <span class="badge bg-primary bg-opacity-10 text-primary">Desde
-                                                    $<?= number_format($servicio['precio'], 0, ',', '.') ?></span>
+                            <?php if (empty($servicios)): ?>
+                                <div class="col-12">
+                                    <p class="text-muted"><i class="fas fa-info-circle me-2"></i>Este profesional aún no ha registrado servicios.</p>
+                                </div>
+                            <?php else: ?>
+                                <?php foreach ($servicios as $servicio): ?>
+                                    <div class="col-md-6">
+                                        <div class="card h-100 border shadow-sm service-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h5 class="card-title fw-bold mb-0"><?= esc($servicio['nombre'] ?? 'Servicio') ?></h5>
+                                                    <?php $precio = $servicio['precio_estimado'] ?? $servicio['precio'] ?? 0; ?>
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary">Desde
+                                                        $<?= number_format($precio, 0, ',', '.') ?></span>
+                                                </div>
+                                                <p class="card-text text-muted small"><?= esc($servicio['descripcion'] ?? 'Sin descripción') ?></p>
+                                                <button class="btn btn-outline-primary btn-sm w-100 mt-2">Cotizar este
+                                                    servicio</button>
                                             </div>
-                                            <p class="card-text text-muted small"><?= $servicio['descripcion'] ?></p>
-                                            <button class="btn btn-outline-primary btn-sm w-100 mt-2">Cotizar este
-                                                servicio</button>
                                         </div>
                                     </div>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </section>
 
@@ -173,32 +180,38 @@
                     <section class="mb-5">
                         <h3 class="fw-bold mb-4">Reseñas de clientes</h3>
 
-                        <?php foreach ($resenas as $resena): ?>
-                            <div class="card border-0 mb-4">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                        <div class="bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center fw-bold text-secondary"
-                                            style="width: 50px; height: 50px;">
-                                            <?= substr($resena['autor'], 0, 1) ?>
+                        <?php if (empty($resenas)): ?>
+                            <p class="text-muted"><i class="fas fa-info-circle me-2"></i>Este profesional aún no tiene reseñas.</p>
+                        <?php else: ?>
+                            <?php foreach ($resenas as $resena): ?>
+                                <div class="card border-0 mb-4">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center fw-bold text-secondary"
+                                                style="width: 50px; height: 50px;">
+                                                <?= strtoupper(substr($resena['autor'] ?? 'U', 0, 1)) ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <div class="d-flex justify-content-between align-items-center mb-1">
-                                            <h6 class="fw-bold mb-0"><?= $resena['autor'] ?></h6>
-                                            <small class="text-muted"><?= $resena['fecha'] ?></small>
+                                        <div class="flex-grow-1 ms-3">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <h6 class="fw-bold mb-0"><?= esc($resena['autor'] ?? 'Usuario') ?></h6>
+                                                <small class="text-muted"><?= esc($resena['fecha'] ?? '') ?></small>
+                                            </div>
+                                            <div class="text-warning mb-2 rating-star">
+                                                <?php for ($i = 0; $i < 5; $i++): ?>
+                                                    <i class="<?= $i < ($resena['calificacion'] ?? 0) ? 'fas' : 'far' ?> fa-star"></i>
+                                                <?php endfor; ?>
+                                            </div>
+                                            <p class="text-secondary mb-0"><?= esc($resena['comentario'] ?? '') ?></p>
                                         </div>
-                                        <div class="text-warning mb-2 rating-star">
-                                            <?php for ($i = 0; $i < 5; $i++): ?>
-                                                <i class="<?= $i < $resena['calificacion'] ? 'fas' : 'far' ?> fa-star"></i>
-                                            <?php endfor; ?>
-                                        </div>
-                                        <p class="text-secondary mb-0"><?= $resena['comentario'] ?></p>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
 
-                        <button class="btn btn-outline-secondary w-100">Ver todas las reseñas</button>
+                        <?php if (count($resenas ?? []) > 3): ?>
+                            <button class="btn btn-outline-secondary w-100">Ver todas las reseñas</button>
+                        <?php endif; ?>
                     </section>
 
                 </div>
@@ -227,12 +240,21 @@
                             <div class="card-body">
                                 <h5 class="fw-bold mb-3">Certificaciones</h5>
                                 <ul class="list-unstyled mb-0">
-                                    <?php foreach ($certificaciones as $cert): ?>
-                                        <li class="mb-2 d-flex align-items-start">
-                                            <i class="fas fa-certificate text-success mt-1 me-2"></i>
-                                            <span><?= $cert ?></span>
-                                        </li>
-                                    <?php endforeach; ?>
+                                    <?php if (empty($certificaciones)): ?>
+                                        <li class="text-muted"><i class="fas fa-info-circle me-2"></i>Sin certificaciones registradas</li>
+                                    <?php else: ?>
+                                        <?php foreach ($certificaciones as $cert): ?>
+                                            <li class="mb-2 d-flex align-items-start">
+                                                <i class="fas fa-certificate text-success mt-1 me-2"></i>
+                                                <div>
+                                                    <span class="fw-semibold"><?= esc($cert['nombre'] ?? 'Certificación') ?></span>
+                                                    <?php if (!empty($cert['entidad_emisora'])): ?>
+                                                        <small class="text-muted d-block"><?= esc($cert['entidad_emisora']) ?></small>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </div>
