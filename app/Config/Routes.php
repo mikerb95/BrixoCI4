@@ -12,6 +12,12 @@ $routes->get('/login', 'Auth::showLogin');
 $routes->post('/login', 'Auth::login');
 $routes->post('/logout', 'Auth::logout');
 
+// Password Reset
+$routes->get('/password/forgot', 'PasswordReset::forgot');
+$routes->post('/password/send-reset', 'PasswordReset::sendResetLink');
+$routes->get('/password/reset/(:any)', 'PasswordReset::reset/$1');
+$routes->post('/password/update', 'PasswordReset::processReset');
+
 // Registration
 $routes->post('/register', 'Register::register');
 

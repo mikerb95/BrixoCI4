@@ -21,6 +21,11 @@
                         <label for="login_contrasena" class="form-label fw-semibold">Contraseña</label>
                         <input id="login_contrasena" name="contrasena" type="password"
                             class="form-control p-3 rounded-3" placeholder="Tu contraseña" required>
+                        <div class="text-end mt-2">
+                            <a href="/password/forgot" class="text-muted text-decoration-none small">
+                                <i class="fas fa-key me-1"></i>¿Olvidaste tu contraseña?
+                            </a>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Entrar</button>
 

@@ -18,8 +18,11 @@
                 <div class="card-body">
                     <h3 class="card-title mb-4">Iniciar sesión</h3>
 
-                    <?php if (!empty($login_error)): ?>
-                        <div class="alert alert-danger"><?= esc($login_error) ?></div>
+                    <?php if (!empty($message)): ?>
+                        <div class="alert alert-success d-flex align-items-center">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <div><?= esc($message) ?></div>
+                        </div>
                     <?php endif; ?>
 
                     <form method="post" action="/login">
@@ -31,6 +34,11 @@
                         <div class="mb-3">
                             <label for="contrasena" class="form-label">Contraseña</label>
                             <input id="contrasena" name="contrasena" type="password" class="form-control" required>
+                            <div class="text-end mt-2">
+                                <a href="/password/forgot" class="text-muted text-decoration-none small">
+                                    <i class="fas fa-key me-1"></i>¿Olvidaste tu contraseña?
+                                </a>
+                            </div>
                         </div>
                         <button class="btn btn-primary w-100" type="submit">Entrar</button>
                     </form>

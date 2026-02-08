@@ -12,6 +12,7 @@ class Auth extends BaseController
         $session = session();
         $data = [
             'login_error' => $session->getFlashdata('login_error'),
+            'message' => $session->getFlashdata('message'),
         ];
 
         return view('auth/login', $data);
