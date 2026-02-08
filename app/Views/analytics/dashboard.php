@@ -110,16 +110,16 @@
     <!-- Navbar -->
     <nav class="navbar navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/admin">
                 <i class="fas fa-chart-line me-2"></i>
                 Dashboard de Analíticas
             </a>
             <div>
-                <a href="/" class="btn btn-outline-light btn-sm">
-                    <i class="fas fa-home me-1"></i> Inicio
+                <a href="/admin" class="btn btn-outline-light btn-sm">
+                    <i class="fas fa-shield-alt me-1"></i> Panel Admin
                 </a>
-                <a href="/auth/logout" class="btn btn-outline-light btn-sm ms-2">
-                    <i class="fas fa-sign-out-alt me-1"></i> Salir
+                <a href="/" class="btn btn-outline-light btn-sm ms-2">
+                    <i class="fas fa-home me-1"></i> Inicio
                 </a>
             </div>
         </div>
