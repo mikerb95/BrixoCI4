@@ -355,10 +355,11 @@ class Analytics extends BaseController
      */
     public function dashboard()
     {
-        // Protección: Solo usuarios autenticados pueden ver el dashboard
-        if (!session()->get('isLoggedIn')) {
-            return redirect()->to('/auth/login?redirect_to=' . urlencode('/analytics/dashboard'))
-                ->with('error', 'Debes iniciar sesión para ver el dashboard de analíticas.');
+        // Protección: Solo usuarios admin pueden ver el dashboard de analíticas
+        $user = session()->get('user');
+        if (!$user || ($user['rol'] ?? '') !== 'admin') {
+            return redirect()->to('/login')
+                ->with('login_error', 'Solo los administradores pueden acceder al dashboard de analíticas.');
         }
 
         // Obtener período seleccionado (por defecto últimos 30 días)
