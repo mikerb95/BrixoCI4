@@ -346,4 +346,200 @@ class Analytics extends BaseController
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
         ");
     }
+
+    /**
+     * Dashboard de Analíticas
+     * GET /analytics/dashboard
+     *
+     * Muestra una página con métricas visuales de los datos recolectados.
+     */
+    public function dashboard()
+    {
+        // Protección: Solo usuarios autenticados pueden ver el dashboard
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/auth/login?redirect_to=' . urlencode('/analytics/dashboard'))
+                ->with('error', 'Debes iniciar sesión para ver el dashboard de analíticas.');
+        }
+
+        // Obtener período seleccionado (por defecto últimos 30 días)
+        $days = (int) ($this->request->getGet('days') ?? 30);
+        $days = max(1, min(365, $days)); // Entre 1 y 365 días
+
+        $data = [
+            'title' => 'Dashboard de Analíticas',
+            'days' => $days,
+            'stats' => $this->getStats($days),
+            'pageviews' => $this->getPageviews($days),
+            'popularPages' => $this->getPopularPages($days),
+            'deviceBreakdown' => $this->getDeviceBreakdown($days),
+            'events' => $this->getEvents($days),
+            'browsers' => $this->getBrowsers($days),
+        ];
+
+        return view('analytics/dashboard', $data);
+    }
+
+    /**
+     * Obtiene estadísticas generales
+     */
+    private function getStats(int $days): array
+    {
+        $db = \Config\Database::connect();
+        $sinceDate = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+
+        // Visitantes únicos
+        $uniqueVisitors = $db->table('analytics_events')
+            ->selectCount('DISTINCT visitor_id', 'count')
+            ->where('created_at >=', $sinceDate)
+            ->get()
+            ->getRow()
+            ->count ?? 0;
+
+        // Sesiones únicas
+        $uniqueSessions = $db->table('analytics_events')
+            ->selectCount('DISTINCT session_id', 'count')
+            ->where('created_at >=', $sinceDate)
+            ->get()
+            ->getRow()
+            ->count ?? 0;
+
+        // Páginas vistas (eventos pageview)
+        $pageviews = $db->table('analytics_events')
+            ->selectCount('id', 'count')
+            ->where('event_type', 'pageview')
+            ->where('created_at >=', $sinceDate)
+            ->get()
+            ->getRow()
+            ->count ?? 0;
+
+        // Duración promedio (eventos engagement)
+        $avgDuration = $db->query("
+            SELECT AVG(JSON_EXTRACT(extra_json, '$.duration_seconds')) as avg_duration
+            FROM analytics_events
+            WHERE event_type = 'engagement'
+            AND created_at >= ?
+            AND extra_json IS NOT NULL
+        ", [$sinceDate])->getRow()->avg_duration ?? 0;
+
+        return [
+            'unique_visitors' => (int) $uniqueVisitors,
+            'unique_sessions' => (int) $uniqueSessions,
+            'pageviews' => (int) $pageviews,
+            'avg_duration' => round((float) $avgDuration, 1),
+        ];
+    }
+
+    /**
+     * Obtiene páginas vistas por día (para gráfico)
+     */
+    private function getPageviews(int $days): array
+    {
+        $db = \Config\Database::connect();
+        $sinceDate = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+
+        $results = $db->query("
+            SELECT DATE(created_at) as date, COUNT(*) as views
+            FROM analytics_events
+            WHERE event_type = 'pageview'
+            AND created_at >= ?
+            GROUP BY DATE(created_at)
+            ORDER BY date ASC
+        ", [$sinceDate])->getResultArray();
+
+        return $results;
+    }
+
+    /**
+     * Obtiene las páginas más populares
+     */
+    private function getPopularPages(int $days): array
+    {
+        $db = \Config\Database::connect();
+        $sinceDate = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+
+        $results = $db->query("
+            SELECT 
+                path,
+                title,
+                COUNT(*) as views,
+                COUNT(DISTINCT visitor_id) as unique_visitors
+            FROM analytics_events
+            WHERE event_type = 'pageview'
+            AND created_at >= ?
+            AND path IS NOT NULL
+            GROUP BY path, title
+            ORDER BY views DESC
+            LIMIT 20
+        ", [$sinceDate])->getResultArray();
+
+        return $results;
+    }
+
+    /**
+     * Obtiene distribución por tipo de dispositivo
+     */
+    private function getDeviceBreakdown(int $days): array
+    {
+        $db = \Config\Database::connect();
+        $sinceDate = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+
+        $results = $db->query("
+            SELECT 
+                device_type,
+                COUNT(*) as count,
+                (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM analytics_events WHERE created_at >= ?)) as percentage
+            FROM analytics_events
+            WHERE created_at >= ?
+            GROUP BY device_type
+            ORDER BY count DESC
+        ", [$sinceDate, $sinceDate])->getResultArray();
+
+        return $results;
+    }
+
+    /**
+     * Obtiene eventos personalizados más frecuentes
+     */
+    private function getEvents(int $days): array
+    {
+        $db = \Config\Database::connect();
+        $sinceDate = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+
+        $results = $db->query("
+            SELECT 
+                event_type,
+                COUNT(*) as count
+            FROM analytics_events
+            WHERE created_at >= ?
+            AND event_type NOT IN ('pageview', 'engagement')
+            GROUP BY event_type
+            ORDER BY count DESC
+            LIMIT 10
+        ", [$sinceDate])->getResultArray();
+
+        return $results;
+    }
+
+    /**
+     * Obtiene distribución por navegador
+     */
+    private function getBrowsers(int $days): array
+    {
+        $db = \Config\Database::connect();
+        $sinceDate = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+
+        $results = $db->query("
+            SELECT 
+                COALESCE(browser, 'Desconocido') as browser,
+                COUNT(*) as count,
+                (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM analytics_events WHERE created_at >= ?)) as percentage
+            FROM analytics_events
+            WHERE created_at >= ?
+            GROUP BY browser
+            ORDER BY count DESC
+            LIMIT 10
+        ", [$sinceDate, $sinceDate])->getResultArray();
+
+        return $results;
+    }
 }
