@@ -91,4 +91,5 @@ $routes->get('/cotizador/exito', 'Cotizador::exito');
 
 // Analytics API (First-Party)
 $routes->post('/api/v1/track', 'Analytics::track');
+$routes->get('/analytics/dashboard', 'Analytics::dashboard');
 
