@@ -240,17 +240,9 @@
                     puedes contactarnos:
                 </p>
                 <ul>
-                    <li><strong>Email:</strong> <a href="mailto:privacidad@brixo.com">privacidad@brixo.com</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:privacidad@brixo.com">mike95@duck.com</a></li>
                     <li><strong>Sección de ayuda:</strong> <a href="/ayuda">Centro de ayuda</a></li>
                 </ul>
-            </div>
-
-            <!-- Última actualización -->
-            <div class="alert alert-light border">
-                <small class="text-muted">
-                    <i class="fas fa-calendar-alt me-1"></i>
-                    <strong>Última actualización:</strong> <?= date('d/m/Y') ?>
-                </small>
             </div>
 
         </div>
