@@ -93,3 +93,11 @@ $routes->get('/cotizador/exito', 'Cotizador::exito');
 $routes->post('/api/v1/track', 'Analytics::track');
 $routes->get('/analytics/dashboard', 'Analytics::dashboard');
 
+// Admin Panel
+$routes->get('/admin', 'Admin::index');
+$routes->get('/admin/usuarios', 'Admin::usuarios');
+$routes->get('/admin/usuarios/crear', 'Admin::crear');
+$routes->post('/admin/usuarios/guardar', 'Admin::guardar');
+$routes->get('/admin/usuarios/editar/(:segment)/(:num)', 'Admin::editar/$1/$2');
+$routes->post('/admin/usuarios/actualizar', 'Admin::actualizar');
+$routes->get('/admin/usuarios/eliminar/(:segment)/(:num)', 'Admin::eliminar/$1/$2');

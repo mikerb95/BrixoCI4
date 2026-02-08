@@ -121,6 +121,9 @@ class Filters extends BaseFilters
                 'solicitudes/*',
                 'tablon-tareas',
                 'reportes/*',
+                'admin',
+                'admin/*',
+                'analytics/*',
             ],
         ],
     ];
