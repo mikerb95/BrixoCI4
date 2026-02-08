@@ -7,8 +7,9 @@
         <div class="cookie-text">
             <h5 class="fw-bold mb-2">🍪 Uso de Cookies</h5>
             <p class="mb-0 small">
-                Utilizamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico y personalizar el contenido. 
-                Al hacer clic en "Aceptar", aceptas el uso de todas las cookies. 
+                Utilizamos cookies propias para mejorar tu experiencia y analizar el tráfico de forma anónima. 
+                No compartimos datos con terceros. 
+                Al hacer clic en "Aceptar", aceptas el uso de cookies analíticas. 
                 <a href="/politica-cookies" class="text-white text-decoration-underline">Más información</a>
             </p>
         </div>
