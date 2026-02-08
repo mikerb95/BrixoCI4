@@ -21,8 +21,10 @@
 // The unified navbar no longer includes modals, so we always load them here.
 ?>
 <?= view('partials/modals') ?>
+<?= view('partials/cookie_consent') ?>
 <script src="/js/navbar.js?v=<?= time() ?>"></script>
 <script src="/js/password-toggle.js?v=<?= time() ?>"></script>
+<script src="/js/cookie-consent.js?v=<?= time() ?>"></script>
 
 <style>
     .hover-text-white:hover {

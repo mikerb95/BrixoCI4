@@ -53,4 +53,9 @@ class Info extends BaseController
     {
         return view('info/blog');
     }
+
+    public function politicaCookies()
+    {
+        return view('info/politica_cookies');
+    }
 }

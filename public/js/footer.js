@@ -75,8 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="d-flex flex-wrap justify-content-between align-items-center" style="font-size: 0.8rem; opacity: 0.5;">
                     <span>&copy; ${currentYear} Brixo. Todos los derechos reservados.</span>
                     <div class="d-flex gap-3">
-                        <a href="#" style="color: inherit;">Privacidad</a>
-                        <a href="#" style="color: inherit;">Términos</a>
+                        <a href="/seguridad" style="color: inherit;">Privacidad</a>
+                        <a href="/politica-cookies" style="color: inherit;">Cookies</a>
+                        <a href="/ayuda" style="color: inherit;">Términos</a>
                     </div>
                 </div>
             </div>
