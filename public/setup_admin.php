@@ -12,26 +12,33 @@
  *   Contraseña: Admin123!
  */
 
-// Bootstrap de CodeIgniter
-$pathsConfig = __DIR__ . '/../app/Config/Paths.php';
-require $pathsConfig;
-$paths = new Config\Paths();
+header('Content-Type: text/html; charset=utf-8');
 
-$bootstrap = rtrim($paths->systemDirectory, '\\/ ') . '/bootstrap.php';
-require_once $bootstrap;
-
-$app = \Config\Services::codeigniter();
-$app->initialize();
-$app->setContext('web');
-
-$db = \Config\Database::connect();
+// Leer variables de entorno (mismo patrón que setup_db.php)
+$host = getenv('database.default.hostname') ?: getenv('DB_HOST') ?: 'localhost';
+$user = getenv('database.default.username') ?: getenv('DB_USER') ?: 'root';
+$pass = getenv('database.default.password') ?: getenv('DB_PASSWORD') ?: '';
+$dbname = getenv('database.default.database') ?: getenv('DB_NAME') ?: 'brixo';
+$port = getenv('database.default.port') ?: getenv('DB_PORT') ?: 3306;
 
 echo "<h2>🔧 Setup: Tabla ADMIN</h2>";
 echo "<pre style='background:#222;color:#0f0;padding:20px;border-radius:8px;'>";
 
+try {
+    $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
+    $pdo = new PDO($dsn, $user, $pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    ]);
+    echo "✅ Conexión a BD exitosa ({$host}:{$port}/{$dbname})\n\n";
+} catch (PDOException $e) {
+    echo "❌ Error de conexión: " . $e->getMessage() . "\n";
+    echo "</pre>";
+    exit;
+}
+
 // 1. Crear tabla ADMIN
 try {
-    $db->query("
+    $pdo->exec("
         CREATE TABLE IF NOT EXISTS ADMIN (
             id_admin INT AUTO_INCREMENT PRIMARY KEY,
             nombre VARCHAR(255) NOT NULL,
@@ -44,26 +51,25 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ");
     echo "✅ Tabla ADMIN creada correctamente.\n";
-} catch (\Exception $e) {
+} catch (PDOException $e) {
     echo "⚠️  Error creando tabla ADMIN: " . $e->getMessage() . "\n";
 }
 
 // 2. Insertar admin por defecto (solo si no existe)
 try {
-    $exists = $db->table('ADMIN')->where('correo', 'admin@brixo.co')->countAllResults();
-    
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM ADMIN WHERE correo = ?");
+    $stmt->execute(['admin@brixo.co']);
+    $exists = (int) $stmt->fetchColumn();
+
     if ($exists === 0) {
-        $db->table('ADMIN')->insert([
-            'nombre'     => 'Administrador',
-            'correo'     => 'admin@brixo.co',
-            'contrasena' => password_hash('Admin123!', PASSWORD_BCRYPT),
-            'activo'     => 1,
-        ]);
+        $hash = password_hash('Admin123!', PASSWORD_BCRYPT);
+        $stmt = $pdo->prepare("INSERT INTO ADMIN (nombre, correo, contrasena, activo) VALUES (?, ?, ?, 1)");
+        $stmt->execute(['Administrador', 'admin@brixo.co', $hash]);
         echo "✅ Admin por defecto creado: admin@brixo.co / Admin123!\n";
     } else {
         echo "ℹ️  El admin admin@brixo.co ya existe, no se insertó.\n";
     }
-} catch (\Exception $e) {
+} catch (PDOException $e) {
     echo "⚠️  Error insertando admin: " . $e->getMessage() . "\n";
 }
 
