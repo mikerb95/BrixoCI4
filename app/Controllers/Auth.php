@@ -38,6 +38,16 @@ class Auth extends BaseController
             $rol = $usuario === null ? '' : 'contratista';
         }
 
+        // Verificar si es admin
+        if ($usuario === null) {
+            try {
+                $usuario = $db->table('ADMIN')->where('correo', $email)->where('activo', 1)->get()->getRowArray();
+                $rol = $usuario === null ? '' : 'admin';
+            } catch (\Exception $e) {
+                // Tabla ADMIN no existe aún — ignorar
+            }
+        }
+
         if ($usuario === null) {
             $session->setFlashdata('login_error', 'No encontramos una cuenta asociada a ese correo.');
             return redirect()->back();
@@ -48,7 +58,24 @@ class Auth extends BaseController
             return redirect()->back();
         }
 
-        if ($rol === 'cliente') {
+        if ($rol === 'admin') {
+            $session->set('user', [
+                'id' => $usuario['id_admin'],
+                'nombre' => $usuario['nombre'],
+                'correo' => $usuario['correo'],
+                'rol' => 'admin',
+                'foto_perfil' => $usuario['foto_perfil'] ?? null,
+            ]);
+
+            // Actualizar último acceso
+            try {
+                $db->table('ADMIN')
+                    ->where('id_admin', $usuario['id_admin'])
+                    ->update(['ultimo_acceso' => date('Y-m-d H:i:s')]);
+            } catch (\Exception $e) {
+                // Silenciar
+            }
+        } elseif ($rol === 'cliente') {
             $session->set('user', [
                 'id' => $usuario['id_cliente'],
                 'nombre' => $usuario['nombre'],
@@ -73,6 +100,11 @@ class Auth extends BaseController
         $redirectTo = $this->request->getPost('redirect_to');
         if (!empty($redirectTo) && str_starts_with($redirectTo, '/')) {
             return redirect()->to($redirectTo);
+        }
+
+        // Admin va al panel de admin
+        if ($rol === 'admin') {
+            return redirect()->to('/admin');
         }
 
         return redirect()->to('/panel');
