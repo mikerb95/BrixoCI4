@@ -123,7 +123,8 @@
                 <h3>📊 Cookies Analíticas</h3>
                 <p>
                     Nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web, recopilando y reportando 
-                    información de forma anónima. Solo se activan si das tu consentimiento.
+                    información de forma anónima. Utilizamos un sistema de analítica propio (first-party), sin depender de terceros.
+                    Solo se activan si das tu consentimiento.
                 </p>
                 <div class="table-responsive mb-4">
                     <table class="table table-bordered cookie-table">
@@ -136,22 +137,23 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><code>_ga</code></td>
-                                <td>Google Analytics - Distingue usuarios únicos</td>
-                                <td>2 años</td>
+                                <td><code>bx_vid</code></td>
+                                <td>Brixo Analytics – Identificador anónimo de visitante (UUID aleatorio, no vinculado a datos personales)</td>
+                                <td>1 año</td>
                             </tr>
                             <tr>
-                                <td><code>_gid</code></td>
-                                <td>Google Analytics - Distingue usuarios únicos</td>
-                                <td>24 horas</td>
-                            </tr>
-                            <tr>
-                                <td><code>_gat</code></td>
-                                <td>Google Analytics - Limita la tasa de solicitudes</td>
-                                <td>1 minuto</td>
+                                <td><code>bx_sid (sessionStorage)</code></td>
+                                <td>Brixo Analytics – Identificador de sesión para agrupar actividad</td>
+                                <td>Sesión del navegador</td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div class="alert alert-success border-0">
+                    <i class="fas fa-shield-alt me-2"></i>
+                    <strong>Analítica 100% propia.</strong> No compartimos datos con terceros. Las IPs se anonimizan 
+                    (se elimina el último octeto) antes de guardarse. Los datos se procesan únicamente en nuestros servidores.
                 </div>
 
                 <h3>🎯 Cookies de Marketing</h3>

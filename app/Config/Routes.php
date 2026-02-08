@@ -89,3 +89,6 @@ $routes->post('/cotizador/generar', 'Cotizador::generar');
 $routes->post('/cotizador/confirmar', 'Cotizador::confirmar');
 $routes->get('/cotizador/exito', 'Cotizador::exito');
 
+// Analytics API (First-Party)
+$routes->post('/api/v1/track', 'Analytics::track');
+

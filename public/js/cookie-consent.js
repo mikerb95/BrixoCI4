@@ -52,30 +52,26 @@
     }
 
     /**
-     * Inicializa las cookies analíticas (Google Analytics, etc.)
+     * Inicializa las cookies analíticas (First-Party Analytics)
      */
     function initializeAnalytics() {
-        // Aquí puedes inicializar Google Analytics u otras herramientas
-        console.log('Analytics initialized');
-        
-        // Ejemplo para Google Analytics (descomenta cuando tengas el ID):
-        /*
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID');
-        */
+        // La analítica first-party se activa automáticamente
+        // desde brixo-analytics.js al detectar el consentimiento.
+        // Disparar un re-track por si el script ya cargó.
+        if (window.BrixoAnalytics) {
+            window.BrixoAnalytics.pageview();
+        }
     }
 
     /**
      * Limpia las cookies analíticas
      */
     function clearAnalyticsCookies() {
-        // Eliminar cookies de terceros si es necesario
-        const analyticsCookies = ['_ga', '_gid', '_gat', '_gcl_au'];
-        analyticsCookies.forEach(cookieName => {
-            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-        });
+        // Eliminar cookie de visitor_id de analítica propia
+        document.cookie = 'bx_vid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        // Limpiar session storage
+        sessionStorage.removeItem('bx_sid');
+        sessionStorage.removeItem('bx_sid_ts');
     }
 
     /**

@@ -25,6 +25,7 @@
 <script src="/js/navbar.js?v=<?= time() ?>"></script>
 <script src="/js/password-toggle.js?v=<?= time() ?>"></script>
 <script src="/js/cookie-consent.js?v=<?= time() ?>"></script>
+<script src="/js/brixo-analytics.js?v=<?= time() ?>"></script>
 
 <style>
     .hover-text-white:hover {
