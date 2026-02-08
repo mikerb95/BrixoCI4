@@ -157,14 +157,11 @@
                 </div>
 
                 <h3>🎯 Cookies de Marketing</h3>
-                <p>
-                    Estas cookies rastrean tu actividad de navegación para mostrar anuncios relevantes. Solo se activan 
-                    si das tu consentimiento explícito.
-                </p>
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i>
-                    <strong>Actualmente no utilizamos cookies de marketing.</strong> Si en el futuro decidimos implementarlas, 
-                    actualizaremos esta política y solicitaremos tu consentimiento nuevamente.
+                    <strong>No utilizamos cookies de marketing ni de terceros.</strong> Brixo opera con un sistema de 
+                    analítica completamente propio (first-party). Tus datos nunca se comparten con redes publicitarias, 
+                    plataformas externas ni servicios de tracking.
                 </div>
             </div>
 
