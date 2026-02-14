@@ -133,4 +133,263 @@ class Setup extends BaseController
             echo "<pre>" . $e->getMessage() . "</pre>";
         }
     }
-}
+
+    /**
+     * Inserta 1000 clientes con información realista colombiana.
+     * Endpoint: /setup/seed-clientes
+     */
+    public function seed_clientes()
+    {
+        $db = db_connect();
+
+        // --- Datos base para generación realista ---
+        $nombres_m = [
+            'Juan','Carlos','Andrés','Luis','Jorge','Pedro','Miguel','Santiago','Sebastián','Daniel',
+            'Felipe','Alejandro','David','Diego','Nicolás','Camilo','Sergio','Ricardo','Óscar','Fernando',
+            'Hernán','Mauricio','Rafael','Fabián','Gustavo','Roberto','Eduardo','Iván','Álvaro','Julio',
+            'Francisco','Javier','Mario','César','Enrique','Tomás','Pablo','Arturo','Gerardo','Manuel',
+            'Cristian','Brayan','Esteban','Martín','Gabriel','Héctor','Hugo','Leonardo','Mateo','Samuel',
+        ];
+        $nombres_f = [
+            'María','Laura','Ana','Carolina','Valentina','Natalia','Camila','Paula','Andrea','Diana',
+            'Sofía','Isabella','Lucía','Daniela','Juliana','Mariana','Gabriela','Catalina','Sara','Valeria',
+            'Ángela','Patricia','Mónica','Sandra','Paola','Luisa','Tatiana','Marcela','Liliana','Gloria',
+            'Yolanda','Adriana','Silvia','Claudia','Estefanía','Fernanda','Alejandra','Mélissa','Verónica','Manuela',
+            'Elena','Rocío','Diana','Beatriz','Teresa','Rosa','Clara','Lina','Karen','Lorena',
+        ];
+        $apellidos = [
+            'García','Rodríguez','Martínez','López','Hernández','González','Pérez','Sánchez','Ramírez','Torres',
+            'Flores','Rivera','Gómez','Díaz','Cruz','Morales','Reyes','Gutiérrez','Ortiz','Vásquez',
+            'Castillo','Jiménez','Moreno','Romero','Álvarez','Ruiz','Mendoza','Aguilar','Medina','Castro',
+            'Vargas','Ramos','Herrera','Suárez','Ríos','Rojas','Acosta','Pardo','Molina','Duarte',
+            'Salazar','Quintero','Pineda','Lozano','Carrillo','Navas','Peña','Correa','Castaño','Bernal',
+            'Ospina','Zapata','Mejía','Cardona','Valencia','Gil','Cárdenas','Arango','Sierra','Duque',
+            'Parra','Beltrán','Campos','Vega','Muñoz','Giraldo','Echeverri','Marín','Soto','Guerra',
+            'Prieto','Barrera','Delgado','Bohórquez','Caicedo','Londoño','Rey','Arias','Cortés','Cabrera',
+        ];
+        $ciudades = [
+            'Bogotá','Medellín','Cali','Barranquilla','Cartagena','Bucaramanga','Pereira','Manizales',
+            'Santa Marta','Ibagué','Cúcuta','Villavicencio','Pasto','Neiva','Montería','Armenia',
+            'Popayán','Valledupar','Tunja','Sincelejo',
+        ];
+        $barrios = [
+            'Chapinero','Usaquén','Suba','Kennedy','Engativá','Fontibón','Teusaquillo','La Candelaria',
+            'Laureles','El Poblado','Belén','Envigado','San Fernando','Granada','Ciudad Jardín',
+            'El Prado','Alto Prado','Riomar','Buenavista','Manga','Bocagrande','Cabecera','Real de Minas',
+            'Centro','La Aurora','Cedritos','Niza','Santa Bárbara','Chicó','La Soledad','Galerías',
+            'Normandía','Modelia','Hayuelos','Santa Isabel','Restrepo','La Macarena','Palermo',
+            'San Cristóbal','Quinta Paredes','Las Américas','La Floresta','El Campín','Nicolás de Federmán',
+        ];
+        $tipos_via = ['Calle','Carrera','Avenida','Transversal','Diagonal'];
+        $dominios = ['gmail.com','hotmail.com','outlook.com','yahoo.com','live.com'];
+
+        // Contraseña: "password" (bcrypt hash estándar)
+        $hash_password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+
+        // Función para limpiar acentos para emails
+        $limpiar = function (string $str): string {
+            $map = [
+                'á'=>'a','é'=>'e','í'=>'i','ó'=>'o','ú'=>'u',
+                'Á'=>'A','É'=>'E','Í'=>'I','Ó'=>'O','Ú'=>'U',
+                'ñ'=>'n','Ñ'=>'N','ü'=>'u','Ü'=>'U',
+            ];
+            return strtr(mb_strtolower($str, 'UTF-8'), $map);
+        };
+
+        $total = 1000;
+        $insertados = 0;
+        $duplicados = 0;
+        $errores = [];
+        $usedEmails = [];
+        $startTime = microtime(true);
+
+        // Cabecera HTML
+        echo "<!DOCTYPE html><html lang='es'><head><meta charset='utf-8'><title>Seed 1000 Clientes</title>
+        <style>
+            body { font-family: 'Segoe UI', sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f8f9fa; }
+            .card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 20px; }
+            h1 { color: #2d3436; }
+            .stat { display: inline-block; background: #dfe6e9; border-radius: 8px; padding: 12px 20px; margin: 5px; font-size: 1.1em; }
+            .stat strong { color: #6c5ce7; }
+            .success { color: #00b894; }
+            .warn { color: #fdcb6e; }
+            .error { color: #d63031; }
+            .progress { height: 20px; background: #dfe6e9; border-radius: 10px; overflow: hidden; margin: 15px 0; }
+            .progress-bar { height: 100%; background: linear-gradient(90deg, #6c5ce7, #a29bfe); border-radius: 10px; }
+            a.btn { display: inline-block; margin-top: 15px; padding: 10px 25px; background: #6c5ce7; color: white; text-decoration: none; border-radius: 8px; }
+            a.btn:hover { background: #5a4bd1; }
+            table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+            th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.9em; }
+            th { background: #f1f2f6; }
+        </style></head><body>";
+        echo "<div class='card'><h1>🌱 Seed: 1000 Clientes Colombianos</h1>";
+        echo "<p>Insertando clientes con datos realistas...</p></div>";
+
+        try {
+            // Verificar que la tabla existe
+            $db->query("SELECT 1 FROM CLIENTE LIMIT 1");
+
+            // Verificar campo dirección
+            $fields = $db->getFieldData('CLIENTE');
+            $hasDireccion = false;
+            foreach ($fields as $field) {
+                if ($field->name === 'direccion') {
+                    $hasDireccion = true;
+                    break;
+                }
+            }
+            if (!$hasDireccion) {
+                $db->query("ALTER TABLE CLIENTE ADD COLUMN direccion VARCHAR(255) DEFAULT NULL AFTER ciudad");
+                echo "<div class='card'><p class='success'>✅ Columna 'direccion' agregada a CLIENTE.</p></div>";
+            }
+
+            // Generar e insertar clientes en lotes
+            $batch = [];
+            for ($i = 0; $i < $total; $i++) {
+                $esMujer = ($i % 2 === 0);
+                $nombre1 = $esMujer ? $nombres_f[array_rand($nombres_f)] : $nombres_m[array_rand($nombres_m)];
+                $ap1 = $apellidos[array_rand($apellidos)];
+                $ap2 = $apellidos[array_rand($apellidos)];
+                $nombre_completo = "$nombre1 $ap1 $ap2";
+
+                // Email único
+                $base = $limpiar($nombre1) . '.' . $limpiar($ap1);
+                $dominio = $dominios[array_rand($dominios)];
+                $email = $base . ($i + 1) . '@' . $dominio;
+
+                // Asegurar unicidad
+                while (in_array($email, $usedEmails)) {
+                    $email = $base . ($i + 1) . rand(10, 99) . '@' . $dominio;
+                }
+                $usedEmails[] = $email;
+
+                // Teléfono colombiano realista (3xx xxx xxxx)
+                $prefijos = ['300','301','302','310','311','312','313','314','315','316','317','318','319','320','321','322','323','324','325','350','351'];
+                $telefono = $prefijos[array_rand($prefijos)] . rand(1000000, 9999999);
+
+                $ciudad = $ciudades[array_rand($ciudades)];
+
+                // Dirección colombiana realista
+                $tipo_via = $tipos_via[array_rand($tipos_via)];
+                $num1 = rand(1, 170);
+                $num2 = rand(1, 99);
+                $num3 = rand(1, 80);
+                $barrio = $barrios[array_rand($barrios)];
+                $direccion = "$tipo_via $num1 # $num2 - $num3, $barrio";
+
+                // Foto de perfil (randomuser.me, IDs 1-99)
+                $genero = $esMujer ? 'women' : 'men';
+                $foto_id = rand(1, 99);
+                $foto = "https://randomuser.me/api/portraits/$genero/$foto_id.jpg";
+
+                $batch[] = [
+                    'nombre'      => $nombre_completo,
+                    'correo'      => $email,
+                    'contrasena'  => $hash_password,
+                    'telefono'    => $telefono,
+                    'ciudad'      => $ciudad,
+                    'direccion'   => $direccion,
+                    'foto_perfil' => $foto,
+                ];
+
+                // Insertar en lotes de 100
+                if (count($batch) >= 100) {
+                    $result = $this->insertBatch($db, $batch, $hasDireccion);
+                    $insertados += $result['ok'];
+                    $duplicados += $result['dup'];
+                    if (!empty($result['errors'])) {
+                        $errores = array_merge($errores, $result['errors']);
+                    }
+                    $batch = [];
+                }
+            }
+            // Insertar remanente
+            if (!empty($batch)) {
+                $result = $this->insertBatch($db, $batch, $hasDireccion);
+                $insertados += $result['ok'];
+                $duplicados += $result['dup'];
+                if (!empty($result['errors'])) {
+                    $errores = array_merge($errores, $result['errors']);
+                }
+            }
+
+            $elapsed = round(microtime(true) - $startTime, 2);
+
+            // Contar total en tabla
+            $totalEnTabla = $db->query("SELECT COUNT(*) as total FROM CLIENTE")->getRow()->total;
+
+            echo "<div class='card'>";
+            echo "<h2 class='success'>✅ Seed completado</h2>";
+            echo "<div class='progress'><div class='progress-bar' style='width:" . round($insertados/$total*100) . "%'></div></div>";
+            echo "<div class='stat'>Insertados: <strong>$insertados</strong></div>";
+            echo "<div class='stat'>Duplicados (omitidos): <strong>$duplicados</strong></div>";
+            echo "<div class='stat'>Total en tabla: <strong>$totalEnTabla</strong></div>";
+            echo "<div class='stat'>Tiempo: <strong>{$elapsed}s</strong></div>";
+
+            if (!empty($errores)) {
+                echo "<h3 class='error'>Errores (" . count($errores) . "):</h3><ul>";
+                foreach (array_slice($errores, 0, 10) as $err) {
+                    echo "<li>$err</li>";
+                }
+                if (count($errores) > 10) echo "<li>...y " . (count($errores) - 10) . " más</li>";
+                echo "</ul>";
+            }
+
+            // Muestra de 10 clientes insertados
+            $muestra = $db->query("SELECT id_cliente, nombre, correo, telefono, ciudad, direccion FROM CLIENTE ORDER BY id_cliente DESC LIMIT 10")->getResultArray();
+            if (!empty($muestra)) {
+                echo "<h3>📋 Últimos 10 clientes insertados:</h3>";
+                echo "<table><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Ciudad</th><th>Dirección</th></tr>";
+                foreach ($muestra as $c) {
+                    echo "<tr><td>{$c['id_cliente']}</td><td>{$c['nombre']}</td><td>{$c['correo']}</td><td>{$c['telefono']}</td><td>{$c['ciudad']}</td><td>{$c['direccion']}</td></tr>";
+                }
+                echo "</table>";
+            }
+
+            echo "<p style='margin-top:20px; color:#636e72;'>🔑 Contraseña de todos los clientes: <code>password</code></p>";
+            echo "<a class='btn' href='/panel'>Ir al Panel</a> <a class='btn' href='/admin/usuarios'>Admin Usuarios</a>";
+            echo "</div>";
+
+        } catch (\Throwable $e) {
+            echo "<div class='card'><h2 class='error'>❌ Error</h2>";
+            echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
+            echo "<a class='btn' href='/'>Volver al Inicio</a></div>";
+        }
+
+        echo "</body></html>";
+    }
+
+    /**
+     * Inserta un lote de clientes manejando duplicados.
+     */
+    private function insertBatch($db, array $batch, bool $hasDireccion): array
+    {
+        $ok = 0;
+        $dup = 0;
+        $errors = [];
+
+        foreach ($batch as $row) {
+            try {
+                if ($hasDireccion) {
+                    $db->query(
+                        "INSERT INTO CLIENTE (nombre, correo, contrasena, telefono, ciudad, direccion, foto_perfil) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                        [$row['nombre'], $row['correo'], $row['contrasena'], $row['telefono'], $row['ciudad'], $row['direccion'], $row['foto_perfil']]
+                    );
+                } else {
+                    $db->query(
+                        "INSERT INTO CLIENTE (nombre, correo, contrasena, telefono, ciudad, foto_perfil) VALUES (?, ?, ?, ?, ?, ?)",
+                        [$row['nombre'], $row['correo'], $row['contrasena'], $row['telefono'], $row['ciudad'], $row['foto_perfil']]
+                    );
+                }
+                $ok++;
+            } catch (\Throwable $e) {
+                if (str_contains($e->getMessage(), 'Duplicate')) {
+                    $dup++;
+                } else {
+                    $errors[] = htmlspecialchars($e->getMessage());
+                }
+            }
+        }
+
+        return ['ok' => $ok, 'dup' => $dup, 'errors' => $errors];
+    }}
