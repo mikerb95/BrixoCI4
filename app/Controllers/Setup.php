@@ -395,10 +395,7 @@ class Setup extends BaseController
         }
 
     /**
-     * Inserta 1842 contratistas con información realista colombiana,
-     * incluyendo profesiones coherentes con el negocio, servicios vinculados,
-     * ubicaciones y certificaciones.
-     * Endpoint: /setup/seed-contratistas
+     * Test endpoint para verificar que las rutas /setup funcionan.
      */
     public function test()
     {
@@ -407,6 +404,12 @@ class Setup extends BaseController
         echo "<p><a href='/setup/seed-contratistas'>Probar seed-contratistas</a></p>";
     }
 
+    /**
+     * Inserta 1842 contratistas con información realista colombiana,
+     * incluyendo profesiones coherentes con el negocio, servicios vinculados,
+     * ubicaciones y certificaciones.
+     * Endpoint: /setup/seed-contratistas
+     */
     public function seed_contratistas()
     {
         $db = db_connect();
