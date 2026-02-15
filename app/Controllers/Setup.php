@@ -400,6 +400,13 @@ class Setup extends BaseController
      * ubicaciones y certificaciones.
      * Endpoint: /setup/seed-contratistas
      */
+    public function test()
+    {
+        echo "<h1>✅ Setup controller funciona correctamente</h1>";
+        echo "<p>Si ves esto, las rutas /setup están funcionando.</p>";
+        echo "<p><a href='/setup/seed-contratistas'>Probar seed-contratistas</a></p>";
+    }
+
     public function seed_contratistas()
     {
         $db = db_connect();
