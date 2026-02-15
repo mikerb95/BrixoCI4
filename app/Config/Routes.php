@@ -44,6 +44,7 @@ $routes->get('/setup/update-cliente', 'Setup::update_cliente'); // Ruta de actua
 $routes->get('/setup/update-fotos', 'Setup::update_fotos'); // Ruta de actualización DB Fotos
 $routes->get('/setup/mensajes', 'Setup::mensajes'); // Ruta de instalación Mensajes
 $routes->get('/setup/seed-clientes', 'Setup::seed_clientes'); // Seed: 1000 clientes realistas
+$routes->get('/setup/seed-contratistas', 'Setup::seed_contratistas'); // Seed: 1842 contratistas realistas
 
 // Mensajes
 $routes->get('/mensajes', 'Mensajes::index');
