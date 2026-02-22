@@ -692,12 +692,4 @@ Observab(57%) * Escalab(50%)
 | ------- | ---------- | --------------- | -------------------------- |
 | 1.0     | 2026-02-14 | Equipo BrixoCI4 | Documento inicial completo |
 
----
 
-**Aprobado por:**
-
-- Juan García (Scrum Master)
-- María López (Product Owner)
-- Luis Fernández (QA Lead)
-
-**Próxima revisión:** Sprint Retrospective #10 (14/03/2026)
